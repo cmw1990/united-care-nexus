@@ -46,6 +46,9 @@ export function MainNav() {
           <Link to="/studies" className="text-sm font-medium transition-colors hover:text-primary">
             Studies
           </Link>
+          <Link to="/research" className="text-sm font-medium transition-colors hover:text-primary">
+            Research
+          </Link>
           <Link to="/resources" className="text-sm font-medium transition-colors hover:text-primary">
             Resources
           </Link>
@@ -103,6 +106,9 @@ export function MainNav() {
           </Link>
           <Link to="/studies" className="block text-sm font-medium transition-colors hover:text-primary">
             Studies
+          </Link>
+          <Link to="/research" className="block text-sm font-medium transition-colors hover:text-primary">
+            Research
           </Link>
           <Link to="/resources" className="block text-sm font-medium transition-colors hover:text-primary">
             Resources

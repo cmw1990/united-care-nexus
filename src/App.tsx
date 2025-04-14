@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 
 // Import studies page
 import StudiesPage from "./pages/StudiesPage";
+import ResearchPage from "./pages/ResearchPage";
 
 // Import individual study pages
 import ScopingReview from "./pages/studies/ScopingReview";
@@ -38,6 +39,7 @@ const App = () => (
             
             {/* Studies Routes */}
             <Route path="/studies" element={<StudiesPage />} />
+            <Route path="/research" element={<ResearchPage />} />
             
             {/* Protected Study Routes */}
             <Route element={<ProtectedRoute />}>
