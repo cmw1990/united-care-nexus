@@ -1,3 +1,4 @@
+
 import { 
   BookText, 
   CheckSquare, 
@@ -13,6 +14,8 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface StudyItem {
   id: string;
