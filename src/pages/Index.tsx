@@ -1,8 +1,7 @@
-
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, BookText, BrainCircuit, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
+import { BookText, BrainCircuit, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -61,9 +60,6 @@ const Index = () => {
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                   UniteD - Bridging Dementia Caregivers with eHealth
                 </h1>
-                <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                  Research presentation platform for PhD research on eHealth solutions for dementia caregiver networks
-                </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link to="/studies/scoping-review">
@@ -73,7 +69,7 @@ const Index = () => {
                   </Button>
                 </Link>
                 <Link to="/team">
-                  <Button variant="outline">About the Research Team</Button>
+                  <Button variant="outline">About Research</Button>
                 </Link>
               </div>
             </div>

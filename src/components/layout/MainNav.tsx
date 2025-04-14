@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FileText, Users, Menu, LogOut, KeyRound } from "lucide-react";
@@ -11,19 +10,16 @@ export function MainNav() {
   const { user, signOut } = useAuth();
 
   useEffect(() => {
-    // Check if user has stored the correct access code
     const storedAccessCode = localStorage.getItem("united_access_code");
     setHasAccessCode(storedAccessCode === "UniteD");
   }, []);
 
   const handleSignOut = async () => {
     if (hasAccessCode) {
-      // If using access code, just remove it from localStorage
       localStorage.removeItem("united_access_code");
       setHasAccessCode(false);
       window.location.href = "/auth";
     } else {
-      // If logged in user, sign out through Supabase
       await signOut();
     }
   };
@@ -33,7 +29,7 @@ export function MainNav() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl md:text-2xl hidden md:inline-block">UniteD Care Nexus</span>
+            <span className="font-bold text-xl md:text-2xl hidden md:inline-block">UniteD - Bridging Dementia Caregivers with eHealth</span>
           </Link>
         </div>
         

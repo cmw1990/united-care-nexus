@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
@@ -8,12 +7,10 @@ import {
   FileText, 
   FileUp, 
   Edit, 
-  Brain,
   MessagesSquare,
   Clock,
   Gamepad2,
   Users2,
-  BrainCircuit
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
@@ -77,8 +74,7 @@ export function SidebarNav() {
   return (
     <div className="hidden md:block w-[280px] min-w-[280px] border-r px-4 py-6 bg-accent/40">
       <div className="flex items-center mb-6 pl-4">
-        <Brain className="h-5 w-5 text-primary mr-2" />
-        <h2 className="text-lg font-medium">Research Studies</h2>
+        <h2 className="text-lg font-medium">Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth</h2>
       </div>
       <ScrollArea className="h-[calc(100vh-9rem)]">
         <div className="space-y-1">
