@@ -1,6 +1,7 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { BookText, Wand2, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -80,17 +81,20 @@ const Index = () => {
           <h2 className="text-2xl font-bold tracking-tight mb-6">Research Studies</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {studies.map((study) => (
-              <Link key={study.id} to={study.path} className="no-underline">
-                <Card className="h-full hover:shadow-md transition-shadow">
-                  <CardHeader className="flex flex-row items-center gap-2">
-                    <study.icon className="h-6 w-6 text-primary" />
-                    <CardTitle className="text-lg">{study.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-sm">{study.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              </Link>
+              <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
+                <CardHeader className="flex flex-row items-center gap-2">
+                  <study.icon className="h-6 w-6 text-primary" />
+                  <CardTitle className="text-lg line-clamp-2">{study.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-sm">{study.description}</CardDescription>
+                </CardContent>
+                <CardFooter>
+                  <Link to={study.path} className="w-full">
+                    <Button className="w-full">View Study Details</Button>
+                  </Link>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </section>

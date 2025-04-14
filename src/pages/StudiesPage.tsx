@@ -1,6 +1,7 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { BookText, Wand2, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -56,22 +57,22 @@ const StudiesPage = () => {
         <h1 className="text-3xl font-bold tracking-tight mb-8">Research Studies</h1>
         <div className="grid grid-cols-1 gap-6">
           {studies.map((study) => (
-            <Link key={study.id} to={study.path} className="no-underline">
-              <Card className="h-full hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-start gap-3">
-                  <study.icon className="h-6 w-6 text-primary mt-1" />
-                  <div>
-                    <CardTitle className="text-lg">{study.title}</CardTitle>
-                    <CardDescription className="text-sm mt-2">{study.description}</CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent>
+            <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
+              <CardHeader className="flex flex-row items-start gap-3">
+                <study.icon className="h-6 w-6 text-primary mt-1" />
+                <div>
+                  <CardTitle className="text-lg">{study.title}</CardTitle>
+                  <CardDescription className="text-sm mt-2">{study.description}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <Link to={study.path}>
                   <Button size="sm">
                     View Study Details
                   </Button>
-                </CardContent>
-              </Card>
-            </Link>
+                </Link>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
