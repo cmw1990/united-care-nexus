@@ -58,7 +58,7 @@ const StudiesPage = () => {
         <div className="grid grid-cols-1 gap-6">
           {studies.map((study) => (
             <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
-              <Link to={study.path} className="block w-full h-full">
+              <Link to={study.path} className="block w-full h-full no-underline">
                 <CardHeader className="flex flex-row items-start gap-3">
                   <study.icon className="h-6 w-6 text-primary mt-1" />
                   <div className="flex-1 min-w-0">
@@ -68,7 +68,7 @@ const StudiesPage = () => {
                 </CardHeader>
                 <CardContent>
                   <Button size="sm" className="w-full sm:w-auto">
-                    View Complete Study Details
+                    View Complete Study Details for {study.title.substring(0, 50)}...
                   </Button>
                 </CardContent>
               </Link>
