@@ -82,7 +82,7 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {studies.map((study) => (
               <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
-                <Link to={study.path} className="block h-full">
+                <Link to={study.path} className="block h-full w-full">
                   <CardHeader className="flex flex-row items-start gap-2">
                     <study.icon className="h-6 w-6 text-primary flex-shrink-0" />
                     <CardTitle className="text-lg line-clamp-2">{study.title}</CardTitle>
