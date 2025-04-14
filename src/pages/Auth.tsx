@@ -9,13 +9,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "@/hooks/use-toast";
-import { BookText } from "lucide-react";
+import { BookText, KeyRound } from "lucide-react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [accessCode, setAccessCode] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -79,6 +80,31 @@ const Auth = () => {
     setLoading(false);
   };
 
+  const handleAccessCode = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (accessCode === "UniteD") {
+      // Store the access code in localStorage
+      localStorage.setItem("united_access_code", accessCode);
+      
+      toast({
+        title: "Access granted",
+        description: "Welcome to UniteD Care Nexus! You have read-only access.",
+      });
+      
+      navigate("/");
+    } else {
+      toast({
+        title: "Invalid access code",
+        description: "Please enter a valid access code or sign in with your account.",
+        variant: "destructive",
+      });
+    }
+
+    setLoading(false);
+  };
+
   return (
     <MainLayout>
       <div className="flex justify-center items-center min-h-[80vh]">
@@ -94,9 +120,10 @@ const Auth = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="signin" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
+              <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="signin">Sign In</TabsTrigger>
                 <TabsTrigger value="signup">Create Account</TabsTrigger>
+                <TabsTrigger value="access">Access Code</TabsTrigger>
               </TabsList>
               
               <TabsContent value="signin">
@@ -175,6 +202,31 @@ const Auth = () => {
                   </div>
                   <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? "Creating account..." : "Create Account"}
+                  </Button>
+                </form>
+              </TabsContent>
+              
+              <TabsContent value="access">
+                <form onSubmit={handleAccessCode} className="space-y-4 mt-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="access-code">Researcher Access Code</Label>
+                    <div className="flex space-x-2 items-center">
+                      <KeyRound className="h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="access-code" 
+                        type="password"
+                        placeholder="Enter researcher access code" 
+                        value={accessCode}
+                        onChange={(e) => setAccessCode(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Enter the researcher access code for read-only access. Login is required for editing or submitting content.
+                    </p>
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? "Verifying..." : "Access Platform"}
                   </Button>
                 </form>
               </TabsContent>

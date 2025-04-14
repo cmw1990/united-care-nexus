@@ -1,16 +1,31 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { FileText, Users, Menu, LogOut } from "lucide-react";
-import { useState } from "react";
+import { FileText, Users, Menu, LogOut, KeyRound } from "lucide-react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasAccessCode, setHasAccessCode] = useState(false);
   const { user, signOut } = useAuth();
 
+  useEffect(() => {
+    // Check if user has stored the correct access code
+    const storedAccessCode = localStorage.getItem("united_access_code");
+    setHasAccessCode(storedAccessCode === "UniteD");
+  }, []);
+
   const handleSignOut = async () => {
-    await signOut();
+    if (hasAccessCode) {
+      // If using access code, just remove it from localStorage
+      localStorage.removeItem("united_access_code");
+      setHasAccessCode(false);
+      window.location.href = "/auth";
+    } else {
+      // If logged in user, sign out through Supabase
+      await signOut();
+    }
   };
 
   return (
@@ -61,6 +76,16 @@ export function MainNav() {
                 <LogOut className="h-5 w-5" />
               </Button>
             </>
+          ) : hasAccessCode ? (
+            <>
+              <div className="flex items-center mr-2 text-sm text-muted-foreground">
+                <KeyRound className="h-4 w-4 mr-1" />
+                <span>Read-only access</span>
+              </div>
+              <Button variant="outline" size="sm" onClick={handleSignOut}>
+                Exit
+              </Button>
+            </>
           ) : (
             <Link to="/auth">
               <Button variant="default">Sign In</Button>
@@ -87,6 +112,11 @@ export function MainNav() {
             <Button variant="outline" className="w-full" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
+            </Button>
+          ) : hasAccessCode ? (
+            <Button variant="outline" className="w-full" onClick={handleSignOut}>
+              <KeyRound className="h-4 w-4 mr-2" />
+              Exit Read-only Mode
             </Button>
           ) : (
             <Link to="/auth">

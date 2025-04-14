@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from "@/hooks/useAuth";
 import { 
   HelpCircle, 
   MessageSquare, 
   Plus, 
   ThumbsUp,
-  Tag
+  Tag,
+  KeyRound
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -115,12 +117,25 @@ export function QuestionsManager({
   const [isAddingQuestion, setIsAddingQuestion] = useState(false);
   const [newCommentText, setNewCommentText] = useState<{[key: string]: string}>({});
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const { user } = useAuth();
+  const [hasAccessCode, setHasAccessCode] = useState(false);
+  
+  // Check if user has stored the correct access code
+  useState(() => {
+    const storedAccessCode = localStorage.getItem("united_access_code");
+    setHasAccessCode(storedAccessCode === "UniteD");
+  });
+  
+  // Determine if user has edit permissions (requires login)
+  const hasEditPermission = !!user;
   
   const allTags = Array.from(
     new Set(questions.flatMap(q => q.tags))
   );
 
   const addQuestion = () => {
+    if (!hasEditPermission) return;
+    
     if (newQuestionTitle.trim() === "" || newQuestionContent.trim() === "") return;
     
     const newQuestion: Question = {
@@ -142,6 +157,8 @@ export function QuestionsManager({
   };
 
   const addComment = (questionId: string) => {
+    if (!hasEditPermission) return;
+    
     const commentText = newCommentText[questionId];
     if (!commentText || commentText.trim() === "") return;
     
@@ -165,12 +182,16 @@ export function QuestionsManager({
   };
 
   const toggleResolved = (questionId: string) => {
+    if (!hasEditPermission) return;
+    
     setQuestions(questions.map(q => 
       q.id === questionId ? { ...q, isResolved: !q.isResolved } : q
     ));
   };
 
   const toggleTag = (tag: string) => {
+    if (!hasEditPermission) return;
+    
     if (selectedTags.includes(tag)) {
       setSelectedTags(selectedTags.filter(t => t !== tag));
     } else {
@@ -187,21 +208,29 @@ export function QuestionsManager({
     <Card className="border shadow-sm">
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
         <CardTitle className="text-lg font-medium">{title}</CardTitle>
-        <Button 
-          onClick={() => setIsAddingQuestion(!isAddingQuestion)}
-          size="sm"
-        >
-          {isAddingQuestion ? "Cancel" : (
-            <>
-              <Plus className="h-4 w-4 mr-1" /> 
-              Ask Question
-            </>
-          )}
-        </Button>
+        {!hasEditPermission && (
+          <div className="flex items-center text-sm text-muted-foreground">
+            <KeyRound className="h-4 w-4 mr-1" />
+            <span>Read-only mode</span>
+          </div>
+        )}
+        {hasEditPermission && (
+          <Button 
+            onClick={() => setIsAddingQuestion(!isAddingQuestion)}
+            size="sm"
+          >
+            {isAddingQuestion ? "Cancel" : (
+              <>
+                <Plus className="h-4 w-4 mr-1" /> 
+                Ask Question
+              </>
+            )}
+          </Button>
+        )}
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {isAddingQuestion && (
+          {isAddingQuestion && hasEditPermission && (
             <div className="space-y-3 border rounded-md p-4 bg-accent/30">
               <div className="space-y-1">
                 <Input
@@ -270,15 +299,17 @@ export function QuestionsManager({
                       }`} />
                       {question.title}
                     </h3>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => toggleResolved(question.id)}
-                      className={question.isResolved ? "text-green-600" : "text-muted-foreground"}
-                    >
-                      <ThumbsUp className="h-4 w-4 mr-1" />
-                      {question.isResolved ? "Resolved" : "Mark Resolved"}
-                    </Button>
+                    {hasEditPermission && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => toggleResolved(question.id)}
+                        className={question.isResolved ? "text-green-600" : "text-muted-foreground"}
+                      >
+                        <ThumbsUp className="h-4 w-4 mr-1" />
+                        {question.isResolved ? "Resolved" : "Mark Resolved"}
+                      </Button>
+                    )}
                   </div>
                   
                   <div className="flex items-center space-x-2 text-sm text-muted-foreground">
@@ -330,26 +361,28 @@ export function QuestionsManager({
                     </div>
                   )}
                   
-                  <div className="mt-3 flex space-x-2">
-                    <Input
-                      placeholder="Add a response..."
-                      value={newCommentText[question.id] || ""}
-                      onChange={(e) => 
-                        setNewCommentText({
-                          ...newCommentText,
-                          [question.id]: e.target.value
-                        })
-                      }
-                      onKeyDown={(e) => e.key === "Enter" && addComment(question.id)}
-                      className="flex-1"
-                    />
-                    <Button 
-                      onClick={() => addComment(question.id)}
-                      size="sm"
-                    >
-                      Reply
-                    </Button>
-                  </div>
+                  {hasEditPermission && (
+                    <div className="mt-3 flex space-x-2">
+                      <Input
+                        placeholder="Add a response..."
+                        value={newCommentText[question.id] || ""}
+                        onChange={(e) => 
+                          setNewCommentText({
+                            ...newCommentText,
+                            [question.id]: e.target.value
+                          })
+                        }
+                        onKeyDown={(e) => e.key === "Enter" && addComment(question.id)}
+                        className="flex-1"
+                      />
+                      <Button 
+                        onClick={() => addComment(question.id)}
+                        size="sm"
+                      >
+                        Reply
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
