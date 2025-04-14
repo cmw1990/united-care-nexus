@@ -5,11 +5,14 @@ import { FileText, Users, Menu, LogOut, KeyRound } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/context/LanguageContext";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasAccessCode, setHasAccessCode] = useState(false);
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const storedAccessCode = localStorage.getItem("united_access_code");
@@ -35,25 +38,25 @@ export function MainNav() {
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl md:text-2xl hidden md:inline-block">UniteD - Bridging Dementia Caregivers with eHealth</span>
+            <span className="font-bold text-xl md:text-2xl hidden md:inline-block">{t('app.title')}</span>
           </Link>
         </div>
         
         <div className="hidden md:flex items-center space-x-4 flex-1 justify-center">
           <Link to="/" className="text-sm font-medium transition-colors hover:text-primary">
-            Home
+            {t('nav.home')}
           </Link>
           <Link to="/studies" className="text-sm font-medium transition-colors hover:text-primary">
-            Studies
+            {t('nav.studies')}
           </Link>
           <Link to="/research" className="text-sm font-medium transition-colors hover:text-primary">
-            Research
+            {t('nav.research')}
           </Link>
           <Link to="/resources" className="text-sm font-medium transition-colors hover:text-primary">
-            Resources
+            {t('nav.resources')}
           </Link>
           <Link to="/team" className="text-sm font-medium transition-colors hover:text-primary">
-            Team
+            {t('nav.team')}
           </Link>
         </div>
         
@@ -69,6 +72,8 @@ export function MainNav() {
         </div>
         
         <div className="hidden md:flex items-center space-x-2">
+          <LanguageSelector />
+          
           {user ? (
             <>
               <Button variant="ghost" size="icon">
@@ -85,15 +90,15 @@ export function MainNav() {
             <>
               <div className="flex items-center mr-2 text-sm text-muted-foreground">
                 <KeyRound className="h-4 w-4 mr-1" />
-                <span>Read-only access</span>
+                <span>{t('auth.readonly')}</span>
               </div>
               <Button variant="outline" size="sm" onClick={handleSignOut}>
-                Exit
+                {t('auth.exit')}
               </Button>
             </>
           ) : (
             <Link to="/auth">
-              <Button variant="default">Sign In</Button>
+              <Button variant="default">{t('auth.signin')}</Button>
             </Link>
           )}
         </div>
@@ -102,33 +107,38 @@ export function MainNav() {
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 border-b border-border/40 bg-background py-4 px-6 space-y-4">
           <Link to="/" className="block text-sm font-medium transition-colors hover:text-primary">
-            Home
+            {t('nav.home')}
           </Link>
           <Link to="/studies" className="block text-sm font-medium transition-colors hover:text-primary">
-            Studies
+            {t('nav.studies')}
           </Link>
           <Link to="/research" className="block text-sm font-medium transition-colors hover:text-primary">
-            Research
+            {t('nav.research')}
           </Link>
           <Link to="/resources" className="block text-sm font-medium transition-colors hover:text-primary">
-            Resources
+            {t('nav.resources')}
           </Link>
           <Link to="/team" className="block text-sm font-medium transition-colors hover:text-primary">
-            Team
+            {t('nav.team')}
           </Link>
+          
+          <div className="py-2">
+            <LanguageSelector />
+          </div>
+          
           {user ? (
             <Button variant="outline" className="w-full" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
+              {t('auth.signout')}
             </Button>
           ) : hasAccessCode ? (
             <Button variant="outline" className="w-full" onClick={handleSignOut}>
               <KeyRound className="h-4 w-4 mr-2" />
-              Exit Read-only Mode
+              {t('auth.exitReadOnly')}
             </Button>
           ) : (
             <Link to="/auth">
-              <Button variant="default" className="w-full">Sign In</Button>
+              <Button variant="default" className="w-full">{t('auth.signin')}</Button>
             </Link>
           )}
         </div>
