@@ -10,7 +10,10 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Auth from "./pages/Auth";
 
-// Import study pages
+// Import studies page
+import StudiesPage from "./pages/StudiesPage";
+
+// Import individual study pages
 import ScopingReview from "./pages/studies/ScopingReview";
 import AIBridges from "./pages/studies/AIBridges";
 import CaregiverWeek from "./pages/studies/CaregiverWeek";
@@ -32,6 +35,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
+            
+            {/* Studies Routes */}
+            <Route path="/studies" element={<StudiesPage />} />
             
             {/* Protected Study Routes */}
             <Route element={<ProtectedRoute />}>

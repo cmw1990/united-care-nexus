@@ -74,23 +74,23 @@ export function SidebarNav() {
   const location = useLocation();
   
   return (
-    <div className="hidden md:block w-[280px] min-w-[280px] border-r px-4 py-6 bg-accent/40">
+    <div className="hidden md:block w-[320px] min-w-[320px] border-r px-4 py-6 bg-accent/40">
       <div className="flex items-center mb-6 pl-4">
         <h2 className="text-lg font-medium">Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth</h2>
       </div>
       <ScrollArea className="h-[calc(100vh-9rem)]">
-        <div className="space-y-1">
+        <div className="space-y-2">
           {studies.map((study) => (
             <Link
               key={study.id}
               to={study.path}
               className={cn(
-                "flex items-center py-2 px-4 text-sm rounded-md hover:bg-accent",
+                "flex items-start py-3 px-4 text-sm rounded-md hover:bg-accent",
                 location.pathname === study.path ? "bg-accent font-medium text-accent-foreground" : "text-foreground/70"
               )}
             >
-              <study.icon className="h-4 w-4 mr-3 flex-shrink-0" />
-              <span className="truncate">{study.title}</span>
+              <study.icon className="h-4 w-4 mr-3 flex-shrink-0 mt-0.5" />
+              <span className="whitespace-normal line-clamp-none">{study.title}</span>
             </Link>
           ))}
         </div>
