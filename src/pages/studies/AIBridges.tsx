@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AIBridges = () => {
+  const { t } = useLanguage();
+  
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">AI Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study2.title')}</h1>
           <p className="text-muted-foreground">
-            Exploring how artificial intelligence can strengthen support networks for dementia caregivers
+            {t('study2.description')}
           </p>
         </div>
 

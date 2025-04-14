@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit, Gamepad2 } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ExperiencedGame = () => {
+  const { t } = useLanguage();
+  
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">ExperienceD: Dialogue-Based Serious Game</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study4.title')}</h1>
           <p className="text-muted-foreground">
-            Design and Feasibility Evaluation of a Serious Game to Enhance Dementia Care Knowledge
+            {t('study4.description')}
           </p>
         </div>
 

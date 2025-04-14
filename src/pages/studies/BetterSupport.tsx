@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BetterSupport = () => {
+  const { t } = useLanguage();
+  
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Bridges to Offer Better Support</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study6.title')}</h1>
           <p className="text-muted-foreground">
-            A pilot evaluation of an AI powered caregiver network support hub "UniteD"
+            {t('study6.description')}
           </p>
         </div>
 

@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CaregiverWeek = () => {
+  const { t } = useLanguage();
+  
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">A Week in the Life of Dementia Caregivers</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study3.title')}</h1>
           <p className="text-muted-foreground">
-            An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks
+            {t('study3.description')}
           </p>
         </div>
 

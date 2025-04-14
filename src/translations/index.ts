@@ -1,3 +1,4 @@
+
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -61,7 +62,7 @@ const en = {
   'resources.publications': 'Publications',
   'resources.tools': 'Tools & Templates',
   'resources.multimedia': 'Multimedia',
-  'language.label': 'Language',
+  'language.label': 'Language/语言',
 };
 
 // Simplified Chinese translations
@@ -125,7 +126,7 @@ const zhCN = {
   'resources.publications': '出版物',
   'resources.tools': '工具和模板',
   'resources.multimedia': '多媒体',
-  'language.label': '语言',
+  'language.label': 'Language/语言',
 };
 
 // Traditional Chinese translations
@@ -189,7 +190,7 @@ const zhTW = {
   'resources.publications': '出版物',
   'resources.tools': '工具和模板',
   'resources.multimedia': '多媒體',
-  'language.label': '語言',
+  'language.label': 'Language/语言',
 };
 
 // Combine all translations

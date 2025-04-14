@@ -4,15 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ChatSupportHub = () => {
+  const { t } = useLanguage();
+  
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">AI Powered Caregiver Network Support Hub</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study5.title')}</h1>
           <p className="text-muted-foreground">
-            Protocol for a pilot evaluation of the UniteD caregiver network support hub
+            {t('study5.description')}
           </p>
         </div>
 

@@ -10,8 +10,10 @@ import { FileManager } from "@/components/studies/FileManager";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage } from "@/context/LanguageContext";
 
 const ScopingReview = () => {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("protocol");
   const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
@@ -80,9 +82,9 @@ const ScopingReview = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study1.title')}</h1>
           <p className="text-muted-foreground">
-            Scoping Review: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration
+            {t('study1.description')}
           </p>
         </div>
 
