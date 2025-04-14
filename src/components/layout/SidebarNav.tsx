@@ -85,12 +85,12 @@ export function SidebarNav() {
               key={study.id}
               to={study.path}
               className={cn(
-                "flex items-start gap-3 py-3 px-4 text-sm rounded-md hover:bg-accent transition-colors",
+                "flex items-start gap-3 py-3 px-4 text-sm rounded-md hover:bg-accent transition-colors block",
                 location.pathname === study.path ? "bg-accent font-medium text-accent-foreground" : "text-foreground/70"
               )}
             >
               <study.icon className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
+              <div className="flex-1 w-full min-w-0">
                 <span className="font-medium">{study.shortTitle}</span>
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{study.title}</p>
               </div>
