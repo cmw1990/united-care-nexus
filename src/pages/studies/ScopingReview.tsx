@@ -156,7 +156,9 @@ const ScopingReview = () => {
                         status: "pending",
                         priority: "high",
                         due_date: null,
-                        assigned_to: null
+                        assigned_to: null,
+                        created_by: user?.id || null,
+                        study_id: "scoping-review"
                       })}>
                         Create First Task
                       </Button>
@@ -226,7 +228,9 @@ const ScopingReview = () => {
                             status: "pending",
                             priority: "medium",
                             due_date: null,
-                            assigned_to: null
+                            assigned_to: null,
+                            created_by: user?.id || null,
+                            study_id: "scoping-review"
                           })}
                         >
                           Add New Task
