@@ -2320,6 +2320,177 @@ export type Database = {
         }
         Relationships: []
       }
+      study_collaborators: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: string
+          study_id: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: string
+          study_id: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: string
+          study_id?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      study_documents: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          file_type: string | null
+          file_url: string | null
+          id: string
+          study_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          file_type?: string | null
+          file_url?: string | null
+          id?: string
+          study_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          file_type?: string | null
+          file_url?: string | null
+          id?: string
+          study_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      study_notes: {
+        Row: {
+          content: string | null
+          created_at: string | null
+          id: string
+          last_edited_by: string | null
+          study_id: string
+          title: string
+          updated_at: string | null
+          version: number
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          last_edited_by?: string | null
+          study_id: string
+          title: string
+          updated_at?: string | null
+          version?: number
+        }
+        Update: {
+          content?: string | null
+          created_at?: string | null
+          id?: string
+          last_edited_by?: string | null
+          study_id?: string
+          title?: string
+          updated_at?: string | null
+          version?: number
+        }
+        Relationships: []
+      }
+      study_questions: {
+        Row: {
+          answer: string | null
+          answered_by: string | null
+          asked_by: string | null
+          created_at: string | null
+          id: string
+          question: string
+          status: string
+          study_id: string
+        }
+        Insert: {
+          answer?: string | null
+          answered_by?: string | null
+          asked_by?: string | null
+          created_at?: string | null
+          id?: string
+          question: string
+          status: string
+          study_id: string
+        }
+        Update: {
+          answer?: string | null
+          answered_by?: string | null
+          asked_by?: string | null
+          created_at?: string | null
+          id?: string
+          question?: string
+          status?: string
+          study_id?: string
+        }
+        Relationships: []
+      }
+      study_tasks: {
+        Row: {
+          assigned_to: string | null
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string
+          status: string
+          study_id: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          assigned_to?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority: string
+          status: string
+          study_id: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          assigned_to?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string
+          status?: string
+          study_id?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       tasks: {
         Row: {
           assigned_to: string | null
