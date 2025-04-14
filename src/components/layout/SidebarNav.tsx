@@ -12,7 +12,7 @@ import {
   Clock,
   Gamepad2,
   Users2,
-  Brain,
+  Wand2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
@@ -28,42 +28,42 @@ interface StudyItem {
 const studies: StudyItem[] = [
   {
     id: "study1",
-    title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth",
+    title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
     shortTitle: "Scoping Review",
     icon: BookText,
     path: "/studies/scoping-review"
   },
   {
     id: "study2",
-    title: "AI Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks",
+    title: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
     shortTitle: "AI Bridges",
-    icon: Brain,
+    icon: Wand2,
     path: "/studies/ai-bridges"
   },
   {
     id: "study3",
-    title: "A week in the life of dementia caregivers",
+    title: "A Week in the Life of Dementia Caregivers: Protocol for an Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks.",
     shortTitle: "Caregiver Week",
     icon: Clock,
     path: "/studies/caregiver-week"
   },
   {
     id: "study4",
-    title: "ExperienceD: Dialogue-Based Serious Game",
+    title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers.",
     shortTitle: "ExperienceD Game",
     icon: Gamepad2,
     path: "/studies/experienced-game"
   },
   {
     id: "study5",
-    title: "AI powered caregiver network support hub",
+    title: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
     shortTitle: "Chat Support Hub",
     icon: MessagesSquare,
     path: "/studies/chat-support-hub"
   },
   {
     id: "study6",
-    title: "Bridges to offer better support",
+    title: "Bridges to Better Support: Protocol for a Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
     shortTitle: "Better Support",
     icon: Users2,
     path: "/studies/better-support"
@@ -90,7 +90,7 @@ export function SidebarNav() {
               )}
             >
               <study.icon className="h-4 w-4 mr-3 flex-shrink-0" />
-              <span className="truncate">{study.shortTitle}</span>
+              <span className="truncate">{study.title}</span>
             </Link>
           ))}
         </div>
