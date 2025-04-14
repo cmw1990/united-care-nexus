@@ -23,7 +23,6 @@ import CaregiverWeek from "./pages/studies/CaregiverWeek";
 import ExperiencedGame from "./pages/studies/ExperiencedGame";
 import ChatSupportHub from "./pages/studies/ChatSupportHub";
 import BetterSupport from "./pages/studies/BetterSupport";
-import TeamPage from "./pages/TeamPage";
 import ResourcesPage from "./pages/ResourcesPage";
 
 const queryClient = new QueryClient();
@@ -57,7 +56,6 @@ const App = () => (
               </Route>
               
               {/* Additional Pages */}
-              <Route path="/team" element={<TeamPage />} />
               <Route path="/resources" element={<ResourcesPage />} />
               
               {/* Catch-all route */}

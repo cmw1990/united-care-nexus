@@ -55,9 +55,6 @@ export function MainNav() {
           <Link to="/resources" className="text-sm font-medium transition-colors hover:text-primary">
             {t('nav.resources')}
           </Link>
-          <Link to="/team" className="text-sm font-medium transition-colors hover:text-primary">
-            {t('nav.team')}
-          </Link>
         </div>
         
         <div className="md:hidden flex-1 justify-end flex">
@@ -117,9 +114,6 @@ export function MainNav() {
           </Link>
           <Link to="/resources" className="block text-sm font-medium transition-colors hover:text-primary">
             {t('nav.resources')}
-          </Link>
-          <Link to="/team" className="block text-sm font-medium transition-colors hover:text-primary">
-            {t('nav.team')}
           </Link>
           
           <div className="py-2">

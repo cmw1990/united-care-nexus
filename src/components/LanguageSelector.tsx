@@ -5,13 +5,14 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Globe } from "lucide-react";
 
 export function LanguageSelector() {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="text-foreground">
-          <Globe className="h-5 w-5" />
+        <Button variant="ghost" size="sm" className="text-foreground flex items-center gap-1">
+          <Globe className="h-4 w-4" />
+          <span>{t('language.label')}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
