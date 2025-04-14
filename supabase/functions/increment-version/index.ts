@@ -1,5 +1,7 @@
 
+// @ts-ignore - Deno imports
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+// @ts-ignore - Deno imports
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 
 const corsHeaders = {
@@ -20,7 +22,9 @@ serve(async (req) => {
   }
 
   // Get Supabase URL and key from environment variables
+  // @ts-ignore - Deno global
   const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+  // @ts-ignore - Deno global
   const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
   const supabase = createClient(supabaseUrl, supabaseKey);
 
