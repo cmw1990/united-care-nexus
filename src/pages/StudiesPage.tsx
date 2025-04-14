@@ -1,4 +1,3 @@
-
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,14 +22,14 @@ const StudiesPage = () => {
     },
     {
       id: "study3",
-      title: "A Week in the Life of Dementia Caregivers: Protocol for an Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks.",
-      description: "Protocol for an experience-based co-design approach to implement digital resources",
+      title: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
+      description: "An experience-based co-design approach to implement digital resources",
       icon: Clock,
       path: "/studies/caregiver-week"
     },
     {
       id: "study4",
-      title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers.",
+      title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
       description: "Design and Feasibility Evaluation of a Serious Game to Enhance Dementia Care Knowledge",
       icon: Gamepad2,
       path: "/studies/experienced-game"
@@ -44,7 +43,7 @@ const StudiesPage = () => {
     },
     {
       id: "study6",
-      title: "Bridges to Better Support: Protocol for a Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
+      title: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
       description: "A pilot evaluation of an AI powered caregiver network support hub",
       icon: Users2,
       path: "/studies/better-support"

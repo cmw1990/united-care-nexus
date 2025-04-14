@@ -12,7 +12,7 @@ const CaregiverWeek = () => {
         <div>
           <h1 className="text-3xl font-bold tracking-tight mb-2">A Week in the Life of Dementia Caregivers</h1>
           <p className="text-muted-foreground">
-            Protocol for an experience-based co-design approach to implement digital resources
+            An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks
           </p>
         </div>
 

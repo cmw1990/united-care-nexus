@@ -1,6 +1,3 @@
-
-import { Link } from "react-router-dom";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   BookText, 
   CheckSquare, 
@@ -42,14 +39,14 @@ const studies: StudyItem[] = [
   },
   {
     id: "study3",
-    title: "A Week in the Life of Dementia Caregivers: Protocol for an Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks.",
+    title: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
     shortTitle: "Caregiver Week",
     icon: Clock,
     path: "/studies/caregiver-week"
   },
   {
     id: "study4",
-    title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers.",
+    title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
     shortTitle: "ExperienceD Game",
     icon: Gamepad2,
     path: "/studies/experienced-game"
@@ -63,7 +60,7 @@ const studies: StudyItem[] = [
   },
   {
     id: "study6",
-    title: "Bridges to Better Support: Protocol for a Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
+    title: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
     shortTitle: "Better Support",
     icon: Users2,
     path: "/studies/better-support"
