@@ -3,44 +3,15 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
+import { 
+  StudyTask, 
+  StudyQuestion, 
+  StudyDocument, 
+  StudyNote,
+  StudyCollaborator
+} from "@/types/database.types";
 
-export interface StudyTask {
-  id: string;
-  title: string;
-  description: string | null;
-  status: string;
-  priority: string;
-  due_date: string | null;
-  assigned_to: string | null;
-  created_by: string | null;
-}
-
-export interface StudyQuestion {
-  id: string;
-  question: string;
-  answer: string | null;
-  status: string;
-  asked_by: string | null;
-  answered_by: string | null;
-  created_at: string;
-}
-
-export interface StudyDocument {
-  id: string;
-  title: string;
-  description: string | null;
-  file_url: string | null;
-  file_type: string | null;
-  created_by: string | null;
-}
-
-export interface StudyNote {
-  id: string;
-  title: string;
-  content: string | null;
-  last_edited_by: string | null;
-  version: number;
-}
+export type { StudyTask, StudyQuestion, StudyDocument, StudyNote, StudyCollaborator };
 
 export const useStudy = (studyId: string) => {
   const { user } = useAuth();
@@ -83,7 +54,7 @@ export const useStudy = (studyId: string) => {
           .eq('study_id', studyId);
 
         if (tasksError) throw tasksError;
-        setTasks(tasksData || []);
+        setTasks(tasksData as StudyTask[] || []);
 
         // Fetch questions
         const { data: questionsData, error: questionsError } = await supabase
@@ -92,7 +63,7 @@ export const useStudy = (studyId: string) => {
           .eq('study_id', studyId);
 
         if (questionsError) throw questionsError;
-        setQuestions(questionsData || []);
+        setQuestions(questionsData as StudyQuestion[] || []);
 
         // Fetch documents
         const { data: documentsData, error: documentsError } = await supabase
@@ -101,7 +72,7 @@ export const useStudy = (studyId: string) => {
           .eq('study_id', studyId);
 
         if (documentsError) throw documentsError;
-        setDocuments(documentsData || []);
+        setDocuments(documentsData as StudyDocument[] || []);
 
         // Fetch notes
         const { data: notesData, error: notesError } = await supabase
@@ -110,7 +81,7 @@ export const useStudy = (studyId: string) => {
           .eq('study_id', studyId);
 
         if (notesError) throw notesError;
-        setNotes(notesData || []);
+        setNotes(notesData as StudyNote[] || []);
 
       } catch (err: any) {
         console.error('Error fetching study data:', err);
@@ -129,7 +100,7 @@ export const useStudy = (studyId: string) => {
   }, [studyId, user]);
 
   // Add a new task
-  const addTask = async (task: Omit<StudyTask, 'id' | 'created_by'>) => {
+  const addTask = async (task: Omit<StudyTask, 'id' | 'created_by' | 'created_at' | 'updated_at' | 'study_id'>) => {
     if (!user) return null;
     
     try {
@@ -140,13 +111,13 @@ export const useStudy = (studyId: string) => {
           study_id: studyId,
           created_by: user.id
         }])
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
       
-      setTasks(prev => [...prev, data]);
-      return data;
+      const newTask = data[0] as StudyTask;
+      setTasks(prev => [...prev, newTask]);
+      return newTask;
     } catch (err: any) {
       console.error('Error adding task:', err);
       toast({
@@ -159,19 +130,19 @@ export const useStudy = (studyId: string) => {
   };
 
   // Update a task
-  const updateTask = async (id: string, updates: Partial<StudyTask>) => {
+  const updateTask = async (id: string, updates: Partial<Omit<StudyTask, 'id' | 'created_at' | 'updated_at' | 'study_id'>>) => {
     try {
       const { data, error } = await supabase
         .from('study_tasks')
         .update(updates)
         .eq('id', id)
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
       
-      setTasks(prev => prev.map(task => task.id === id ? data : task));
-      return data;
+      const updatedTask = data[0] as StudyTask;
+      setTasks(prev => prev.map(task => task.id === id ? updatedTask : task));
+      return updatedTask;
     } catch (err: any) {
       console.error('Error updating task:', err);
       toast({
@@ -217,14 +188,15 @@ export const useStudy = (studyId: string) => {
           study_id: studyId,
           question,
           asked_by: user.id,
+          status: 'pending'
         }])
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
       
-      setQuestions(prev => [...prev, data]);
-      return data;
+      const newQuestion = data[0] as StudyQuestion;
+      setQuestions(prev => [...prev, newQuestion]);
+      return newQuestion;
     } catch (err: any) {
       console.error('Error adding question:', err);
       toast({
@@ -249,13 +221,13 @@ export const useStudy = (studyId: string) => {
           status: 'resolved'
         })
         .eq('id', id)
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
       
-      setQuestions(prev => prev.map(q => q.id === id ? data : q));
-      return data;
+      const updatedQuestion = data[0] as StudyQuestion;
+      setQuestions(prev => prev.map(q => q.id === id ? updatedQuestion : q));
+      return updatedQuestion;
     } catch (err: any) {
       console.error('Error answering question:', err);
       toast({
@@ -298,13 +270,13 @@ export const useStudy = (studyId: string) => {
           file_type: fileExt,
           created_by: user.id
         }])
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
       
-      setDocuments(prev => [...prev, data]);
-      return data;
+      const newDocument = data[0] as StudyDocument;
+      setDocuments(prev => [...prev, newDocument]);
+      return newDocument;
     } catch (err: any) {
       console.error('Error uploading document:', err);
       toast({
@@ -368,13 +340,13 @@ export const useStudy = (studyId: string) => {
             version: supabase.rpc('increment_version', { row_id: id })
           })
           .eq('id', id)
-          .select()
-          .single();
+          .select();
 
         if (error) throw error;
         
-        setNotes(prev => prev.map(note => note.id === id ? data : note));
-        return data;
+        const updatedNote = data[0] as StudyNote;
+        setNotes(prev => prev.map(note => note.id === id ? updatedNote : note));
+        return updatedNote;
       } else {
         // Create new note
         const { data, error } = await supabase
@@ -383,15 +355,16 @@ export const useStudy = (studyId: string) => {
             study_id: studyId,
             title,
             content,
-            last_edited_by: user.id
+            last_edited_by: user.id,
+            version: 1
           }])
-          .select()
-          .single();
+          .select();
 
         if (error) throw error;
         
-        setNotes(prev => [...prev, data]);
-        return data;
+        const newNote = data[0] as StudyNote;
+        setNotes(prev => [...prev, newNote]);
+        return newNote;
       }
     } catch (err: any) {
       console.error('Error saving note:', err);
