@@ -16,35 +16,35 @@ const studies = [
   {
     id: "study2",
     title: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
-    description: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
+    description: "Exploring AI solutions to enhance support networks for dementia caregivers.",
     icon: Wand2,
     path: "/studies/ai-bridges"
   },
   {
     id: "study3",
     title: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
-    description: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
+    description: "Experience-based research to design digital tools for caregiver support networks.",
     icon: Clock,
     path: "/studies/caregiver-week"
   },
   {
     id: "study4",
     title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
-    description: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
+    description: "Evaluating a dialogue-based game to improve caregiver knowledge and attitudes.",
     icon: Gamepad2,
     path: "/studies/experienced-game"
   },
   {
     id: "study5",
     title: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
-    description: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
+    description: "Pilot study of an AI-powered chat support hub for caregiver networks.",
     icon: MessagesSquare,
     path: "/studies/chat-support-hub"
   },
   {
     id: "study6",
     title: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
-    description: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
+    description: "Evaluating an AI-powered hub for volunteer dementia care networks.",
     icon: Users2,
     path: "/studies/better-support"
   }
@@ -85,7 +85,7 @@ const Index = () => {
                 <Link to={study.path} className="block h-full w-full no-underline">
                   <CardHeader className="flex flex-row items-start gap-2">
                     <study.icon className="h-6 w-6 text-primary flex-shrink-0" />
-                    <CardTitle className="text-lg">{study.title}</CardTitle>
+                    <CardTitle className="text-lg line-clamp-3">{study.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-sm">{study.description}</CardDescription>
