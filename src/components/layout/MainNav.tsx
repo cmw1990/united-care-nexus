@@ -1,18 +1,23 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Brain, FileText, Users, Menu } from "lucide-react";
+import { FileText, Users, Menu, LogOut } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <div className="mr-4 flex">
           <Link to="/" className="flex items-center space-x-2">
-            <Brain className="h-6 w-6 text-primary" />
             <span className="font-bold text-xl md:text-2xl hidden md:inline-block">UniteD Care Nexus</span>
           </Link>
         </div>
@@ -44,12 +49,23 @@ export function MainNav() {
         </div>
         
         <div className="hidden md:flex items-center space-x-2">
-          <Button variant="ghost" size="icon">
-            <FileText className="h-5 w-5" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Users className="h-5 w-5" />
-          </Button>
+          {user ? (
+            <>
+              <Button variant="ghost" size="icon">
+                <FileText className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Users className="h-5 w-5" />
+              </Button>
+              <Button variant="ghost" size="icon" onClick={handleSignOut}>
+                <LogOut className="h-5 w-5" />
+              </Button>
+            </>
+          ) : (
+            <Link to="/auth">
+              <Button variant="default">Sign In</Button>
+            </Link>
+          )}
         </div>
       </div>
       
@@ -67,6 +83,16 @@ export function MainNav() {
           <Link to="/team" className="block text-sm font-medium transition-colors hover:text-primary">
             Team
           </Link>
+          {user ? (
+            <Button variant="outline" className="w-full" onClick={handleSignOut}>
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
+          ) : (
+            <Link to="/auth">
+              <Button variant="default" className="w-full">Sign In</Button>
+            </Link>
+          )}
         </div>
       )}
     </header>
