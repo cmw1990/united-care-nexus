@@ -1,7 +1,8 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookText, BrainCircuit, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
+import { BookText, Brain, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
@@ -17,7 +18,7 @@ const Index = () => {
       id: "study2",
       title: "AI Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks",
       description: "Exploring how AI can strengthen support networks for dementia caregivers",
-      icon: BrainCircuit,
+      icon: Brain,
       path: "/studies/ai-bridges"
     },
     {

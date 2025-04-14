@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
@@ -11,6 +12,7 @@ import {
   Clock,
   Gamepad2,
   Users2,
+  Brain,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
@@ -35,7 +37,7 @@ const studies: StudyItem[] = [
     id: "study2",
     title: "AI Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks",
     shortTitle: "AI Bridges",
-    icon: BrainCircuit,
+    icon: Brain,
     path: "/studies/ai-bridges"
   },
   {
