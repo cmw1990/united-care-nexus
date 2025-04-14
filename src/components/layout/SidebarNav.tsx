@@ -20,7 +20,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface StudyItem {
   id: string;
   title: string;
-  shortTitle: string;
   icon: React.ComponentType<{ className?: string }>;
   path: string;
 }
@@ -29,42 +28,36 @@ const studies: StudyItem[] = [
   {
     id: "study1",
     title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
-    shortTitle: "Scoping Review",
     icon: BookText,
     path: "/studies/scoping-review"
   },
   {
     id: "study2",
     title: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
-    shortTitle: "AI Bridges",
     icon: Wand2,
     path: "/studies/ai-bridges"
   },
   {
     id: "study3",
     title: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
-    shortTitle: "Caregiver Week",
     icon: Clock,
     path: "/studies/caregiver-week"
   },
   {
     id: "study4",
     title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
-    shortTitle: "ExperienceD Game",
     icon: Gamepad2,
     path: "/studies/experienced-game"
   },
   {
     id: "study5",
     title: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
-    shortTitle: "Chat Support Hub",
     icon: MessagesSquare,
     path: "/studies/chat-support-hub"
   },
   {
     id: "study6",
     title: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
-    shortTitle: "Better Support",
     icon: Users2,
     path: "/studies/better-support"
   }
@@ -91,8 +84,7 @@ export function SidebarNav() {
             >
               <study.icon className="h-4 w-4 flex-shrink-0 mt-0.5" />
               <div className="flex-1 w-full min-w-0">
-                <span className="font-medium">{study.shortTitle}</span>
-                <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{study.title}</p>
+                <span className="line-clamp-none">{study.title}</span>
               </div>
             </Link>
           ))}

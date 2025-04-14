@@ -10,42 +10,42 @@ const StudiesPage = () => {
     {
       id: "study1",
       title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
-      description: "Scoping Review: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration",
+      description: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
       icon: BookText,
       path: "/studies/scoping-review"
     },
     {
       id: "study2",
       title: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
-      description: "Exploring how AI can strengthen support networks for dementia caregivers",
+      description: "Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?",
       icon: Wand2,
       path: "/studies/ai-bridges"
     },
     {
       id: "study3",
       title: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
-      description: "An experience-based co-design approach to implement digital resources",
+      description: "A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks",
       icon: Clock,
       path: "/studies/caregiver-week"
     },
     {
       id: "study4",
       title: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
-      description: "Design and Feasibility Evaluation of a Serious Game to Enhance Dementia Care Knowledge",
+      description: "ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers",
       icon: Gamepad2,
       path: "/studies/experienced-game"
     },
     {
       id: "study5",
       title: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
-      description: "Protocol for a pilot evaluation of the UniteD caregiver network support hub",
+      description: "Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub \"UniteD\"",
       icon: MessagesSquare,
       path: "/studies/chat-support-hub"
     },
     {
       id: "study6",
       title: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
-      description: "A pilot evaluation of an AI powered caregiver network support hub",
+      description: "Bridges to Better Support: A Pilot Feasibility Evaluation of 'VolunteerD (UniteD-VolunteerD)', an AI-Powered Support Hub for Volunteer Dementia Care Networks",
       icon: Users2,
       path: "/studies/better-support"
     }
@@ -68,7 +68,7 @@ const StudiesPage = () => {
                 </CardHeader>
                 <CardContent>
                   <Button size="sm" className="w-full sm:w-auto">
-                    View Study Details
+                    View Complete Study Details
                   </Button>
                 </CardContent>
               </Link>
