@@ -90,7 +90,7 @@ export function SidebarNav() {
               )}
             >
               <study.icon className="h-4 w-4 flex-shrink-0 mt-0.5" />
-              <div>
+              <div className="flex-1">
                 <span className="font-medium">{study.shortTitle}</span>
                 <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{study.title}</p>
               </div>

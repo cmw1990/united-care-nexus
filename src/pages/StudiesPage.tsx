@@ -60,14 +60,14 @@ const StudiesPage = () => {
             <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
               <CardHeader className="flex flex-row items-start gap-3">
                 <study.icon className="h-6 w-6 text-primary mt-1" />
-                <div>
+                <div className="flex-1">
                   <CardTitle className="text-lg">{study.title}</CardTitle>
                   <CardDescription className="text-sm mt-2">{study.description}</CardDescription>
                 </div>
               </CardHeader>
               <CardContent>
                 <Link to={study.path}>
-                  <Button size="sm">
+                  <Button size="sm" className="w-full sm:w-auto">
                     View Study Details
                   </Button>
                 </Link>
