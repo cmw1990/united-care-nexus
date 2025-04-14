@@ -1,4 +1,3 @@
-
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +9,7 @@ const StudiesPage = () => {
     {
       id: "study1",
       title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
-      description: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
+      description: "A comprehensive scoping review analyzing eHealth applications that support communication, coordination, and collaboration among caregivers of people with dementia.",
       icon: BookText,
       path: "/studies/scoping-review"
     },
@@ -67,8 +66,8 @@ const StudiesPage = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <Button size="sm" className="w-full sm:w-auto">
-                    View Complete Study Details for {study.title}
+                  <Button size="sm" className="w-full">
+                    View Study Details
                   </Button>
                 </CardContent>
               </Link>
