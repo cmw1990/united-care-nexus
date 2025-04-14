@@ -1,8 +1,10 @@
+
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { FileText, Users, Menu, LogOut, KeyRound } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/hooks/use-toast";
 
 export function MainNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,6 +20,10 @@ export function MainNav() {
     if (hasAccessCode) {
       localStorage.removeItem("united_access_code");
       setHasAccessCode(false);
+      toast({
+        title: "Signed out",
+        description: "You have exited read-only access mode."
+      });
       window.location.href = "/auth";
     } else {
       await signOut();

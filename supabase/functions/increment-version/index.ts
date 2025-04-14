@@ -1,10 +1,16 @@
 
-import { serve } from "https://deno.land/std@0.177.0/http/server.ts"
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.42.0"
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.38.4";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+};
+
+interface RequestBody {
+  noteId: string;
+  userId: string;
+  content: string;
 }
 
 serve(async (req) => {
@@ -13,58 +19,46 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Get Supabase URL and key from environment variables
+  const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';
+  const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY') ?? '';
+  const supabase = createClient(supabaseUrl, supabaseKey);
+
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL') || '';
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') || '';
+    // Parse request body
+    const { noteId, userId, content } = await req.json() as RequestBody;
 
-    // Initialize the Supabase client
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
-
-    // Get request body
-    const { noteId, updates } = await req.json();
-
-    if (!noteId) {
+    if (!noteId || !userId) {
       return new Response(
-        JSON.stringify({ error: 'Note ID is required' }),
-        { 
-          status: 400, 
-          headers: { 
-            'Content-Type': 'application/json',
-            ...corsHeaders 
-          } 
-        }
+        JSON.stringify({ error: 'Note ID and User ID are required' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Get the current note to get its version
-    const { data: existingNote, error: fetchError } = await supabase
+    // Get the current version of the note
+    const { data: noteData, error: fetchError } = await supabase
       .from('study_notes')
-      .select('*')
+      .select('version')
       .eq('id', noteId)
       .single();
 
     if (fetchError) {
       return new Response(
-        JSON.stringify({ error: 'Failed to fetch note', details: fetchError }),
-        { 
-          status: 500, 
-          headers: { 
-            'Content-Type': 'application/json',
-            ...corsHeaders 
-          } 
-        }
+        JSON.stringify({ error: fetchError.message }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Increment the version
-    const newVersion = (existingNote.version || 0) + 1;
+    const currentVersion = noteData?.version || 1;
+    const newVersion = currentVersion + 1;
 
-    // Update the note with incremented version
+    // Update the note with the new version, content and user who edited it
     const { data, error: updateError } = await supabase
       .from('study_notes')
       .update({
-        ...updates,
+        content,
         version: newVersion,
+        last_edited_by: userId,
         updated_at: new Date().toISOString()
       })
       .eq('id', noteId)
@@ -73,38 +67,19 @@ serve(async (req) => {
 
     if (updateError) {
       return new Response(
-        JSON.stringify({ error: 'Failed to update note', details: updateError }),
-        { 
-          status: 500, 
-          headers: { 
-            'Content-Type': 'application/json',
-            ...corsHeaders 
-          } 
-        }
+        JSON.stringify({ error: updateError.message }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Return the updated note
     return new Response(
-      JSON.stringify(data),
-      { 
-        status: 200, 
-        headers: { 
-          'Content-Type': 'application/json',
-          ...corsHeaders 
-        } 
-      }
+      JSON.stringify({ success: true, data }),
+      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   } catch (error) {
     return new Response(
-      JSON.stringify({ error: 'Internal server error', details: error.message }),
-      { 
-        status: 500, 
-        headers: { 
-          'Content-Type': 'application/json',
-          ...corsHeaders 
-        } 
-      }
+      JSON.stringify({ error: error.message }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });
