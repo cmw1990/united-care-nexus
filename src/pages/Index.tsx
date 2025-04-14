@@ -66,7 +66,7 @@ const Index = () => {
                 <Link to="/studies/scoping-review">
                   <Button>
                     <BookText className="mr-2 h-4 w-4" />
-                    View Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review
+                    View Scoping Review Study
                   </Button>
                 </Link>
                 <Link to="/team">
@@ -91,7 +91,7 @@ const Index = () => {
                     <CardDescription className="text-sm">{study.description}</CardDescription>
                   </CardContent>
                   <CardFooter>
-                    <Button className="w-full">View Complete Study Details for {study.title}</Button>
+                    <Button className="w-full">View Study Details</Button>
                   </CardFooter>
                 </Link>
               </Card>

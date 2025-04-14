@@ -84,7 +84,7 @@ export function SidebarNav() {
             >
               <study.icon className="h-4 w-4 flex-shrink-0 mt-0.5" />
               <div className="flex-1 w-full min-w-0">
-                <span className="line-clamp-none">{study.title}</span>
+                <span>{study.title}</span>
               </div>
             </Link>
           ))}

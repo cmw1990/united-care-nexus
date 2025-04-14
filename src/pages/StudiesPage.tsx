@@ -1,6 +1,7 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookText, Wand2, Clock, Gamepad2, MessagesSquare, Users2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -57,22 +58,20 @@ const StudiesPage = () => {
         <div className="grid grid-cols-1 gap-6">
           {studies.map((study) => (
             <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
-              <div className="w-full h-full">
-                <Link to={study.path} className="block w-full h-full no-underline">
-                  <CardHeader className="flex flex-row items-start gap-3">
-                    <study.icon className="h-6 w-6 text-primary mt-1" />
-                    <div className="flex-1 min-w-0">
-                      <CardTitle className="text-lg">{study.title}</CardTitle>
-                      <CardDescription className="text-sm mt-2">{study.description}</CardDescription>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <Button size="sm" className="w-full sm:w-auto">
-                      View Complete Study Details for {study.title}
-                    </Button>
-                  </CardContent>
-                </Link>
-              </div>
+              <Link to={study.path} className="block w-full h-full no-underline">
+                <CardHeader className="flex flex-row items-start gap-3">
+                  <study.icon className="h-6 w-6 text-primary mt-1" />
+                  <div className="flex-1 min-w-0">
+                    <CardTitle className="text-lg">{study.title}</CardTitle>
+                    <CardDescription className="text-sm mt-2">{study.description}</CardDescription>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <Button size="sm" className="w-full sm:w-auto">
+                    View Complete Study Details for {study.title}
+                  </Button>
+                </CardContent>
+              </Link>
             </Card>
           ))}
         </div>
