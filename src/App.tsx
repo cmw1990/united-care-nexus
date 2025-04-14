@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
 import Index from "./pages/Index";
@@ -41,9 +41,11 @@ const App = () => (
             <Route path="/studies" element={<StudiesPage />} />
             <Route path="/research" element={<ResearchPage />} />
             
+            {/* Study 1 needs special handling - make it directly accessible */}
+            <Route path="/studies/scoping-review" element={<ScopingReview />} />
+            
             {/* Protected Study Routes */}
             <Route element={<ProtectedRoute />}>
-              <Route path="/studies/scoping-review" element={<ScopingReview />} />
               <Route path="/studies/ai-bridges" element={<AIBridges />} />
               <Route path="/studies/caregiver-week" element={<CaregiverWeek />} />
               <Route path="/studies/experienced-game" element={<ExperiencedGame />} />

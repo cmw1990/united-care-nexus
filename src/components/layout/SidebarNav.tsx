@@ -27,7 +27,7 @@ interface StudyItem {
 const studies: StudyItem[] = [
   {
     id: "study1",
-    title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review",
+    title: "Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth",
     icon: BookText,
     path: "/studies/scoping-review"
   },

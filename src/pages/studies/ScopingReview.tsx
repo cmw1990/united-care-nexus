@@ -31,20 +31,6 @@ const ScopingReview = () => {
     saveNote
   } = useStudy("scoping-review");
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate("/auth");
-    }
-  }, [authLoading, user, navigate]);
-
-  if (authLoading) {
-    return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
-  }
-
-  if (!user) {
-    return <div className="flex justify-center items-center min-h-screen">Checking authentication...</div>;
-  }
-
   const formattedQuestions = questions.map(q => ({
     id: q.id,
     title: q.question.substring(0, 50) + (q.question.length > 50 ? '...' : ''),
