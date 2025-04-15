@@ -55,15 +55,27 @@ const ScopingReview = () => {
           return;
         }
         
-        // Safely cast data with type guard
-        const typedProtocolDoc = protocolDocs as StudyDocument | null;
-        if (typedProtocolDoc && typedProtocolDoc.file_url) {
+        if (!protocolDocs) {
+          return;
+        }
+        
+        // Cast to proper type after checking it exists
+        const typedProtocolDoc = protocolDocs as StudyDocument;
+        if (typedProtocolDoc.file_url) {
           setProtocolUrl(typedProtocolDoc.file_url);
           
-          const response = await fetch(typedProtocolDoc.file_url);
-          if (response.ok) {
-            const text = await response.text();
-            setProtocolContent(text);
+          try {
+            // Fetch the content only for text-based files
+            const fileUrl = typedProtocolDoc.file_url.toLowerCase();
+            if (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json')) {
+              const response = await fetch(typedProtocolDoc.file_url);
+              if (response.ok) {
+                const text = await response.text();
+                setProtocolContent(text);
+              }
+            }
+          } catch (contentError) {
+            console.error('Error fetching file content:', contentError);
           }
         }
       } catch (error) {
@@ -76,12 +88,29 @@ const ScopingReview = () => {
 
   const handleProtocolUpload = async (file: File) => {
     try {
-      const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for scoping review");
+      // Upload the protocol file with the original file name to preserve extension
+      const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
       
-      // Safely check for file_url
-      const typedDocument = uploadedDocument as StudyDocument | null;
-      if (typedDocument && typedDocument.file_url) {
+      if (!uploadedDocument) {
+        throw new Error("Failed to upload document");
+      }
+
+      // Cast to proper type after checking it exists
+      const typedDocument = uploadedDocument as StudyDocument;
+      if (typedDocument.file_url) {
         setProtocolUrl(typedDocument.file_url);
+        
+        // For text files, also set the content
+        const fileType = file.type.toLowerCase();
+        if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+            file.name.endsWith('.md') || file.name.endsWith('.json')) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const content = e.target?.result as string;
+            setProtocolContent(content);
+          };
+          reader.readAsText(file);
+        }
       }
       
       return Promise.resolve();
