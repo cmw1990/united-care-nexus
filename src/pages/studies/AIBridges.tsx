@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -98,11 +99,20 @@ const AIBridges = () => {
       }
       
       try {
-        const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+        const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
         
-        if (uploadResult?.id && uploadResult?.file_url) {
-          const uploadedDocument = uploadResult as StudyDocument;
-          setProtocolUrl(uploadedDocument.file_url ?? null);
+        // Handle the result carefully, first check if it's not null or undefined
+        if (result) {
+          // Check if result is an error object or has error property
+          if (!('error' in result) && typeof result === 'object') {
+            // Now we can safely check for the expected properties and cast to StudyDocument 
+            if ('id' in result && 'file_url' in result) {
+              const uploadedDocument = result as StudyDocument;
+              if (uploadedDocument.file_url) {
+                setProtocolUrl(uploadedDocument.file_url);
+              }
+            }
+          }
         }
       } catch (uploadError) {
         console.error('Storage upload error (continuing with local file):', uploadError);
