@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -107,22 +106,23 @@ const AIBridges = () => {
       try {
         const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
         
-        // First check if uploadResult is not null before proceeding
+        // Safely handle potentially null uploadResult
         if (uploadResult) {
-          // Then check if it has the expected properties to be a valid StudyDocument
-          if (typeof uploadResult === 'object' && 
-              'id' in uploadResult && 
-              'file_url' in uploadResult) {
-            // Now it's safe to cast to StudyDocument
+          // Check if the result has the expected properties of StudyDocument
+          if (
+            typeof uploadResult === 'object' && 
+            'id' in uploadResult && 
+            'file_url' in uploadResult
+          ) {
+            // Type assertion after property checks
             const uploadedDocument = uploadResult as StudyDocument;
-            if (uploadedDocument.file_url) {
-              setProtocolUrl(uploadedDocument.file_url);
-            }
+            
+            // Safely access file_url
+            uploadedDocument.file_url && setProtocolUrl(uploadedDocument.file_url);
           }
         }
       } catch (uploadError) {
         console.error('Storage upload error (continuing with local file):', uploadError);
-        // Don't show error to user since we're displaying the file locally anyway
       }
       
       return Promise.resolve();
