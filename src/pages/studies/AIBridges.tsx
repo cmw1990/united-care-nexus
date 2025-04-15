@@ -83,6 +83,7 @@ const AIBridges = () => {
       // Make sure we have valid data before accessing properties
       if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
         const typedDocument = uploadedDocument as StudyDocument;
+        // Add null check before setting the URL
         if (typedDocument.file_url) {
           setProtocolUrl(typedDocument.file_url);
           

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -93,6 +94,7 @@ const ScopingReview = () => {
 
       if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
         const typedDocument = uploadedDocument as StudyDocument;
+        // Add null check before setting the URL
         if (typedDocument.file_url) {
           setProtocolUrl(typedDocument.file_url);
           
