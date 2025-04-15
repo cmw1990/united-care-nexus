@@ -7,16 +7,21 @@ import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useStudy } from "@/hooks/useStudy";
 import { QuestionsManager } from "@/components/studies/QuestionsManager";
 import { FileManager } from "@/components/studies/FileManager";
+import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
 
 const ScopingReview = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("protocol");
   const { user, isLoading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const [protocolContent, setProtocolContent] = useState<string | null>(null);
+  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
+  
   const { 
     tasks, 
     questions, 
@@ -32,6 +37,58 @@ const ScopingReview = () => {
     deleteDocument,
     saveNote
   } = useStudy("scoping-review");
+
+  useEffect(() => {
+    const loadProtocolFile = async () => {
+      try {
+        const { data: protocolDocs, error } = await supabase
+          .from('study_documents')
+          .select('*')
+          .eq('study_id', 'scoping-review')
+          .eq('title', 'protocol.txt')
+          .single();
+        
+        if (error) {
+          console.log('No protocol file found:', error);
+          return;
+        }
+        
+        if (protocolDocs?.file_url) {
+          setProtocolUrl(protocolDocs.file_url);
+          
+          const response = await fetch(protocolDocs.file_url);
+          if (response.ok) {
+            const text = await response.text();
+            setProtocolContent(text);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading protocol file:', error);
+      }
+    };
+    
+    loadProtocolFile();
+  }, []);
+
+  const handleProtocolUpload = async (file: File) => {
+    try {
+      const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for scoping review");
+      
+      if (uploadedDocument?.file_url) {
+        setProtocolUrl(uploadedDocument.file_url);
+      }
+      
+      return Promise.resolve();
+    } catch (error: any) {
+      console.error('Error uploading protocol:', error);
+      toast({
+        title: "Upload failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      return Promise.reject(error);
+    }
+  };
 
   const formattedQuestions = questions.map(q => ({
     id: q.id,
@@ -112,24 +169,12 @@ const ScopingReview = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This scoping review examines eHealth applications designed to support communication, coordination, and collaboration among caregivers of people with dementia living at home.</p>
-                  <p className="mt-4">The protocol includes:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>Systematic search of relevant literature</li>
-                    <li>Assessment of various eHealth solutions</li>
-                    <li>Evaluation of effectiveness for caregiver networks</li>
-                    <li>Analysis of barriers and facilitators</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ProtocolViewer 
+              title="Study Protocol" 
+              documentUrl={protocolUrl || undefined} 
+              documentContent={protocolContent || undefined}
+              onUpload={handleProtocolUpload}
+            />
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">

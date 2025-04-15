@@ -1,13 +1,81 @@
 
+import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
+import { useStudy } from "@/hooks/useStudy";
 
 const AIBridges = () => {
   const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState("protocol");
+  const [protocolContent, setProtocolContent] = useState<string | null>(null);
+  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
+  
+  const { 
+    uploadDocument
+  } = useStudy("ai-bridges");
+  
+  // Load protocol file if it exists
+  useEffect(() => {
+    const loadProtocolFile = async () => {
+      try {
+        // Check if protocol file exists
+        const { data: protocolDocs, error } = await supabase
+          .from('study_documents')
+          .select('*')
+          .eq('study_id', 'ai-bridges')
+          .eq('title', 'protocol.txt')
+          .single();
+        
+        if (error) {
+          console.log('No protocol file found:', error);
+          return;
+        }
+        
+        if (protocolDocs?.file_url) {
+          setProtocolUrl(protocolDocs.file_url);
+          
+          // Fetch the content
+          const response = await fetch(protocolDocs.file_url);
+          if (response.ok) {
+            const text = await response.text();
+            setProtocolContent(text);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading protocol file:', error);
+      }
+    };
+    
+    loadProtocolFile();
+  }, []);
+
+  const handleProtocolUpload = async (file: File) => {
+    try {
+      // Upload the protocol file
+      const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for AI Bridges study");
+      
+      if (uploadedDocument?.file_url) {
+        setProtocolUrl(uploadedDocument.file_url);
+      }
+      
+      return Promise.resolve();
+    } catch (error: any) {
+      console.error('Error uploading protocol:', error);
+      toast({
+        title: "Upload failed",
+        description: error.message,
+        variant: "destructive",
+      });
+      return Promise.reject(error);
+    }
+  };
   
   return (
     <MainLayout>
@@ -19,7 +87,7 @@ const AIBridges = () => {
           </p>
         </div>
 
-        <Tabs defaultValue="protocol" className="w-full">
+        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="protocol">
               <FileText className="h-4 w-4 mr-2" />
@@ -43,24 +111,12 @@ const AIBridges = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This study investigates how artificial intelligence can help forge stronger and smarter connections within dementia caregiver networks.</p>
-                  <p className="mt-4">The protocol explores:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>AI-powered communication tools for caregivers</li>
-                    <li>Smart coordination of care responsibilities</li>
-                    <li>Predictive analytics for care planning</li>
-                    <li>Personalized support recommendations</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ProtocolViewer 
+              title="Study Protocol" 
+              documentUrl={protocolUrl || undefined} 
+              documentContent={protocolContent || undefined}
+              onUpload={handleProtocolUpload}
+            />
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">
