@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
+import { StudyDocument } from "@/types/database.types";
 
 const ScopingReview = () => {
   const { t } = useLanguage();
@@ -54,10 +55,12 @@ const ScopingReview = () => {
           return;
         }
         
-        if (protocolDocs && protocolDocs.file_url) {
-          setProtocolUrl(protocolDocs.file_url);
+        // Safely cast data with type guard
+        const typedProtocolDoc = protocolDocs as StudyDocument | null;
+        if (typedProtocolDoc && typedProtocolDoc.file_url) {
+          setProtocolUrl(typedProtocolDoc.file_url);
           
-          const response = await fetch(protocolDocs.file_url);
+          const response = await fetch(typedProtocolDoc.file_url);
           if (response.ok) {
             const text = await response.text();
             setProtocolContent(text);
@@ -75,8 +78,10 @@ const ScopingReview = () => {
     try {
       const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for scoping review");
       
-      if (uploadedDocument && uploadedDocument.file_url) {
-        setProtocolUrl(uploadedDocument.file_url);
+      // Safely check for file_url
+      const typedDocument = uploadedDocument as StudyDocument | null;
+      if (typedDocument && typedDocument.file_url) {
+        setProtocolUrl(typedDocument.file_url);
       }
       
       return Promise.resolve();
