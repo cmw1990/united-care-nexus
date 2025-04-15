@@ -72,9 +72,12 @@ const AIBridges = () => {
     loadProtocolFile();
   }, []);
 
-  const prepareUpload = (file: File) => {
-    setSelectedFile(file);
-    setShowConfirmDialog(true);
+  const prepareUpload = (file: File): Promise<void> => {
+    return new Promise((resolve) => {
+      setSelectedFile(file);
+      setShowConfirmDialog(true);
+      resolve();
+    });
   };
 
   const cancelUpload = () => {
