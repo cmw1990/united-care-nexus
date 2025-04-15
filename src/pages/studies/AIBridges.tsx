@@ -105,12 +105,17 @@ const AIBridges = () => {
       
       // Try to upload to Supabase (but don't block display)
       try {
-        const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
-        if (uploadedDocument && typeof uploadedDocument === 'object' && 'file_url' in uploadedDocument) {
-          // If successful, update the URL with the one from Supabase
-          const typedDocument = uploadedDocument as StudyDocument;
-          if (typedDocument.file_url) {
-            setProtocolUrl(typedDocument.file_url);
+        const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+        
+        // Check if the result is a valid StudyDocument by verifying it has the expected properties
+        if (uploadResult && 
+            typeof uploadResult === 'object' && 
+            'id' in uploadResult && 
+            'file_url' in uploadResult) {
+          // Now it's safe to cast to StudyDocument
+          const uploadedDocument = uploadResult as StudyDocument;
+          if (uploadedDocument.file_url) {
+            setProtocolUrl(uploadedDocument.file_url);
           }
         }
       } catch (uploadError) {
