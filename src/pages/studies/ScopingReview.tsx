@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -88,25 +87,22 @@ const ScopingReview = () => {
     try {
       const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
       
-      if (!uploadedDocument) {
-        throw new Error("Failed to upload document");
-      }
-
-      if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
-        const typedDocument = uploadedDocument as StudyDocument;
-        // Add null check before setting the URL
-        if (typedDocument.file_url) {
-          setProtocolUrl(typedDocument.file_url);
-          
-          const fileType = file.type.toLowerCase();
-          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-              file.name.endsWith('.md') || file.name.endsWith('.json')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const content = e.target?.result as string;
-              setProtocolContent(content);
-            };
-            reader.readAsText(file);
+      if (uploadedDocument) {
+        if (typeof uploadedDocument === 'object' && 'file_url' in uploadedDocument) {
+          const typedDocument = uploadedDocument as StudyDocument;
+          if (typedDocument.file_url) {
+            setProtocolUrl(typedDocument.file_url);
+            
+            const fileType = file.type.toLowerCase();
+            if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+                file.name.endsWith('.md') || file.name.endsWith('.json')) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const content = e.target?.result as string;
+                setProtocolContent(content);
+              };
+              reader.readAsText(file);
+            }
           }
         }
       }

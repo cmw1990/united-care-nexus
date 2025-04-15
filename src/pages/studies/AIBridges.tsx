@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -22,11 +21,9 @@ const AIBridges = () => {
     uploadDocument
   } = useStudy("ai-bridges");
   
-  // Load protocol file if it exists
   useEffect(() => {
     const loadProtocolFile = async () => {
       try {
-        // Check if protocol file exists
         const { data: protocolDocs, error } = await supabase
           .from('study_documents')
           .select('*')
@@ -43,14 +40,11 @@ const AIBridges = () => {
           return;
         }
 
-        // Make sure we have valid data before accessing properties
         if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
-          // Now TypeScript knows protocolDocs has a file_url property
           const typedProtocolDoc = protocolDocs as StudyDocument;
           setProtocolUrl(typedProtocolDoc.file_url);
           
           try {
-            // Fetch the content only for text-based files
             const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
             if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
               const response = await fetch(typedProtocolDoc.file_url as string);
@@ -73,30 +67,24 @@ const AIBridges = () => {
 
   const handleProtocolUpload = async (file: File) => {
     try {
-      // Upload the protocol file with the original file name to preserve extension
       const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
       
-      if (!uploadedDocument) {
-        throw new Error("Failed to upload document");
-      }
-
-      // Make sure we have valid data before accessing properties
-      if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
-        const typedDocument = uploadedDocument as StudyDocument;
-        // Add null check before setting the URL
-        if (typedDocument.file_url) {
-          setProtocolUrl(typedDocument.file_url);
-          
-          // For text files, also set the content
-          const fileType = file.type.toLowerCase();
-          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-              file.name.endsWith('.md') || file.name.endsWith('.json')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const content = e.target?.result as string;
-              setProtocolContent(content);
-            };
-            reader.readAsText(file);
+      if (uploadedDocument) {
+        if (typeof uploadedDocument === 'object' && 'file_url' in uploadedDocument) {
+          const typedDocument = uploadedDocument as StudyDocument;
+          if (typedDocument.file_url) {
+            setProtocolUrl(typedDocument.file_url);
+            
+            const fileType = file.type.toLowerCase();
+            if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+                file.name.endsWith('.md') || file.name.endsWith('.json')) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const content = e.target?.result as string;
+                setProtocolContent(content);
+              };
+              reader.readAsText(file);
+            }
           }
         }
       }
