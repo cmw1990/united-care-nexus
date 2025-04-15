@@ -101,16 +101,13 @@ const AIBridges = () => {
       try {
         // Call uploadDocument and safely handle the result
         if (uploadDocument) {
-          const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+          const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
           
-          // Safe type handling
-          if (result) {
-            // Using type guards to check if 'result' has the expected structure
-            if (typeof result === 'object' && !('error' in result)) {
-              // Verify the object has the properties we need before using them
-              if ('file_url' in result && result.file_url) {
-                setProtocolUrl(result.file_url);
-              }
+          // Safe type handling with null checks
+          if (uploadResult && typeof uploadResult === 'object' && !('error' in uploadResult)) {
+            // Now we know uploadResult is not null
+            if ('file_url' in uploadResult && uploadResult.file_url) {
+              setProtocolUrl(uploadResult.file_url);
             }
           }
         }

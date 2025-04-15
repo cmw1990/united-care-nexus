@@ -116,13 +116,11 @@ const ScopingReview = () => {
         
         try {
           if (uploadDocument) {
-            const result = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
+            const uploadResult = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
             
-            if (result) {
-              if (typeof result === 'object' && !('error' in result)) {
-                if ('file_url' in result && result.file_url) {
-                  setProtocolUrl(result.file_url);
-                }
+            if (uploadResult && typeof uploadResult === 'object' && !('error' in uploadResult)) {
+              if ('file_url' in uploadResult && uploadResult.file_url) {
+                setProtocolUrl(uploadResult.file_url);
               }
             }
           }
