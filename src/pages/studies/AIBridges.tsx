@@ -4,13 +4,14 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
+import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useStudy } from "@/hooks/useStudy";
 import { StudyDocument } from "@/types/database.types";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const AIBridges = () => {
   const { t } = useLanguage();
@@ -18,6 +19,9 @@ const AIBridges = () => {
   const [protocolContent, setProtocolContent] = useState<string | null>(null);
   const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
   
   const { 
     uploadDocument
@@ -68,57 +72,57 @@ const AIBridges = () => {
     loadProtocolFile();
   }, []);
 
-  const handleProtocolUpload = async (file: File) => {
+  const prepareUpload = (file: File) => {
+    setSelectedFile(file);
+    setShowConfirmDialog(true);
+  };
+
+  const cancelUpload = () => {
+    setSelectedFile(null);
+    setShowConfirmDialog(false);
+  };
+
+  const confirmUpload = async () => {
+    if (!selectedFile) return;
+    
+    setIsUploading(true);
+    
     try {
-      if (file) {
-        const fileType = file.type.toLowerCase();
-        const isTextFile = fileType === 'text/plain' || 
-                           file.name.endsWith('.txt') || 
-                           file.name.endsWith('.md') || 
-                           file.name.endsWith('.json');
-        
-        setUploadedFileName(file.name);
-        
-        if (isTextFile) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const content = e.target?.result as string;
-            if (content) {
-              setProtocolContent(content);
-              const blob = new Blob([content], { type: fileType || 'text/plain' });
-              const url = URL.createObjectURL(blob);
-              setProtocolUrl(url);
-            }
-          };
-          reader.readAsText(file);
-        } else {
-          const url = URL.createObjectURL(file);
-          setProtocolUrl(url);
-          setProtocolContent(null);
-        }
-      }
+      const file = selectedFile;
+      const fileType = file.type.toLowerCase();
+      const isTextFile = fileType === 'text/plain' || 
+                         file.name.endsWith('.txt') || 
+                         file.name.endsWith('.md') || 
+                         file.name.endsWith('.json');
       
-      try {
-        // Call uploadDocument function if available
-        if (uploadDocument) {
-          const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
-          
-          // Safe type handling with proper null checks - fix the TypeScript null errors
-          if (uploadResult !== null && uploadResult !== undefined) {
-            if (typeof uploadResult === 'object') {
-              if (!('error' in uploadResult)) {
-                if ('file_url' in uploadResult && uploadResult.file_url !== null && uploadResult.file_url !== undefined) {
-                  setProtocolUrl(uploadResult.file_url);
-                }
-              }
-            }
+      setUploadedFileName(file.name);
+      
+      if (isTextFile) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const content = e.target?.result as string;
+          if (content) {
+            setProtocolContent(content);
+            const blob = new Blob([content], { type: fileType || 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            setProtocolUrl(url);
           }
-        }
-      } catch (uploadError) {
-        console.error('Storage upload error (continuing with local file):', uploadError);
+        };
+        reader.readAsText(file);
+      } else {
+        const url = URL.createObjectURL(file);
+        setProtocolUrl(url);
+        setProtocolContent(null);
       }
       
-      return Promise.resolve();
+      if (uploadDocument) {
+        await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+      }
+      
+      toast({
+        title: "Upload successful",
+        description: "Your protocol file has been uploaded successfully.",
+      });
     } catch (error: any) {
       console.error('Error handling protocol:', error);
       toast({
@@ -126,7 +130,10 @@ const AIBridges = () => {
         description: error.message,
         variant: "destructive",
       });
-      return Promise.reject(error);
+    } finally {
+      setIsUploading(false);
+      setShowConfirmDialog(false);
+      setSelectedFile(null);
     }
   };
   
@@ -169,7 +176,7 @@ const AIBridges = () => {
               documentUrl={protocolUrl || undefined} 
               documentContent={protocolContent || undefined}
               fileName={uploadedFileName || undefined}
-              onUpload={handleProtocolUpload}
+              onUpload={prepareUpload}
             />
           </TabsContent>
           <TabsContent value="tasks">
@@ -210,6 +217,30 @@ const AIBridges = () => {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Confirm Upload</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to upload {selectedFile?.name}?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={cancelUpload} disabled={isUploading}>
+              Cancel
+            </Button>
+            <Button onClick={confirmUpload} disabled={isUploading}>
+              {isUploading ? "Uploading..." : (
+                <>
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Confirm Upload
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 };
