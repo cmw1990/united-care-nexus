@@ -99,13 +99,19 @@ const AIBridges = () => {
       }
       
       try {
-        const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
-        
-        // Safe type handling
-        if (result && typeof result === 'object' && !('error' in result)) {
-          // Verify the object has the properties we need before using them
-          if ('file_url' in result && result.file_url) {
-            setProtocolUrl(result.file_url);
+        // Call uploadDocument and safely handle the result
+        if (uploadDocument) {
+          const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+          
+          // Safe type handling
+          if (result) {
+            // Using type guards to check if 'result' has the expected structure
+            if (typeof result === 'object' && !('error' in result)) {
+              // Verify the object has the properties we need before using them
+              if ('file_url' in result && result.file_url) {
+                setProtocolUrl(result.file_url);
+              }
+            }
           }
         }
       } catch (uploadError) {
