@@ -58,7 +58,7 @@ const StudiesPage = () => {
     <MainLayout>
       <div className="container px-4 md:px-6 py-6">
         <h1 className="text-3xl font-bold tracking-tight mb-8">{t('studies.title')}</h1>
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {studies.map((study) => (
             <Card key={study.id} className="h-full hover:shadow-md transition-shadow">
               <Link to={study.path} className="block w-full h-full no-underline">

@@ -42,21 +42,15 @@ const App = () => (
               {/* Studies Routes */}
               <Route path="/studies" element={<StudiesPage />} />
               <Route path="/research" element={<ResearchPage />} />
-              
-              {/* Study 1 needs special handling - make it directly accessible */}
-              <Route path="/studies/scoping-review" element={<ScopingReview />} />
-              
-              {/* Protected Study Routes */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/studies/ai-bridges" element={<AIBridges />} />
-                <Route path="/studies/caregiver-week" element={<CaregiverWeek />} />
-                <Route path="/studies/experienced-game" element={<ExperiencedGame />} />
-                <Route path="/studies/chat-support-hub" element={<ChatSupportHub />} />
-                <Route path="/studies/better-support" element={<BetterSupport />} />
-              </Route>
-              
-              {/* Additional Pages */}
               <Route path="/resources" element={<ResourcesPage />} />
+              
+              {/* Study Pages - All accessible */}
+              <Route path="/studies/scoping-review" element={<ScopingReview />} />
+              <Route path="/studies/ai-bridges" element={<AIBridges />} />
+              <Route path="/studies/caregiver-week" element={<CaregiverWeek />} />
+              <Route path="/studies/experienced-game" element={<ExperiencedGame />} />
+              <Route path="/studies/chat-support-hub" element={<ChatSupportHub />} />
+              <Route path="/studies/better-support" element={<BetterSupport />} />
               
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />

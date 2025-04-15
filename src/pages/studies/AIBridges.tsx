@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
