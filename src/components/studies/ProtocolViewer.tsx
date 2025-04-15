@@ -10,20 +10,22 @@ interface ProtocolViewerProps {
   title: string;
   documentUrl?: string;
   documentContent?: string;
+  fileName?: string;
   onUpload?: (file: File) => Promise<void>;
 }
 
 export function ProtocolViewer({ 
   title, 
   documentUrl, 
-  documentContent, 
+  documentContent,
+  fileName,
   onUpload 
 }: ProtocolViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fileContent, setFileContent] = useState<string | null>(documentContent || null);
   const [fileType, setFileType] = useState<string | null>(getFileTypeFromUrl(documentUrl));
-  const [fileName, setFileName] = useState<string | null>(getFileNameFromUrl(documentUrl));
+  const [displayFileName, setDisplayFileName] = useState<string | null>(fileName || getFileNameFromUrl(documentUrl));
 
   function getFileTypeFromUrl(url?: string): string | null {
     if (!url) return null;
@@ -64,20 +66,25 @@ export function ProtocolViewer({
     // Get and validate file type
     const type = getFileType(file);
     setFileType(type);
-    setFileName(file.name);
+    setDisplayFileName(file.name);
     setLoading(true);
     
     try {
-      // For text-based files, read content
+      // For text-based files, read content immediately for display
       if (type === 'text' || type === 'markdown' || type === 'json') {
         const reader = new FileReader();
         reader.onload = async (event) => {
           const content = event.target?.result as string;
           setFileContent(content);
           
-          // Upload file to storage if handler provided
+          // Now try to upload the file if handler provided
           if (onUpload) {
-            await onUpload(file);
+            try {
+              await onUpload(file);
+            } catch (uploadError) {
+              console.error("Upload to storage failed, but file is displayed locally:", uploadError);
+              // Don't show error to user since file is already displayed
+            }
           }
           
           toast({
@@ -96,15 +103,30 @@ export function ProtocolViewer({
         
         reader.readAsText(file);
       } else {
-        // For binary files like PDF and Word, we just upload without reading content
+        // For binary files (PDF, Word, etc.)
         setFileContent(null);
+        
+        // Create an object URL for immediate display
+        const objectUrl = URL.createObjectURL(file);
+        if (documentUrl && documentUrl.startsWith('blob:')) {
+          URL.revokeObjectURL(documentUrl); // Clean up previous blob URL
+        }
+        
+        // Try to upload
         if (onUpload) {
-          await onUpload(file);
-          
-          toast({
-            title: "File uploaded successfully",
-            description: `The ${file.name} file has been uploaded and will be available for viewing.`,
-          });
+          try {
+            await onUpload(file);
+            toast({
+              title: "File uploaded successfully",
+              description: `The ${file.name} file has been uploaded and is available for viewing.`,
+            });
+          } catch (uploadError) {
+            console.error("Upload to storage failed:", uploadError);
+            toast({
+              title: "File displayed locally",
+              description: "File upload to storage failed, but you can view it locally.",
+            });
+          }
         }
       }
     } catch (error) {
@@ -118,6 +140,15 @@ export function ProtocolViewer({
       setLoading(false);
     }
   };
+
+  // Update content when props change
+  if (documentContent !== fileContent) {
+    setFileContent(documentContent || null);
+  }
+  
+  if (fileName && fileName !== displayFileName) {
+    setDisplayFileName(fileName);
+  }
 
   const renderFilePreview = () => {
     // If we don't have any document URL or content
@@ -180,7 +211,7 @@ export function ProtocolViewer({
         <CardTitle className="text-lg font-medium flex items-center">
           {getFileIcon()}
           {title}
-          {fileName && <span className="ml-2 text-sm text-muted-foreground">({fileName})</span>}
+          {displayFileName && <span className="ml-2 text-sm text-muted-foreground">({displayFileName})</span>}
         </CardTitle>
         <div className="flex items-center space-x-1">
           {documentUrl && (
@@ -192,7 +223,7 @@ export function ProtocolViewer({
           )}
           {documentUrl && (
             <Button variant="outline" size="icon" asChild>
-              <a href={documentUrl} download>
+              <a href={documentUrl} download={displayFileName || undefined}>
                 <Download className="h-4 w-4" />
               </a>
             </Button>

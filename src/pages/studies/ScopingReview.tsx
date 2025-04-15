@@ -22,6 +22,7 @@ const ScopingReview = () => {
   const navigate = useNavigate();
   const [protocolContent, setProtocolContent] = useState<string | null>(null);
   const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   
   const { 
     tasks, 
@@ -61,6 +62,7 @@ const ScopingReview = () => {
         if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
           const typedProtocolDoc = protocolDocs as StudyDocument;
           setProtocolUrl(typedProtocolDoc.file_url);
+          setUploadedFileName(typedProtocolDoc.title);
           
           try {
             const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
@@ -85,30 +87,57 @@ const ScopingReview = () => {
 
   const handleProtocolUpload = async (file: File) => {
     try {
-      const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
-      
-      if (uploadedDocument) {
-        const typedDocument = uploadedDocument as StudyDocument;
+      // Handle local file reading first
+      if (file) {
+        const fileType = file.type.toLowerCase();
+        const isTextFile = fileType === 'text/plain' || 
+                           file.name.endsWith('.txt') || 
+                           file.name.endsWith('.md') || 
+                           file.name.endsWith('.json');
         
-        if (typedDocument.file_url) {
-          setProtocolUrl(typedDocument.file_url);
-          
-          const fileType = file.type.toLowerCase();
-          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-              file.name.endsWith('.md') || file.name.endsWith('.json')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const content = e.target?.result as string;
+        // Set file name to display
+        setUploadedFileName(file.name);
+        
+        // For text files, read content directly
+        if (isTextFile) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const content = e.target?.result as string;
+            if (content) {
               setProtocolContent(content);
-            };
-            reader.readAsText(file);
+              // Create a local URL for the file for display purposes
+              const blob = new Blob([content], { type: fileType || 'text/plain' });
+              const url = URL.createObjectURL(blob);
+              setProtocolUrl(url);
+            }
+          };
+          reader.readAsText(file);
+        } else {
+          // For non-text files, create object URL
+          const url = URL.createObjectURL(file);
+          setProtocolUrl(url);
+          setProtocolContent(null);
+        }
+      }
+      
+      // Try to upload to Supabase (but don't block display)
+      try {
+        const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
+        if (uploadedDocument && typeof uploadedDocument === 'object' && 'file_url' in uploadedDocument) {
+          // If successful, update the URL with the one from Supabase
+          const typedDocument = uploadedDocument as StudyDocument;
+          if (typedDocument.file_url) {
+            setProtocolUrl(typedDocument.file_url);
           }
         }
+      } catch (uploadError) {
+        console.error('Storage upload error (continuing with local file):', uploadError);
+        // Don't show error to user since we're displaying the file locally anyway
       }
       
       return Promise.resolve();
     } catch (error: any) {
-      console.error('Error uploading protocol:', error);
+      console.error('Error handling protocol:', error);
       toast({
         title: "Upload failed",
         description: error.message,
@@ -201,6 +230,7 @@ const ScopingReview = () => {
               title="Study Protocol" 
               documentUrl={protocolUrl || undefined} 
               documentContent={protocolContent || undefined}
+              fileName={uploadedFileName || undefined}
               onUpload={handleProtocolUpload}
             />
           </TabsContent>
