@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -125,15 +124,17 @@ const ScopingReview = () => {
       try {
         const uploadResult = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
         
-        // Check if the result is a valid StudyDocument by verifying it has the expected properties
-        if (uploadResult && 
-            typeof uploadResult === 'object' && 
-            'id' in uploadResult && 
-            'file_url' in uploadResult) {
-          // Now it's safe to cast to StudyDocument
-          const uploadedDocument = uploadResult as StudyDocument;
-          if (uploadedDocument.file_url) {
-            setProtocolUrl(uploadedDocument.file_url);
+        // First check if uploadResult is not null before proceeding
+        if (uploadResult) {
+          // Then check if it has the expected properties to be a valid StudyDocument
+          if (typeof uploadResult === 'object' &&
+              'id' in uploadResult &&
+              'file_url' in uploadResult) {
+            // Now it's safe to cast to StudyDocument
+            const uploadedDocument = uploadResult as StudyDocument;
+            if (uploadedDocument.file_url) {
+              setProtocolUrl(uploadedDocument.file_url);
+            }
           }
         }
       } catch (uploadError) {

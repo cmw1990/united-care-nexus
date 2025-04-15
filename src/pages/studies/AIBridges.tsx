@@ -107,15 +107,17 @@ const AIBridges = () => {
       try {
         const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
         
-        // Check if the result is a valid StudyDocument by verifying it has the expected properties
-        if (uploadResult && 
-            typeof uploadResult === 'object' && 
-            'id' in uploadResult && 
-            'file_url' in uploadResult) {
-          // Now it's safe to cast to StudyDocument
-          const uploadedDocument = uploadResult as StudyDocument;
-          if (uploadedDocument.file_url) {
-            setProtocolUrl(uploadedDocument.file_url);
+        // First check if uploadResult is not null before proceeding
+        if (uploadResult) {
+          // Then check if it has the expected properties to be a valid StudyDocument
+          if (typeof uploadResult === 'object' && 
+              'id' in uploadResult && 
+              'file_url' in uploadResult) {
+            // Now it's safe to cast to StudyDocument
+            const uploadedDocument = uploadResult as StudyDocument;
+            if (uploadedDocument.file_url) {
+              setProtocolUrl(uploadedDocument.file_url);
+            }
           }
         }
       } catch (uploadError) {
