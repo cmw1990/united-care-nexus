@@ -88,21 +88,20 @@ const ScopingReview = () => {
       const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
       
       if (uploadedDocument) {
-        if (typeof uploadedDocument === 'object' && 'file_url' in uploadedDocument) {
-          const typedDocument = uploadedDocument as StudyDocument;
-          if (typedDocument.file_url) {
-            setProtocolUrl(typedDocument.file_url);
-            
-            const fileType = file.type.toLowerCase();
-            if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-                file.name.endsWith('.md') || file.name.endsWith('.json')) {
-              const reader = new FileReader();
-              reader.onload = (e) => {
-                const content = e.target?.result as string;
-                setProtocolContent(content);
-              };
-              reader.readAsText(file);
-            }
+        const typedDocument = uploadedDocument as StudyDocument;
+        
+        if (typedDocument.file_url) {
+          setProtocolUrl(typedDocument.file_url);
+          
+          const fileType = file.type.toLowerCase();
+          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+              file.name.endsWith('.md') || file.name.endsWith('.json')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const content = e.target?.result as string;
+              setProtocolContent(content);
+            };
+            reader.readAsText(file);
           }
         }
       }
