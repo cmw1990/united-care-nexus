@@ -38,7 +38,7 @@ const AIBridges = () => {
           return;
         }
         
-        if (protocolDocs?.file_url) {
+        if (protocolDocs && protocolDocs.file_url) {
           setProtocolUrl(protocolDocs.file_url);
           
           // Fetch the content
@@ -61,7 +61,7 @@ const AIBridges = () => {
       // Upload the protocol file
       const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for AI Bridges study");
       
-      if (uploadedDocument?.file_url) {
+      if (uploadedDocument && uploadedDocument.file_url) {
         setProtocolUrl(uploadedDocument.file_url);
       }
       

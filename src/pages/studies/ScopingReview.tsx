@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ const ScopingReview = () => {
           return;
         }
         
-        if (protocolDocs?.file_url) {
+        if (protocolDocs && protocolDocs.file_url) {
           setProtocolUrl(protocolDocs.file_url);
           
           const response = await fetch(protocolDocs.file_url);
@@ -74,7 +75,7 @@ const ScopingReview = () => {
     try {
       const uploadedDocument = await uploadDocument(file, "protocol.txt", "Protocol document for scoping review");
       
-      if (uploadedDocument?.file_url) {
+      if (uploadedDocument && uploadedDocument.file_url) {
         setProtocolUrl(uploadedDocument.file_url);
       }
       
