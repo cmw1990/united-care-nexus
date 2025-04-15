@@ -43,16 +43,17 @@ const AIBridges = () => {
           return;
         }
 
-        // Cast to proper type after checking it exists
-        const typedProtocolDoc = protocolDocs as StudyDocument;
-        if (typedProtocolDoc.file_url) {
+        // Make sure we have valid data before accessing properties
+        if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
+          // Now TypeScript knows protocolDocs has a file_url property
+          const typedProtocolDoc = protocolDocs as StudyDocument;
           setProtocolUrl(typedProtocolDoc.file_url);
           
           try {
             // Fetch the content only for text-based files
-            const fileUrl = typedProtocolDoc.file_url.toLowerCase();
-            if (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json')) {
-              const response = await fetch(typedProtocolDoc.file_url);
+            const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
+            if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
+              const response = await fetch(typedProtocolDoc.file_url as string);
               if (response.ok) {
                 const text = await response.text();
                 setProtocolContent(text);
@@ -79,21 +80,23 @@ const AIBridges = () => {
         throw new Error("Failed to upload document");
       }
 
-      // Cast to proper type after checking it exists
-      const typedDocument = uploadedDocument as StudyDocument;
-      if (typedDocument.file_url) {
-        setProtocolUrl(typedDocument.file_url);
-        
-        // For text files, also set the content
-        const fileType = file.type.toLowerCase();
-        if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-            file.name.endsWith('.md') || file.name.endsWith('.json')) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const content = e.target?.result as string;
-            setProtocolContent(content);
-          };
-          reader.readAsText(file);
+      // Make sure we have valid data before accessing properties
+      if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
+        const typedDocument = uploadedDocument as StudyDocument;
+        if (typedDocument.file_url) {
+          setProtocolUrl(typedDocument.file_url);
+          
+          // For text files, also set the content
+          const fileType = file.type.toLowerCase();
+          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+              file.name.endsWith('.md') || file.name.endsWith('.json')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const content = e.target?.result as string;
+              setProtocolContent(content);
+            };
+            reader.readAsText(file);
+          }
         }
       }
       

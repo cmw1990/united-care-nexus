@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { Download, ExternalLink, Maximize, Minimize, FileText, FileIcon } from "lucide-react";
+import { Download, ExternalLink, Maximize, Minimize, FileText, FileIcon, File } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface ProtocolViewerProps {
@@ -22,8 +22,27 @@ export function ProtocolViewer({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [fileContent, setFileContent] = useState<string | null>(documentContent || null);
-  const [fileType, setFileType] = useState<string | null>(null);
-  const [fileName, setFileName] = useState<string | null>(null);
+  const [fileType, setFileType] = useState<string | null>(getFileTypeFromUrl(documentUrl));
+  const [fileName, setFileName] = useState<string | null>(getFileNameFromUrl(documentUrl));
+
+  function getFileTypeFromUrl(url?: string): string | null {
+    if (!url) return null;
+    const lowercaseUrl = url.toLowerCase();
+    
+    if (lowercaseUrl.endsWith('.pdf')) return 'pdf';
+    if (lowercaseUrl.endsWith('.doc') || lowercaseUrl.endsWith('.docx')) return 'word';
+    if (lowercaseUrl.endsWith('.txt')) return 'text';
+    if (lowercaseUrl.endsWith('.md')) return 'markdown';
+    if (lowercaseUrl.endsWith('.json')) return 'json';
+    return 'other';
+  }
+
+  function getFileNameFromUrl(url?: string): string | null {
+    if (!url) return null;
+    // Extract file name from URL
+    const parts = url.split('/');
+    return parts[parts.length - 1];
+  }
 
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
@@ -78,6 +97,7 @@ export function ProtocolViewer({
         reader.readAsText(file);
       } else {
         // For binary files like PDF and Word, we just upload without reading content
+        setFileContent(null);
         if (onUpload) {
           await onUpload(file);
           
@@ -100,25 +120,17 @@ export function ProtocolViewer({
   };
 
   const renderFilePreview = () => {
-    // If we have a document URL but no detected file type, try to determine from URL
-    if (documentUrl && !fileType) {
-      const url = documentUrl.toLowerCase();
-      if (url.endsWith('.pdf')) setFileType('pdf');
-      else if (url.endsWith('.doc') || url.endsWith('.docx')) setFileType('word');
-      else if (url.endsWith('.txt')) setFileType('text');
-      else if (url.endsWith('.md')) setFileType('markdown');
-      else if (url.endsWith('.json')) setFileType('json');
-    }
-
+    // If we don't have any document URL or content
     if (!documentUrl && !fileContent) {
       return (
-        <div className="flex items-center justify-center h-60 bg-muted/30 rounded-md">
+        <div className="flex flex-col items-center justify-center h-60 bg-muted/30 rounded-md">
+          <File className="h-12 w-12 text-muted-foreground mb-4" />
           <p className="text-muted-foreground">Upload a file to see its content</p>
         </div>
       );
     }
 
-    // PDF or Word document display using iframe
+    // For PDF, Word, or other binary documents, use iframe
     if (documentUrl && (fileType === 'pdf' || fileType === 'word' || fileType === 'other')) {
       return (
         <div className="border rounded-md overflow-hidden">
@@ -155,10 +167,18 @@ export function ProtocolViewer({
     );
   };
 
+  const getFileIcon = () => {
+    if (fileType === 'pdf') return <FileText className="h-4 w-4 mr-2 text-red-500" />;
+    if (fileType === 'word') return <FileText className="h-4 w-4 mr-2 text-blue-500" />;
+    if (fileType === 'text' || fileType === 'markdown' || fileType === 'json') return <FileText className="h-4 w-4 mr-2 text-gray-500" />;
+    return <FileIcon className="h-4 w-4 mr-2" />;
+  };
+
   return (
     <Card className={`border shadow-sm ${isFullscreen ? "fixed inset-0 z-50 rounded-none" : ""}`}>
       <CardHeader className="pb-3 flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-medium">
+        <CardTitle className="text-lg font-medium flex items-center">
+          {getFileIcon()}
           {title}
           {fileName && <span className="ml-2 text-sm text-muted-foreground">({fileName})</span>}
         </CardTitle>

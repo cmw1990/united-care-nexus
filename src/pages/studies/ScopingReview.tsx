@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -59,16 +58,14 @@ const ScopingReview = () => {
           return;
         }
         
-        // Cast to proper type after checking it exists
-        const typedProtocolDoc = protocolDocs as StudyDocument;
-        if (typedProtocolDoc.file_url) {
+        if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
+          const typedProtocolDoc = protocolDocs as StudyDocument;
           setProtocolUrl(typedProtocolDoc.file_url);
           
           try {
-            // Fetch the content only for text-based files
-            const fileUrl = typedProtocolDoc.file_url.toLowerCase();
-            if (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json')) {
-              const response = await fetch(typedProtocolDoc.file_url);
+            const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
+            if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
+              const response = await fetch(typedProtocolDoc.file_url as string);
               if (response.ok) {
                 const text = await response.text();
                 setProtocolContent(text);
@@ -88,28 +85,27 @@ const ScopingReview = () => {
 
   const handleProtocolUpload = async (file: File) => {
     try {
-      // Upload the protocol file with the original file name to preserve extension
       const uploadedDocument = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
       
       if (!uploadedDocument) {
         throw new Error("Failed to upload document");
       }
 
-      // Cast to proper type after checking it exists
-      const typedDocument = uploadedDocument as StudyDocument;
-      if (typedDocument.file_url) {
-        setProtocolUrl(typedDocument.file_url);
-        
-        // For text files, also set the content
-        const fileType = file.type.toLowerCase();
-        if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
-            file.name.endsWith('.md') || file.name.endsWith('.json')) {
-          const reader = new FileReader();
-          reader.onload = (e) => {
-            const content = e.target?.result as string;
-            setProtocolContent(content);
-          };
-          reader.readAsText(file);
+      if (typeof uploadedDocument === 'object' && uploadedDocument !== null && 'file_url' in uploadedDocument) {
+        const typedDocument = uploadedDocument as StudyDocument;
+        if (typedDocument.file_url) {
+          setProtocolUrl(typedDocument.file_url);
+          
+          const fileType = file.type.toLowerCase();
+          if (fileType === 'text/plain' || file.name.endsWith('.txt') || 
+              file.name.endsWith('.md') || file.name.endsWith('.json')) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+              const content = e.target?.result as string;
+              setProtocolContent(content);
+            };
+            reader.readAsText(file);
+          }
         }
       }
       
@@ -136,7 +132,7 @@ const ScopingReview = () => {
       id: `comment-${q.id}`,
       content: q.answer,
       author: { id: q.answered_by || "", name: "Researcher", initials: "R", role: "Researcher" },
-      timestamp: q.created_at // Using created_at as a placeholder for answer timestamp
+      timestamp: q.created_at
     }] : [],
     isResolved: q.status === "resolved"
   }));
@@ -145,7 +141,7 @@ const ScopingReview = () => {
     id: doc.id,
     name: doc.title,
     type: doc.file_type || "document",
-    size: 1000000, // Placeholder file size
+    size: 1000000,
     uploadedBy: "Researcher",
     uploadDate: new Date().toISOString().split('T')[0],
     downloadUrl: doc.file_url || "#"
