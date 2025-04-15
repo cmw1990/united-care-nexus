@@ -69,7 +69,6 @@ const AIBridges = () => {
 
   const handleProtocolUpload = async (file: File) => {
     try {
-      // Handle local file reading first
       if (file) {
         const fileType = file.type.toLowerCase();
         const isTextFile = fileType === 'text/plain' || 
@@ -77,17 +76,14 @@ const AIBridges = () => {
                            file.name.endsWith('.md') || 
                            file.name.endsWith('.json');
         
-        // Set file name to display
         setUploadedFileName(file.name);
         
-        // For text files, read content directly
         if (isTextFile) {
           const reader = new FileReader();
           reader.onload = (e) => {
             const content = e.target?.result as string;
             if (content) {
               setProtocolContent(content);
-              // Create a local URL for the file for display purposes
               const blob = new Blob([content], { type: fileType || 'text/plain' });
               const url = URL.createObjectURL(blob);
               setProtocolUrl(url);
@@ -95,31 +91,18 @@ const AIBridges = () => {
           };
           reader.readAsText(file);
         } else {
-          // For non-text files, create object URL
           const url = URL.createObjectURL(file);
           setProtocolUrl(url);
           setProtocolContent(null);
         }
       }
       
-      // Try to upload to Supabase (but don't block display)
       try {
         const uploadResult = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
         
-        // Safely handle potentially null uploadResult
-        if (uploadResult) {
-          // Check if the result has the expected properties of StudyDocument
-          if (
-            typeof uploadResult === 'object' && 
-            'id' in uploadResult && 
-            'file_url' in uploadResult
-          ) {
-            // Type assertion after property checks
-            const uploadedDocument = uploadResult as StudyDocument;
-            
-            // Safely access file_url
-            uploadedDocument.file_url && setProtocolUrl(uploadedDocument.file_url);
-          }
+        if (uploadResult?.id && uploadResult?.file_url) {
+          const uploadedDocument = uploadResult as StudyDocument;
+          setProtocolUrl(uploadedDocument.file_url ?? null);
         }
       } catch (uploadError) {
         console.error('Storage upload error (continuing with local file):', uploadError);

@@ -117,15 +117,9 @@ const ScopingReview = () => {
         try {
           const uploadResult = await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
           
-          if (uploadResult) {
-            if (
-              typeof uploadResult === 'object' && 
-              'id' in uploadResult && 
-              'file_url' in uploadResult
-            ) {
-              const uploadedDocument = uploadResult as StudyDocument;
-              uploadedDocument.file_url && setProtocolUrl(uploadedDocument.file_url);
-            }
+          if (uploadResult?.id && uploadResult?.file_url) {
+            const uploadedDocument = uploadResult as StudyDocument;
+            setProtocolUrl(uploadedDocument.file_url ?? null);
           }
         } catch (uploadError) {
           console.error('Storage upload error (continuing with local file):', uploadError);
