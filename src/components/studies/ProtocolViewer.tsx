@@ -83,7 +83,7 @@ export function ProtocolViewer({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    console.log("File selected:", file.name);
+    console.log("File selected in ProtocolViewer:", file.name);
     
     // Get and validate file type
     const type = getFileType(file);
@@ -103,6 +103,7 @@ export function ProtocolViewer({
           if (onUpload) {
             try {
               await onUpload(file);
+              console.log("Upload handler completed successfully");
             } catch (uploadError) {
               console.error("Upload failed:", uploadError);
               toast({
@@ -111,6 +112,8 @@ export function ProtocolViewer({
                 variant: "destructive",
               });
             }
+          } else {
+            console.warn("No upload handler provided to ProtocolViewer");
           }
         };
         
@@ -128,6 +131,7 @@ export function ProtocolViewer({
         if (onUpload) {
           try {
             await onUpload(file);
+            console.log("Binary file upload handler completed successfully");
           } catch (uploadError) {
             console.error("Upload failed:", uploadError);
             toast({
@@ -136,6 +140,8 @@ export function ProtocolViewer({
               variant: "destructive",
             });
           }
+        } else {
+          console.warn("No upload handler provided to ProtocolViewer");
         }
       }
     } catch (error) {

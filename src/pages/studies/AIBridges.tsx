@@ -93,10 +93,11 @@ const AIBridges = () => {
       const file = selectedFile;
       console.log("Starting upload for file:", file.name);
       
-      // Step 1: Upload file to Supabase Storage
+      // Generate a unique filename to prevent conflicts
       const fileName = `${Date.now()}-${file.name}`;
-      const filePath = `${fileName}`;
+      const filePath = fileName;
       
+      // Upload file to Supabase Storage
       const { data: storageData, error: storageError } = await supabase.storage
         .from('study-documents')
         .upload(filePath, file, {
@@ -111,15 +112,17 @@ const AIBridges = () => {
       
       console.log("File uploaded to storage successfully:", storageData);
       
-      // Step 2: Get the public URL
+      // Get the public URL
       const { data: { publicUrl } } = supabase.storage
         .from('study-documents')
         .getPublicUrl(filePath);
       
       console.log("Public URL generated:", publicUrl);
       
-      // Step 3: Update local state based on file type
+      // Update local state based on file type
       setUploadedFileName(file.name);
+      
+      // Read text content if it's a text-based file
       const fileType = file.type.toLowerCase();
       const isTextFile = fileType === 'text/plain' || 
                          file.name.endsWith('.txt') || 
@@ -141,7 +144,7 @@ const AIBridges = () => {
       
       setProtocolUrl(publicUrl);
       
-      // Step 4: Create record in study_documents table
+      // Create record in study_documents table
       const newDocument = {
         title: file.name,
         description: `Protocol document for AI Bridges study - ${file.name}`,
@@ -153,15 +156,14 @@ const AIBridges = () => {
       
       const { data: docData, error: docError } = await supabase
         .from('study_documents')
-        .insert(newDocument)
-        .select();
+        .insert(newDocument);
       
       if (docError) {
         console.error('Database insert error:', docError);
         throw docError;
       }
       
-      console.log("Document record created:", docData);
+      console.log("Document record created successfully");
       
       // Refresh the protocol data after successful upload
       await loadProtocolFile();
