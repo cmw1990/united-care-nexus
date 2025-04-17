@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -23,9 +23,25 @@ export function ProtocolViewer({
 }: ProtocolViewerProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [fileContent, setFileContent] = useState<string | null>(documentContent || null);
-  const [fileType, setFileType] = useState<string | null>(getFileTypeFromUrl(documentUrl));
-  const [displayFileName, setDisplayFileName] = useState<string | null>(fileName || getFileNameFromUrl(documentUrl));
+  const [fileContent, setFileContent] = useState<string | null>(null);
+  const [fileType, setFileType] = useState<string | null>(null);
+  const [displayFileName, setDisplayFileName] = useState<string | null>(null);
+
+  // Use useEffect to handle prop changes instead of directly in render
+  useEffect(() => {
+    // Set file content from prop when it changes
+    setFileContent(documentContent || null);
+    
+    // Set file name from prop when it changes
+    if (fileName) {
+      setDisplayFileName(fileName);
+    } else {
+      setDisplayFileName(getFileNameFromUrl(documentUrl));
+    }
+    
+    // Set file type from URL when it changes
+    setFileType(getFileTypeFromUrl(documentUrl));
+  }, [documentContent, documentUrl, fileName]);
 
   function getFileTypeFromUrl(url?: string): string | null {
     if (!url) return null;
@@ -140,15 +156,6 @@ export function ProtocolViewer({
       setLoading(false);
     }
   };
-
-  // Update content when props change
-  if (documentContent !== fileContent) {
-    setFileContent(documentContent || null);
-  }
-  
-  if (fileName && fileName !== displayFileName) {
-    setDisplayFileName(fileName);
-  }
 
   const renderFilePreview = () => {
     // If we don't have any document URL or content

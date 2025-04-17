@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
 import { useStudy } from "@/hooks/useStudy";
@@ -10,7 +10,6 @@ import { QuestionsManager } from "@/components/studies/QuestionsManager";
 import { FileManager } from "@/components/studies/FileManager";
 import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 import { useLanguage } from "@/context/LanguageContext";
 import { supabase } from "@/integrations/supabase/client";
@@ -21,7 +20,6 @@ const ScopingReview = () => {
   const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState("protocol");
   const { user, isLoading: authLoading } = useAuth();
-  const navigate = useNavigate();
   const [protocolContent, setProtocolContent] = useState<string | null>(null);
   const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
@@ -45,6 +43,7 @@ const ScopingReview = () => {
     saveNote
   } = useStudy("scoping-review");
 
+  // Extract protocol file loading to a separate useEffect with proper dependency array
   useEffect(() => {
     const loadProtocolFile = async () => {
       try {
@@ -88,22 +87,23 @@ const ScopingReview = () => {
     };
     
     loadProtocolFile();
-  }, []);
+  }, []); // Empty dependency array - only run once on mount
 
-  const prepareUpload = (file: File): Promise<void> => {
+  // Convert prepareUpload to return a Promise to match expected type
+  const prepareUpload = useCallback((file: File): Promise<void> => {
     return new Promise((resolve) => {
       setSelectedFile(file);
       setShowConfirmDialog(true);
       resolve();
     });
-  };
+  }, []);
 
-  const cancelUpload = () => {
+  const cancelUpload = useCallback(() => {
     setSelectedFile(null);
     setShowConfirmDialog(false);
-  };
+  }, []);
 
-  const confirmUpload = async () => {
+  const confirmUpload = useCallback(async () => {
     if (!selectedFile) return;
     
     setIsUploading(true);
@@ -120,7 +120,7 @@ const ScopingReview = () => {
       
       if (isTextFile) {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
           const content = e.target?.result as string;
           if (content) {
             setProtocolContent(content);
@@ -129,6 +129,7 @@ const ScopingReview = () => {
             setProtocolUrl(url);
           }
         };
+        
         reader.readAsText(file);
       } else {
         const url = URL.createObjectURL(file);
@@ -156,7 +157,7 @@ const ScopingReview = () => {
       setShowConfirmDialog(false);
       setSelectedFile(null);
     }
-  };
+  }, [selectedFile, uploadDocument]);
 
   const formattedQuestions = questions.map(q => ({
     id: q.id,
