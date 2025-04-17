@@ -1,5 +1,4 @@
-
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -85,7 +84,14 @@ const AIBridges = () => {
   };
 
   const confirmUpload = async () => {
-    if (!selectedFile) return;
+    if (!selectedFile) {
+      toast({
+        title: "No file selected",
+        description: "Please select a file to upload",
+        variant: "destructive"
+      });
+      return;
+    }
     
     setIsUploading(true);
     
@@ -97,7 +103,7 @@ const AIBridges = () => {
       const fileName = `${Date.now()}-${file.name}`;
       const filePath = fileName;
       
-      // Upload file to Supabase Storage
+      // Upload file to Supabase Storage with error handling
       const { data: storageData, error: storageError } = await supabase.storage
         .from('study-documents')
         .upload(filePath, file, {
@@ -107,7 +113,7 @@ const AIBridges = () => {
       
       if (storageError) {
         console.error('Storage upload error:', storageError);
-        throw storageError;
+        throw new Error(storageError.message);
       }
       
       console.log("File uploaded to storage successfully:", storageData);
@@ -154,13 +160,13 @@ const AIBridges = () => {
         study_id: 'ai-bridges',
       };
       
-      const { data: docData, error: docError } = await supabase
+      const { error: docError } = await supabase
         .from('study_documents')
         .insert(newDocument);
       
       if (docError) {
         console.error('Database insert error:', docError);
-        throw docError;
+        throw new Error(docError.message);
       }
       
       console.log("Document record created successfully");
@@ -170,7 +176,7 @@ const AIBridges = () => {
       
       toast({
         title: "Upload successful",
-        description: "Your protocol file has been uploaded successfully.",
+        description: `${file.name} has been uploaded successfully.`,
       });
     } catch (error: any) {
       console.error('Error handling protocol:', error);
