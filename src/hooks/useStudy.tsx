@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { StudyCollaborator, StudyTask, StudyQuestion, StudyDocument, StudyNote } from "@/types/database.types";
@@ -77,7 +76,7 @@ export const useStudy = (studyId: string) => {
       // Using explicit type casting with 'as any' to bypass TypeScript errors
       // Fetch collaborators
       const { data: collaboratorsData, error: collaboratorsError } = await supabase
-        .from('study_collaborators' as any)
+        .from('study_collaborators')
         .select('*')
         .eq('study_id', studyId);
 
@@ -88,7 +87,7 @@ export const useStudy = (studyId: string) => {
 
       // Fetch tasks
       const { data: tasksData, error: tasksError } = await supabase
-        .from('study_tasks' as any)
+        .from('study_tasks')
         .select('*')
         .eq('study_id', studyId);
 
@@ -97,7 +96,7 @@ export const useStudy = (studyId: string) => {
 
       // Fetch questions
       const { data: questionsData, error: questionsError } = await supabase
-        .from('study_questions' as any)
+        .from('study_questions')
         .select('*')
         .eq('study_id', studyId);
 
@@ -106,7 +105,7 @@ export const useStudy = (studyId: string) => {
 
       // Fetch documents
       const { data: documentsData, error: documentsError } = await supabase
-        .from('study_documents' as any)
+        .from('study_documents')
         .select('*')
         .eq('study_id', studyId);
 
@@ -115,7 +114,7 @@ export const useStudy = (studyId: string) => {
 
       // Fetch notes
       const { data: notesData, error: notesError } = await supabase
-        .from('study_notes' as any)
+        .from('study_notes')
         .select('*')
         .eq('study_id', studyId);
 
@@ -285,7 +284,7 @@ export const useStudy = (studyId: string) => {
   };
 
   // Upload document
-  const uploadDocument = async (file: File, title: string, description?: string) => {
+  const uploadDocument = useCallback(async (file: File, title: string, description?: string) => {
     try {
       // Upload file to storage
       const fileName = `${Date.now()}-${file.name}`;
@@ -295,12 +294,17 @@ export const useStudy = (studyId: string) => {
         .from('study-documents')
         .upload(filePath, file);
         
-      if (uploadError) throw uploadError;
+      if (uploadError) {
+        console.error('Storage upload error:', uploadError);
+        throw uploadError;
+      }
       
       // Get the public URL
       const { data: { publicUrl } } = supabase.storage
         .from('study-documents')
         .getPublicUrl(filePath);
+      
+      console.log('File uploaded successfully to:', publicUrl);
       
       // Create document record
       const newDocument = {
@@ -313,15 +317,24 @@ export const useStudy = (studyId: string) => {
       };
       
       const { data: docData, error: docError } = await supabase
-        .from('study_documents' as any)
+        .from('study_documents')
         .insert(newDocument)
-        .select()
-        .single();
+        .select();
         
-      if (docError) throw docError;
+      if (docError) {
+        console.error('Database insert error:', docError);
+        throw docError;
+      }
       
-      setDocuments(prev => [...prev, docData as unknown as StudyDocument]);
-      return docData;
+      console.log('Document record created:', docData);
+      
+      // Update local state
+      if (docData && docData.length > 0) {
+        setDocuments(prev => [...prev, docData[0] as unknown as StudyDocument]);
+        return docData[0];
+      }
+      
+      return null;
     } catch (error: any) {
       console.error('Error uploading document:', error);
       toast({
@@ -331,7 +344,7 @@ export const useStudy = (studyId: string) => {
       });
       return null;
     }
-  };
+  }, [studyId]);
 
   // Delete document
   const deleteDocument = async (documentId: string, filePath?: string) => {

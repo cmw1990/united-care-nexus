@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -30,20 +30,24 @@ export function ProtocolViewer({
   // Use useEffect to handle prop changes instead of directly in render
   useEffect(() => {
     // Set file content from prop when it changes
-    setFileContent(documentContent || null);
+    if (documentContent) {
+      setFileContent(documentContent);
+    }
     
     // Set file name from prop when it changes
     if (fileName) {
       setDisplayFileName(fileName);
-    } else {
+    } else if (documentUrl) {
       setDisplayFileName(getFileNameFromUrl(documentUrl));
     }
     
     // Set file type from URL when it changes
-    setFileType(getFileTypeFromUrl(documentUrl));
+    if (documentUrl) {
+      setFileType(getFileTypeFromUrl(documentUrl));
+    }
   }, [documentContent, documentUrl, fileName]);
 
-  function getFileTypeFromUrl(url?: string): string | null {
+  const getFileTypeFromUrl = useCallback((url?: string): string | null => {
     if (!url) return null;
     const lowercaseUrl = url.toLowerCase();
     
@@ -53,14 +57,14 @@ export function ProtocolViewer({
     if (lowercaseUrl.endsWith('.md')) return 'markdown';
     if (lowercaseUrl.endsWith('.json')) return 'json';
     return 'other';
-  }
+  }, []);
 
-  function getFileNameFromUrl(url?: string): string | null {
+  const getFileNameFromUrl = useCallback((url?: string): string | null => {
     if (!url) return null;
     // Extract file name from URL
     const parts = url.split('/');
     return parts[parts.length - 1];
-  }
+  }, []);
 
   const toggleFullscreen = () => {
     setIsFullscreen(!isFullscreen);
@@ -97,16 +101,19 @@ export function ProtocolViewer({
           if (onUpload) {
             try {
               await onUpload(file);
+              toast({
+                title: "File uploaded successfully",
+                description: `The ${file.name} file has been uploaded and displayed.`,
+              });
             } catch (uploadError) {
-              console.error("Upload to storage failed, but file is displayed locally:", uploadError);
-              // Don't show error to user since file is already displayed
+              console.error("Upload failed:", uploadError);
+              toast({
+                title: "Upload to storage failed",
+                description: "File is displayed locally, but upload to storage failed.",
+                variant: "destructive",
+              });
             }
           }
-          
-          toast({
-            title: "File uploaded successfully",
-            description: `The ${file.name} file has been uploaded and displayed.`,
-          });
         };
         
         reader.onerror = () => {
@@ -122,12 +129,6 @@ export function ProtocolViewer({
         // For binary files (PDF, Word, etc.)
         setFileContent(null);
         
-        // Create an object URL for immediate display
-        const objectUrl = URL.createObjectURL(file);
-        if (documentUrl && documentUrl.startsWith('blob:')) {
-          URL.revokeObjectURL(documentUrl); // Clean up previous blob URL
-        }
-        
         // Try to upload
         if (onUpload) {
           try {
@@ -139,8 +140,9 @@ export function ProtocolViewer({
           } catch (uploadError) {
             console.error("Upload to storage failed:", uploadError);
             toast({
-              title: "File displayed locally",
-              description: "File upload to storage failed, but you can view it locally.",
+              title: "Upload failed",
+              description: "File upload to storage failed",
+              variant: "destructive",
             });
           }
         }

@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -26,58 +26,57 @@ const AIBridges = () => {
     uploadDocument
   } = useStudy("ai-bridges");
   
-  useEffect(() => {
-    const loadProtocolFile = async () => {
-      try {
-        const { data: protocolDocs, error } = await supabase
-          .from('study_documents')
-          .select('*')
-          .eq('study_id', 'ai-bridges')
-          .eq('title', 'protocol.txt')
-          .single();
-        
-        if (error) {
-          console.log('No protocol file found:', error);
-          return;
-        }
-        
-        if (!protocolDocs) {
-          return;
-        }
+  const loadProtocolFile = useCallback(async () => {
+    try {
+      const { data: protocolDocs, error } = await supabase
+        .from('study_documents')
+        .select('*')
+        .eq('study_id', 'ai-bridges')
+        .order('created_at', { ascending: false })
+        .limit(1);
+      
+      if (error) {
+        console.error('Error loading protocol file:', error);
+        return;
+      }
+      
+      if (!protocolDocs || protocolDocs.length === 0) {
+        console.log('No protocol documents found');
+        return;
+      }
 
-        if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
-          const typedProtocolDoc = protocolDocs as StudyDocument;
-          setProtocolUrl(typedProtocolDoc.file_url);
-          setUploadedFileName(typedProtocolDoc.title);
-          
-          try {
-            const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
-            if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
-              const response = await fetch(typedProtocolDoc.file_url as string);
-              if (response.ok) {
-                const text = await response.text();
-                setProtocolContent(text);
-              }
-            }
-          } catch (contentError) {
-            console.error('Error fetching file content:', contentError);
+      const typedProtocolDoc = protocolDocs[0] as StudyDocument;
+      setProtocolUrl(typedProtocolDoc.file_url);
+      setUploadedFileName(typedProtocolDoc.title);
+      
+      try {
+        const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
+        if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
+          const response = await fetch(typedProtocolDoc.file_url as string);
+          if (response.ok) {
+            const text = await response.text();
+            setProtocolContent(text);
           }
         }
-      } catch (error) {
-        console.error('Error loading protocol file:', error);
+      } catch (contentError) {
+        console.error('Error fetching file content:', contentError);
       }
-    };
-    
-    loadProtocolFile();
+    } catch (error) {
+      console.error('Error loading protocol file:', error);
+    }
   }, []);
+  
+  useEffect(() => {
+    loadProtocolFile();
+  }, [loadProtocolFile]);
 
-  const prepareUpload = (file: File): Promise<void> => {
+  const prepareUpload = useCallback(async (file: File): Promise<void> => {
     return new Promise((resolve) => {
       setSelectedFile(file);
       setShowConfirmDialog(true);
       resolve();
     });
-  };
+  }, []);
 
   const cancelUpload = () => {
     setSelectedFile(null);
@@ -101,35 +100,40 @@ const AIBridges = () => {
       
       if (isTextFile) {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
           const content = e.target?.result as string;
           if (content) {
             setProtocolContent(content);
-            const blob = new Blob([content], { type: fileType || 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            setProtocolUrl(url);
           }
         };
         reader.readAsText(file);
       } else {
-        const url = URL.createObjectURL(file);
-        setProtocolUrl(url);
         setProtocolContent(null);
       }
       
       if (uploadDocument) {
-        await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+        const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
+        if (result) {
+          // Refresh the protocol data after successful upload
+          await loadProtocolFile();
+          
+          toast({
+            title: "Upload successful",
+            description: "Your protocol file has been uploaded successfully.",
+          });
+        } else {
+          toast({
+            title: "Upload failed",
+            description: "Something went wrong during upload. Please try again.",
+            variant: "destructive",
+          });
+        }
       }
-      
-      toast({
-        title: "Upload successful",
-        description: "Your protocol file has been uploaded successfully.",
-      });
     } catch (error: any) {
       console.error('Error handling protocol:', error);
       toast({
         title: "Upload failed",
-        description: error.message,
+        description: error.message || "Failed to upload file",
         variant: "destructive",
       });
     } finally {
