@@ -83,6 +83,8 @@ export function ProtocolViewer({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    console.log("File selected:", file.name);
+    
     // Get and validate file type
     const type = getFileType(file);
     setFileType(type);
@@ -90,7 +92,7 @@ export function ProtocolViewer({
     setLoading(true);
     
     try {
-      // For text-based files, read content immediately for display
+      // For text-based files, read content immediately for local display
       if (type === 'text' || type === 'markdown' || type === 'json') {
         const reader = new FileReader();
         reader.onload = async (event) => {
@@ -101,10 +103,6 @@ export function ProtocolViewer({
           if (onUpload) {
             try {
               await onUpload(file);
-              toast({
-                title: "File uploaded successfully",
-                description: `The ${file.name} file has been uploaded and displayed.`,
-              });
             } catch (uploadError) {
               console.error("Upload failed:", uploadError);
               toast({
@@ -126,22 +124,15 @@ export function ProtocolViewer({
         
         reader.readAsText(file);
       } else {
-        // For binary files (PDF, Word, etc.)
-        setFileContent(null);
-        
-        // Try to upload
+        // For binary files (PDF, Word, etc.), handle directly through upload
         if (onUpload) {
           try {
             await onUpload(file);
-            toast({
-              title: "File uploaded successfully",
-              description: `The ${file.name} file has been uploaded and is available for viewing.`,
-            });
           } catch (uploadError) {
-            console.error("Upload to storage failed:", uploadError);
+            console.error("Upload failed:", uploadError);
             toast({
               title: "Upload failed",
-              description: "File upload to storage failed",
+              description: "File upload failed",
               variant: "destructive",
             });
           }

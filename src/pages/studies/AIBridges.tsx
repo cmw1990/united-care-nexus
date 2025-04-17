@@ -28,6 +28,7 @@ const AIBridges = () => {
   
   const loadProtocolFile = useCallback(async () => {
     try {
+      console.log("Loading protocol file...");
       const { data: protocolDocs, error } = await supabase
         .from('study_documents')
         .select('*')
@@ -45,6 +46,7 @@ const AIBridges = () => {
         return;
       }
 
+      console.log("Protocol docs found:", protocolDocs);
       const typedProtocolDoc = protocolDocs[0] as StudyDocument;
       setProtocolUrl(typedProtocolDoc.file_url);
       setUploadedFileName(typedProtocolDoc.title);
@@ -71,11 +73,10 @@ const AIBridges = () => {
   }, [loadProtocolFile]);
 
   const prepareUpload = useCallback(async (file: File): Promise<void> => {
-    return new Promise((resolve) => {
-      setSelectedFile(file);
-      setShowConfirmDialog(true);
-      resolve();
-    });
+    console.log("Preparing to upload file:", file.name);
+    setSelectedFile(file);
+    setShowConfirmDialog(true);
+    return Promise.resolve();
   }, []);
 
   const cancelUpload = () => {
@@ -90,17 +91,44 @@ const AIBridges = () => {
     
     try {
       const file = selectedFile;
+      console.log("Starting upload for file:", file.name);
+      
+      // Step 1: Upload file to Supabase Storage
+      const fileName = `${Date.now()}-${file.name}`;
+      const filePath = `${fileName}`;
+      
+      const { data: storageData, error: storageError } = await supabase.storage
+        .from('study-documents')
+        .upload(filePath, file, {
+          cacheControl: '3600',
+          upsert: true
+        });
+      
+      if (storageError) {
+        console.error('Storage upload error:', storageError);
+        throw storageError;
+      }
+      
+      console.log("File uploaded to storage successfully:", storageData);
+      
+      // Step 2: Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('study-documents')
+        .getPublicUrl(filePath);
+      
+      console.log("Public URL generated:", publicUrl);
+      
+      // Step 3: Update local state based on file type
+      setUploadedFileName(file.name);
       const fileType = file.type.toLowerCase();
       const isTextFile = fileType === 'text/plain' || 
                          file.name.endsWith('.txt') || 
                          file.name.endsWith('.md') || 
                          file.name.endsWith('.json');
       
-      setUploadedFileName(file.name);
-      
       if (isTextFile) {
         const reader = new FileReader();
-        reader.onload = async (e) => {
+        reader.onload = (e) => {
           const content = e.target?.result as string;
           if (content) {
             setProtocolContent(content);
@@ -111,24 +139,37 @@ const AIBridges = () => {
         setProtocolContent(null);
       }
       
-      if (uploadDocument) {
-        const result = await uploadDocument(file, file.name, `Protocol document for AI Bridges study - ${file.name}`);
-        if (result) {
-          // Refresh the protocol data after successful upload
-          await loadProtocolFile();
-          
-          toast({
-            title: "Upload successful",
-            description: "Your protocol file has been uploaded successfully.",
-          });
-        } else {
-          toast({
-            title: "Upload failed",
-            description: "Something went wrong during upload. Please try again.",
-            variant: "destructive",
-          });
-        }
+      setProtocolUrl(publicUrl);
+      
+      // Step 4: Create record in study_documents table
+      const newDocument = {
+        title: file.name,
+        description: `Protocol document for AI Bridges study - ${file.name}`,
+        file_url: publicUrl,
+        file_type: file.type,
+        created_by: null, // Would be set to user ID in a real app with auth
+        study_id: 'ai-bridges',
+      };
+      
+      const { data: docData, error: docError } = await supabase
+        .from('study_documents')
+        .insert(newDocument)
+        .select();
+      
+      if (docError) {
+        console.error('Database insert error:', docError);
+        throw docError;
       }
+      
+      console.log("Document record created:", docData);
+      
+      // Refresh the protocol data after successful upload
+      await loadProtocolFile();
+      
+      toast({
+        title: "Upload successful",
+        description: "Your protocol file has been uploaded successfully.",
+      });
     } catch (error: any) {
       console.error('Error handling protocol:', error);
       toast({
