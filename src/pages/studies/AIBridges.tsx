@@ -1,15 +1,20 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
+import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import { useStudy } from "@/hooks/useStudy";
-import { StudyDocument } from "@/types/database.types";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { CheckCircle } from "lucide-react";
+import { TasksTab } from "@/components/studies/TasksTab";
+import { QuestionsTab } from "@/components/studies/QuestionsTab";
+import { FilesTab } from "@/components/studies/FilesTab";
+import { EditorTab } from "@/components/studies/EditorTab";
+import { ProtocolTab } from "@/components/studies/ProtocolTab";
 
 const AIBridges = () => {
   const { t } = useLanguage();
@@ -21,9 +26,7 @@ const AIBridges = () => {
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   
-  const { 
-    uploadDocument
-  } = useStudy("ai-bridges");
+  const { uploadDocument } = useStudy("ai-bridges");
   
   const loadProtocolFile = useCallback(async () => {
     try {
@@ -229,6 +232,7 @@ const AIBridges = () => {
               Study 1 Protocol (temp)
             </TabsTrigger>
           </TabsList>
+
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
             <ProtocolViewer 
               title="Study Protocol" 
@@ -239,51 +243,19 @@ const AIBridges = () => {
             />
           </TabsContent>
           <TabsContent value="tasks">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Task Manager</h2>
-              <p className="text-muted-foreground mb-4">Manage and assign tasks related to the study</p>
-              <div className="flex justify-center">
-                <p>Task management functionality will be displayed here</p>
-              </div>
-            </div>
+            <TasksTab />
           </TabsContent>
           <TabsContent value="questions">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Questions</h2>
-              <p className="text-muted-foreground mb-4">Track and manage questions related to the study</p>
-              <div className="flex justify-center">
-                <p>Questions management functionality will be displayed here</p>
-              </div>
-            </div>
+            <QuestionsTab />
           </TabsContent>
           <TabsContent value="files">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Files</h2>
-              <p className="text-muted-foreground mb-4">Upload, download, and manage study files</p>
-              <div className="flex justify-center">
-                <p>File management functionality will be displayed here</p>
-              </div>
-            </div>
+            <FilesTab />
           </TabsContent>
           <TabsContent value="editor">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Co-Editor</h2>
-              <p className="text-muted-foreground mb-4">Collaboratively edit text documents</p>
-              <div className="flex justify-center">
-                <p>Text co-editing functionality will be displayed here</p>
-              </div>
-            </div>
+            <EditorTab />
           </TabsContent>
           <TabsContent value="study1-protocol" className="border rounded-md p-4 mt-4">
-            <div className="prose max-w-none">
-              <h1>Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth</h1>
-              <h2>1. Abstract</h2>
-              <p>{/* Full abstract text from the provided document */}</p>
-              {/* Continue with the full text of the protocol */}
-              <div className="text-sm text-muted-foreground mt-4">
-                Note: This is a temporary display of the full protocol text. A more formatted version will be added in future updates.
-              </div>
-            </div>
+            <ProtocolTab />
           </TabsContent>
         </Tabs>
       </div>
