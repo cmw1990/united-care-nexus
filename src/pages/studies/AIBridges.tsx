@@ -203,7 +203,7 @@ const AIBridges = () => {
         </div>
 
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="protocol">
               <FileText className="h-4 w-4 mr-2" />
               Protocol
@@ -223,6 +223,10 @@ const AIBridges = () => {
             <TabsTrigger value="editor">
               <Edit className="h-4 w-4 mr-2" />
               Co-Editor
+            </TabsTrigger>
+            <TabsTrigger value="study1-protocol">
+              <FileText className="h-4 w-4 mr-2" />
+              Study 1 Protocol (temp)
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
@@ -267,6 +271,17 @@ const AIBridges = () => {
               <p className="text-muted-foreground mb-4">Collaboratively edit text documents</p>
               <div className="flex justify-center">
                 <p>Text co-editing functionality will be displayed here</p>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="study1-protocol" className="border rounded-md p-4 mt-4">
+            <div className="prose max-w-none">
+              <h1>Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth</h1>
+              <h2>1. Abstract</h2>
+              <p>{/* Full abstract text from the provided document */}</p>
+              {/* Continue with the full text of the protocol */}
+              <div className="text-sm text-muted-foreground mt-4">
+                Note: This is a temporary display of the full protocol text. A more formatted version will be added in future updates.
               </div>
             </div>
           </TabsContent>
