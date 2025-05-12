@@ -291,6 +291,8 @@ export const useStudy = (studyId: string) => {
       const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
       const filePath = `${studyId}/${fileName}`;
       
+      console.log('Uploading file to Supabase storage:', filePath);
+      
       // Upload file to storage
       const { error: uploadError, data: uploadData } = await supabase.storage
         .from('study-documents')
@@ -361,6 +363,7 @@ export const useStudy = (studyId: string) => {
       
       // If we have the file path, also remove from storage
       if (filePath) {
+        console.log('Deleting file from storage:', filePath);
         const { error: storageError } = await supabase.storage
           .from('study-documents')
           .remove([filePath]);

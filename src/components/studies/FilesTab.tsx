@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileIcon, Download, Trash2, Eye } from "lucide-react";
@@ -11,13 +11,19 @@ export const FilesTab = () => {
   const [isUploading, setIsUploading] = useState(false);
   const { documents, uploadDocument, deleteDocument, fetchStudyData } = useStudy("scoping-review");
 
+  // Immediately fetch study data on component mount
+  useEffect(() => {
+    fetchStudyData();
+  }, [fetchStudyData]);
+
   const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     setIsUploading(true);
     try {
-      // Simply upload the file as a study document
+      console.log('Uploading file:', file.name);
+      // Upload the file to Supabase storage and create a database record
       await uploadDocument(file, file.name, `File uploaded on ${new Date().toLocaleString()}`);
       toast({
         title: "File uploaded",
@@ -34,6 +40,10 @@ export const FilesTab = () => {
       });
     } finally {
       setIsUploading(false);
+      // Clear the file input
+      if (event.target) {
+        event.target.value = '';
+      }
     }
   }, [uploadDocument, fetchStudyData]);
 
@@ -43,6 +53,7 @@ export const FilesTab = () => {
       const url = new URL(document.file_url);
       const filePath = url.pathname.split('/').slice(2).join('/');
       
+      console.log('Deleting file:', filePath);
       await deleteDocument(document.id, filePath);
       toast({
         title: "File deleted",

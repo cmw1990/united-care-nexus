@@ -5229,6 +5229,42 @@ export type Database = {
           },
         ]
       }
+      fella_note_journal_entries: {
+        Row: {
+          content: Json | null
+          created_at: string
+          date: string
+          id: string
+          mood: string | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          date: string
+          id?: string
+          mood?: string | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          date?: string
+          id?: string
+          mood?: string | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       fella_note_memory_palaces: {
         Row: {
           created_at: string
@@ -5406,6 +5442,172 @@ export type Database = {
           },
         ]
       }
+      fella_note_note_tags: {
+        Row: {
+          created_at: string
+          note_id: string
+          tag_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          note_id: string
+          tag_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          note_id?: string
+          tag_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_note_tags_note_id_fkey"
+            columns: ["note_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_notes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_note_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_notebooks: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          parent_notebook_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          parent_notebook_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          parent_notebook_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_notebooks_parent_notebook_id_fkey"
+            columns: ["parent_notebook_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_notebooks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_notes: {
+        Row: {
+          content: Json | null
+          created_at: string
+          id: string
+          notebook_id: string | null
+          team_id: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content?: Json | null
+          created_at?: string
+          id?: string
+          notebook_id?: string | null
+          team_id?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: Json | null
+          created_at?: string
+          id?: string
+          notebook_id?: string | null
+          team_id?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_notes_notebook_id_fkey"
+            columns: ["notebook_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_notebooks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_notes_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_palace_items: {
+        Row: {
+          content_text: string | null
+          created_at: string
+          id: string
+          linked_note_id: string | null
+          name: string
+          room_id: string
+          updated_at: string
+          user_id: string
+          x_coord: number | null
+          y_coord: number | null
+        }
+        Insert: {
+          content_text?: string | null
+          created_at?: string
+          id?: string
+          linked_note_id?: string | null
+          name: string
+          room_id: string
+          updated_at?: string
+          user_id: string
+          x_coord?: number | null
+          y_coord?: number | null
+        }
+        Update: {
+          content_text?: string | null
+          created_at?: string
+          id?: string
+          linked_note_id?: string | null
+          name?: string
+          room_id?: string
+          updated_at?: string
+          user_id?: string
+          x_coord?: number | null
+          y_coord?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_palace_items_room_id_fkey"
+            columns: ["room_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_palace_rooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_note_palace_rooms: {
         Row: {
           background_image_url: string | null
@@ -5446,6 +5648,153 @@ export type Database = {
             columns: ["palace_id"]
             isOneToOne: false
             referencedRelation: "fella_note_memory_palaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_projects: {
+        Row: {
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          name: string
+          start_date: string | null
+          status: string | null
+          team_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name: string
+          start_date?: string | null
+          status?: string | null
+          team_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          name?: string
+          start_date?: string | null
+          status?: string | null
+          team_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_projects_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_tags: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_note_tasks: {
+        Row: {
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          is_complete: boolean
+          parent_task_id: string | null
+          priority: string
+          project_id: string | null
+          status: string
+          status_order_index: number | null
+          subtask_order: number | null
+          team_id: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_complete?: boolean
+          parent_task_id?: string | null
+          priority?: string
+          project_id?: string | null
+          status?: string
+          status_order_index?: number | null
+          subtask_order?: number | null
+          team_id?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_complete?: boolean
+          parent_task_id?: string | null
+          priority?: string
+          project_id?: string | null
+          status?: string
+          status_order_index?: number | null
+          subtask_order?: number | null
+          team_id?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_tasks_parent_task_id_fkey"
+            columns: ["parent_task_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_tasks"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_tasks_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
             referencedColumns: ["id"]
           },
         ]
