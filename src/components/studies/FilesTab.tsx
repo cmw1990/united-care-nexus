@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Upload, FileIcon, Download, Trash2, Eye } from "lucide-react";
 import { useStudy } from "@/hooks/useStudy";
-import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
 export const FilesTab = () => {
