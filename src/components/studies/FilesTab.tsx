@@ -105,7 +105,7 @@ export const FilesTab = () => {
             onChange={handleFileUpload}
           />
           <label htmlFor="file-upload">
-            <Button as="span" variant="outline" className="cursor-pointer">
+            <Button variant="outline" className="cursor-pointer">
               <Upload className="h-4 w-4 mr-2" />
               {isUploading ? "Uploading..." : "Upload File"}
             </Button>
