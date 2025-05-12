@@ -5188,6 +5188,268 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_note_drawings: {
+        Row: {
+          created_at: string
+          drawing_content: Json | null
+          id: string
+          team_id: string | null
+          thumbnail_svg: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          drawing_content?: Json | null
+          id?: string
+          team_id?: string | null
+          thumbnail_svg?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          drawing_content?: Json | null
+          id?: string
+          team_id?: string | null
+          thumbnail_svg?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_drawings_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_memory_palaces: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_note_mind_map_edges: {
+        Row: {
+          created_at: string
+          id: string
+          label: string | null
+          map_id: string
+          source_node_id: string
+          target_node_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          map_id: string
+          source_node_id: string
+          target_node_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string | null
+          map_id?: string
+          source_node_id?: string
+          target_node_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_mind_map_edges_map_id_fkey"
+            columns: ["map_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_mind_maps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_mind_map_edges_source_node_id_fkey"
+            columns: ["source_node_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_mind_map_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_mind_map_edges_target_node_id_fkey"
+            columns: ["target_node_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_mind_map_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_mind_map_nodes: {
+        Row: {
+          color: string | null
+          content: string | null
+          created_at: string
+          id: string
+          label: string
+          map_id: string
+          parent_id: string | null
+          updated_at: string
+          user_id: string
+          x_position: number
+          y_position: number
+        }
+        Insert: {
+          color?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          label: string
+          map_id: string
+          parent_id?: string | null
+          updated_at?: string
+          user_id: string
+          x_position: number
+          y_position: number
+        }
+        Update: {
+          color?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          label?: string
+          map_id?: string
+          parent_id?: string | null
+          updated_at?: string
+          user_id?: string
+          x_position?: number
+          y_position?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_mind_map_nodes_map_id_fkey"
+            columns: ["map_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_mind_maps"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_mind_map_nodes_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_mind_map_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_mind_maps: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          team_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          team_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          team_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_mind_maps_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_note_palace_rooms: {
+        Row: {
+          background_image_url: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          order_index: number
+          palace_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          background_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          order_index?: number
+          palace_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          background_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          order_index?: number
+          palace_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_palace_rooms_palace_id_fkey"
+            columns: ["palace_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_memory_palaces"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_quit_custom_habits: {
         Row: {
           created_at: string
