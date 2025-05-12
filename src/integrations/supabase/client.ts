@@ -11,25 +11,21 @@ const SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiO
 
 export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-// Initialize the storage for study documents if it doesn't exist
+// Initialize the storage for study documents
+// The bucket has already been created in the SQL migration, so we only need to
+// check if it exists, not attempt to create it which would cause RLS policy conflicts
 const initializeStorage = async () => {
   try {
-    // Check if the bucket exists
-    const { data: buckets } = await supabase.storage.listBuckets();
+    // Check if the bucket exists - if it does, we're all set
+    const { data: buckets, error } = await supabase.storage.listBuckets();
     const bucketExists = buckets?.some(bucket => bucket.name === 'study-documents');
 
-    if (!bucketExists) {
-      // Create the bucket if it doesn't exist
-      const { error } = await supabase.storage.createBucket('study-documents', {
-        public: true,
-        fileSizeLimit: 50 * 1024 * 1024, // Set to 50MB instead of 100MB
-      });
-
-      if (error) {
-        console.error('Error creating storage bucket:', error);
-      } else {
-        console.log('Storage bucket for study documents created');
-      }
+    if (error) {
+      console.error('Error checking storage buckets:', error);
+    } else if (!bucketExists) {
+      console.warn('Study documents storage bucket not found. Please ensure it exists in your Supabase project.');
+    } else {
+      console.log('Storage bucket for study documents confirmed.');
     }
   } catch (error) {
     console.error('Error initializing storage:', error);
