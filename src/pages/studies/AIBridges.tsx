@@ -1,4 +1,5 @@
-import React, { useState, useCallback } from "react";
+
+import React, { useState, useCallback, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
@@ -15,6 +16,7 @@ import { QuestionsTab } from "@/components/studies/QuestionsTab";
 import { FilesTab } from "@/components/studies/FilesTab";
 import { EditorTab } from "@/components/studies/EditorTab";
 import { ProtocolTab } from "@/components/studies/ProtocolTab";
+import { StudyDocument } from "@/types/database.types";
 
 const AIBridges = () => {
   const { t } = useLanguage();
