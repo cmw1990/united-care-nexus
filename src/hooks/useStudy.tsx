@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { StudyCollaborator, StudyTask, StudyQuestion, StudyDocument, StudyNote } from "@/types/database.types";
@@ -286,10 +287,11 @@ export const useStudy = (studyId: string) => {
   // Upload document
   const uploadDocument = useCallback(async (file: File, title: string, description?: string) => {
     try {
-      // Upload file to storage
-      const fileName = `${Date.now()}-${file.name}`;
+      // Generate a unique filename to avoid collisions
+      const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
       const filePath = `${studyId}/${fileName}`;
       
+      // Upload file to storage
       const { error: uploadError, data: uploadData } = await supabase.storage
         .from('study-documents')
         .upload(filePath, file);
@@ -351,7 +353,7 @@ export const useStudy = (studyId: string) => {
     try {
       // Delete from database first
       const { error: dbError } = await supabase
-        .from('study_documents' as any)
+        .from('study_documents')
         .delete()
         .eq('id', documentId);
         

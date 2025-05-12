@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
@@ -7,7 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
 import { useStudy } from "@/hooks/useStudy";
 import { QuestionsManager } from "@/components/studies/QuestionsManager";
-import { FileManager } from "@/components/studies/FileManager";
+import { FilesTab } from "@/components/studies/FilesTab";
 import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "@/hooks/use-toast";
@@ -47,6 +46,7 @@ const ScopingReview = () => {
   useEffect(() => {
     const loadProtocolFile = async () => {
       try {
+        // Look for any document that might be marked as a protocol
         const { data: protocolDocs, error } = await supabase
           .from('study_documents')
           .select('*')
@@ -112,9 +112,9 @@ const ScopingReview = () => {
       const file = selectedFile;
       const fileType = file.type.toLowerCase();
       const isTextFile = fileType === 'text/plain' || 
-                         file.name.endsWith('.txt') || 
-                         file.name.endsWith('.md') || 
-                         file.name.endsWith('.json');
+                        file.name.endsWith('.txt') || 
+                        file.name.endsWith('.md') || 
+                        file.name.endsWith('.json');
       
       setUploadedFileName(file.name);
       
@@ -137,16 +137,17 @@ const ScopingReview = () => {
         setProtocolContent(null);
       }
       
+      // Upload to Supabase storage
       if (uploadDocument) {
-        await uploadDocument(file, file.name, `Protocol document for scoping review - ${file.name}`);
+        await uploadDocument(file, file.name, `Study file uploaded on ${new Date().toLocaleString()}`);
       }
       
       toast({
         title: "Upload successful",
-        description: "Your protocol file has been uploaded successfully.",
+        description: "Your file has been uploaded successfully.",
       });
     } catch (error: any) {
-      console.error('Error handling protocol:', error);
+      console.error('Error handling file:', error);
       toast({
         title: "Upload failed",
         description: error.message,
@@ -159,6 +160,7 @@ const ScopingReview = () => {
     }
   }, [selectedFile, uploadDocument]);
 
+  // Format data for components
   const formattedQuestions = questions.map(q => ({
     id: q.id,
     title: q.question.substring(0, 50) + (q.question.length > 50 ? '...' : ''),
@@ -175,15 +177,9 @@ const ScopingReview = () => {
     isResolved: q.status === "resolved"
   }));
 
-  const formattedFiles = documents.map(doc => ({
-    id: doc.id,
-    name: doc.title,
-    type: doc.file_type || "document",
-    size: 1000000,
-    uploadedBy: "Researcher",
-    uploadDate: new Date().toISOString().split('T')[0],
-    downloadUrl: doc.file_url || "#"
-  }));
+  // Files are now managed directly in the FilesTab component
+  // This is no longer needed as we're not passing this to the component
+  // const formattedFiles = documents.map(doc => ({...}))
 
   const handleFileUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -360,16 +356,7 @@ const ScopingReview = () => {
             </div>
           </TabsContent>
           <TabsContent value="files">
-            <div className="border rounded-md p-4 mt-4">
-              {studyLoading ? (
-                <div className="flex justify-center items-center p-8">Loading files...</div>
-              ) : (
-                <FileManager 
-                  title="Research Files" 
-                  initialFiles={formattedFiles}
-                />
-              )}
-            </div>
+            <FilesTab />
           </TabsContent>
           <TabsContent value="editor">
             <div className="border rounded-md p-4 mt-4">
