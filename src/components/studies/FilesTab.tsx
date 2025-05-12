@@ -5,19 +5,36 @@ import { Button } from "@/components/ui/button";
 import { Upload, FileIcon, Download, Trash2, Eye } from "lucide-react";
 import { useStudy } from "@/hooks/useStudy";
 import { toast } from "@/hooks/use-toast";
+import { checkStorageBucket } from "@/integrations/supabase/client";
 
 export const FilesTab = () => {
   const [isUploading, setIsUploading] = useState(false);
+  const [bucketExists, setBucketExists] = useState(true);
   const { documents, uploadDocument, deleteDocument, fetchStudyData } = useStudy("scoping-review");
 
-  // Immediately fetch study data on component mount
+  // Check if storage bucket exists on mount
   useEffect(() => {
+    const checkBucket = async () => {
+      const exists = await checkStorageBucket('study-documents');
+      setBucketExists(exists);
+    };
+    
+    checkBucket();
     fetchStudyData();
   }, [fetchStudyData]);
 
   const handleFileUpload = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
+
+    if (!bucketExists) {
+      toast({
+        title: "Storage Error",
+        description: "The study-documents storage bucket doesn't exist. Please contact your administrator.",
+        variant: "destructive",
+      });
+      return;
+    }
 
     setIsUploading(true);
     try {
@@ -49,7 +66,7 @@ export const FilesTab = () => {
         event.target.value = '';
       }
     }
-  }, [uploadDocument, fetchStudyData]);
+  }, [uploadDocument, fetchStudyData, bucketExists]);
 
   const handleDeleteFile = async (document: any) => {
     try {
@@ -89,6 +106,30 @@ export const FilesTab = () => {
     });
   };
 
+  if (!bucketExists) {
+    return (
+      <div className="border rounded-md p-4 mt-4">
+        <div className="flex items-center justify-between mb-4">
+          <div>
+            <h2 className="text-xl font-semibold">Files</h2>
+            <p className="text-muted-foreground">Upload, download, and manage study files</p>
+          </div>
+        </div>
+        
+        <div className="flex flex-col items-center justify-center p-10 border rounded-md border-dashed">
+          <FileIcon className="h-10 w-10 text-muted-foreground mb-2" />
+          <p className="text-muted-foreground mb-2">Storage bucket not found</p>
+          <p className="text-muted-foreground text-center text-sm mb-4">
+            The 'study-documents' storage bucket needs to be created in your Supabase project.
+          </p>
+          <p className="text-muted-foreground text-center text-xs mb-4">
+            Please ask your administrator to create this bucket in the Supabase dashboard.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="border rounded-md p-4 mt-4">
       <div className="flex items-center justify-between mb-4">
@@ -104,7 +145,7 @@ export const FilesTab = () => {
             onChange={handleFileUpload}
           />
           <label htmlFor="file-upload">
-            <Button variant="outline" className="cursor-pointer">
+            <Button variant="outline" className="cursor-pointer" disabled={isUploading}>
               <Upload className="h-4 w-4 mr-2" />
               {isUploading ? "Uploading..." : "Upload File"}
             </Button>

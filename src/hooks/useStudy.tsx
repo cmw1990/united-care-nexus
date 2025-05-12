@@ -1,8 +1,8 @@
-
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { StudyCollaborator, StudyTask, StudyQuestion, StudyDocument, StudyNote } from "@/types/database.types";
 import { toast } from "@/hooks/use-toast";
+import { checkStorageBucket } from "@/integrations/supabase/client";
 
 // Define types for the database tables
 type StudyCollaboratorRow = {
@@ -104,7 +104,7 @@ export const useStudy = (studyId: string) => {
       if (questionsError) throw questionsError;
       setQuestions((questionsData || []) as unknown as StudyQuestion[]);
 
-      // Fetch documents
+      // Fetch documents with better error handling
       const { data: documentsData, error: documentsError } = await supabase
         .from('study_documents')
         .select('*')
@@ -289,20 +289,32 @@ export const useStudy = (studyId: string) => {
     }
   };
 
-  // Upload document
+  // Upload document with improved error handling
   const uploadDocument = useCallback(async (file: File, title: string, description?: string) => {
     try {
-      // First check if the study_documents table exists
+      // First check if storage bucket exists
+      const bucketExists = await checkStorageBucket('study-documents');
+      
+      if (!bucketExists) {
+        toast({
+          title: "Storage Error",
+          description: "The study-documents storage bucket doesn't exist. Please contact your administrator.",
+          variant: "destructive",
+        });
+        return null;
+      }
+      
+      // Check if the study_documents table exists
       const { count, error: tableCheckError } = await supabase
         .from('study_documents')
         .select('id', { count: 'exact', head: true });
       
       if (tableCheckError && tableCheckError.code === '42P01') {
-        // Table doesn't exist, try to create it
+        // Table doesn't exist, show a message
         console.error("The study_documents table doesn't exist. Please create it first.");
         toast({
           title: "Database Error",
-          description: "The study_documents table doesn't exist. Please create it in your Supabase project.",
+          description: "The study_documents table doesn't exist. Please contact your administrator.",
           variant: "destructive",
         });
         return null;
@@ -362,16 +374,28 @@ export const useStudy = (studyId: string) => {
       return null;
     } catch (error: any) {
       console.error('Error uploading document:', error);
+      
+      // Provide a more user-friendly error message based on the error type
+      let errorMessage = error.message;
+      
+      if (error.message.includes('row-level security policy')) {
+        errorMessage = "Permission denied. You may need to log in or get proper access rights.";
+      } else if (error.message.includes('storage/bucket-not-found')) {
+        errorMessage = "Storage bucket not found. Please contact your administrator.";
+      } else if (error.message.includes('storage/object-too-large')) {
+        errorMessage = "File is too large. Please upload a smaller file.";
+      }
+      
       toast({
         title: "Error uploading document",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
       return null;
     }
   }, [studyId]);
 
-  // Delete document
+  // Delete document with improved error handling
   const deleteDocument = async (documentId: string, filePath?: string) => {
     try {
       // Delete from database first
@@ -399,9 +423,15 @@ export const useStudy = (studyId: string) => {
       return true;
     } catch (error: any) {
       console.error('Error deleting document:', error);
+      
+      let errorMessage = error.message;
+      if (error.message.includes('row-level security policy')) {
+        errorMessage = "Permission denied. You may need to log in or get proper access rights.";
+      }
+      
       toast({
         title: "Error deleting document",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
       return false;
