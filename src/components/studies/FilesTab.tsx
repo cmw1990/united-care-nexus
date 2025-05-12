@@ -24,13 +24,18 @@ export const FilesTab = () => {
     try {
       console.log('Uploading file:', file.name);
       // Upload the file to Supabase storage and create a database record
-      await uploadDocument(file, file.name, `File uploaded on ${new Date().toLocaleString()}`);
-      toast({
-        title: "File uploaded",
-        description: "Your file has been uploaded successfully.",
-      });
-      // Refresh the document list
-      fetchStudyData();
+      const result = await uploadDocument(file, file.name, `File uploaded on ${new Date().toLocaleString()}`);
+      
+      if (result) {
+        toast({
+          title: "File uploaded successfully",
+          description: "Your file has been uploaded and saved to the database.",
+        });
+        // Explicitly refetch the document list to ensure UI updates
+        await fetchStudyData();
+      } else {
+        throw new Error("File upload failed - could not save to database");
+      }
     } catch (error: any) {
       console.error("Error uploading file:", error);
       toast({
@@ -54,13 +59,18 @@ export const FilesTab = () => {
       const filePath = url.pathname.split('/').slice(2).join('/');
       
       console.log('Deleting file:', filePath);
-      await deleteDocument(document.id, filePath);
-      toast({
-        title: "File deleted",
-        description: "The file has been deleted successfully.",
-      });
-      // Refresh the document list
-      fetchStudyData();
+      const result = await deleteDocument(document.id, filePath);
+      
+      if (result) {
+        toast({
+          title: "File deleted",
+          description: "The file has been deleted successfully.",
+        });
+        // Explicitly refetch the document list to ensure UI updates
+        await fetchStudyData();
+      } else {
+        throw new Error("File deletion failed");
+      }
     } catch (error: any) {
       console.error("Error deleting file:", error);
       toast({

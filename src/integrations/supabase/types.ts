@@ -5478,6 +5478,51 @@ export type Database = {
           },
         ]
       }
+      fella_note_note_templates: {
+        Row: {
+          category: string | null
+          content: Json
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          name: string
+          tags: string[] | null
+          thumbnail_url: string | null
+          times_used: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          content: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name: string
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          times_used?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          content?: Json
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean
+          name?: string
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          times_used?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       fella_note_notebooks: {
         Row: {
           created_at: string
@@ -5722,6 +5767,42 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      fella_note_task_tags: {
+        Row: {
+          created_at: string
+          tag_id: string
+          task_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          tag_id: string
+          task_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          tag_id?: string
+          task_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_note_task_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_tags"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_note_task_tags_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "fella_note_tasks"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       fella_note_tasks: {
         Row: {
@@ -12332,6 +12413,23 @@ export type Database = {
       has_care_group_role: {
         Args: { p_group_id: string; p_user_id: string; p_role_name: string }
         Returns: boolean
+      }
+      increment_fella_note_template_usage: {
+        Args: { template_id_input: string }
+        Returns: {
+          category: string | null
+          content: Json
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean
+          name: string
+          tags: string[] | null
+          thumbnail_url: string | null
+          times_used: number
+          updated_at: string
+          user_id: string
+        }[]
       }
       increment_template_usage: {
         Args: { template_id_input: string }

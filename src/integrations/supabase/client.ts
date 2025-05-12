@@ -22,7 +22,7 @@ const initializeStorage = async () => {
       // Create the bucket if it doesn't exist
       const { error } = await supabase.storage.createBucket('study-documents', {
         public: true,
-        fileSizeLimit: 100 * 1024 * 1024, // 100 MB limit for files
+        fileSizeLimit: 50 * 1024 * 1024, // Set to 50MB instead of 100MB
       });
 
       if (error) {

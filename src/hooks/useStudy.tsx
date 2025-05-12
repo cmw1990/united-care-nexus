@@ -110,7 +110,12 @@ export const useStudy = (studyId: string) => {
         .select('*')
         .eq('study_id', studyId);
 
-      if (documentsError) throw documentsError;
+      if (documentsError) {
+        console.error('Error fetching documents:', documentsError);
+        throw documentsError;
+      }
+      
+      console.log('Documents fetched:', documentsData);
       setDocuments((documentsData || []) as unknown as StudyDocument[]);
 
       // Fetch notes
@@ -287,6 +292,22 @@ export const useStudy = (studyId: string) => {
   // Upload document
   const uploadDocument = useCallback(async (file: File, title: string, description?: string) => {
     try {
+      // First check if the study_documents table exists
+      const { count, error: tableCheckError } = await supabase
+        .from('study_documents')
+        .select('id', { count: 'exact', head: true });
+      
+      if (tableCheckError && tableCheckError.code === '42P01') {
+        // Table doesn't exist, try to create it
+        console.error("The study_documents table doesn't exist. Please create it first.");
+        toast({
+          title: "Database Error",
+          description: "The study_documents table doesn't exist. Please create it in your Supabase project.",
+          variant: "destructive",
+        });
+        return null;
+      }
+      
       // Generate a unique filename to avoid collisions
       const fileName = `${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
       const filePath = `${studyId}/${fileName}`;
