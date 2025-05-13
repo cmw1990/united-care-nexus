@@ -1,3 +1,4 @@
+
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -30,7 +31,7 @@ const en = {
   'study1.description': 'A comprehensive scoping review analyzing eHealth applications that support communication, coordination, and collaboration among caregivers of people with dementia.',
   
   // Study 2
-  'study2.title': 'Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
+  'study2.title': 'Optional: Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
   'study2.description': 'Exploring AI solutions to enhance support networks for dementia caregivers.',
   
   // Study 3
