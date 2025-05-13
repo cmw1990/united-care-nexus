@@ -1,3 +1,4 @@
+
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -30,7 +31,7 @@ const en = {
   'study1.description': '/',
   
   // Study 2
-  'study2.title': 'Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
+  'study2.title': 'Optional: Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
   'study2.description': '/',
   
   // Study 3
@@ -46,7 +47,7 @@ const en = {
   'study5.description': '/',
   
   // Study 6
-  'study6.title': 'Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
+  'study6.title': 'Optional: Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
   'study6.description': '/',
   
   // Research Page
@@ -94,7 +95,7 @@ const zhCN = {
   'study1.description': '全面分析支持痴呆症护理者之间沟通、协调和协作的电子健康应用程序的范围审查。',
   
   // Study 2
-  'study2.title': '超越护理二元关系：人工智能能否帮助为痴呆症护理者网络建立更强大、更智能的桥梁？',
+  'study2.title': '可选: 超越护理二元关系：人工智能能否帮助为痴呆症护理者网络建立更强大、更智能的桥梁？',
   'study2.description': '探索增强痴呆症护理者支持网络的人工智能解决方案。',
   
   // Study 3
@@ -158,7 +159,7 @@ const zhTW = {
   'study1.description': '全面分析支持失智症照護者之間溝通、協調和協作的電子健康應用程式的範圍審查。',
   
   // Study 2
-  'study2.title': '超越照護二元關係：人工智慧能否幫助為失智症照護者網絡建立更強大、更智能的橋樑？',
+  'study2.title': '可選: 超越照護二元關係：人工智慧能否幫助為失智症照護者網絡建立更強大、更智能的橋樑？',
   'study2.description': '探索增強失智症照護者支持網絡的人工智慧解決方案。',
   
   // Study 3
