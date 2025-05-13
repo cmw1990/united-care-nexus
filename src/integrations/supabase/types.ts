@@ -4038,6 +4038,42 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_control_medication_reminders: {
+        Row: {
+          created_at: string
+          dosage: string | null
+          end_date: string | null
+          frequency: string
+          id: string
+          medication_name: string
+          reminder_time: string
+          start_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dosage?: string | null
+          end_date?: string | null
+          frequency: string
+          id?: string
+          medication_name: string
+          reminder_time: string
+          start_date: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dosage?: string | null
+          end_date?: string | null
+          frequency?: string
+          id?: string
+          medication_name?: string
+          reminder_time?: string
+          start_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       fella_control_meditation_logs: {
         Row: {
           created_at: string
@@ -4352,6 +4388,39 @@ export type Database = {
           points_required?: number
           reward_category?: string | null
           unlock_condition?: Json | null
+        }
+        Relationships: []
+      }
+      fella_control_scheduled_notifications: {
+        Row: {
+          body: string
+          created_at: string
+          id: string
+          is_active: boolean
+          notification_id: string
+          schedule_time: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          notification_id: string
+          schedule_time: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean
+          notification_id?: string
+          schedule_time?: string
+          title?: string
+          user_id?: string
         }
         Relationships: []
       }

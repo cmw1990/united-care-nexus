@@ -1,10 +1,13 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ProtocolTab } from "@/components/studies/ProtocolTab";
+import { TasksTab } from "@/components/studies/TasksTab";
+import { QuestionsTab } from "@/components/studies/QuestionsTab";
+import { FilesTab } from "@/components/studies/FilesTab";
+import { EditorTab } from "@/components/studies/EditorTab";
 
 const ScopingReview = () => {
   const { t } = useLanguage();
@@ -13,7 +16,7 @@ const ScopingReview = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study1.title')} / </h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study1.title')}</h1>
         </div>
 
         <Tabs defaultValue="protocol" className="w-full">
@@ -40,45 +43,19 @@ const ScopingReview = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <div className="prose max-w-none">
-              <h1>{t('study1.title')} / </h1>
-            </div>
+            <ProtocolTab />
           </TabsContent>
           <TabsContent value="tasks">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Task Manager</h2>
-              <p className="text-muted-foreground mb-4">Manage and assign tasks related to the study</p>
-              <div className="flex justify-center">
-                <p>Task management functionality will be displayed here</p>
-              </div>
-            </div>
+            <TasksTab studyId="scoping-review" />
           </TabsContent>
           <TabsContent value="questions">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Questions</h2>
-              <p className="text-muted-foreground mb-4">Track and manage questions related to the study</p>
-              <div className="flex justify-center">
-                <p>Questions management functionality will be displayed here</p>
-              </div>
-            </div>
+            <QuestionsTab studyId="scoping-review" />
           </TabsContent>
           <TabsContent value="files">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Files</h2>
-              <p className="text-muted-foreground mb-4">Upload, download, and manage study files</p>
-              <div className="flex justify-center">
-                <p>File management functionality will be displayed here</p>
-              </div>
-            </div>
+            <FilesTab studyId="scoping-review" />
           </TabsContent>
           <TabsContent value="editor">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Co-Editor</h2>
-              <p className="text-muted-foreground mb-4">Collaboratively edit text documents</p>
-              <div className="flex justify-center">
-                <p>Text co-editing functionality will be displayed here</p>
-              </div>
-            </div>
+            <EditorTab studyId="scoping-review" />
           </TabsContent>
         </Tabs>
       </div>
