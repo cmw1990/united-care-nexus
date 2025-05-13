@@ -1,4 +1,3 @@
-
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -28,27 +27,27 @@ const en = {
   // Study 1
   'study1.title': 'Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home - A Scoping Review',
   'study1.shortTitle': 'Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth',
-  'study1.description': 'A comprehensive scoping review analyzing eHealth applications that support communication, coordination, and collaboration among caregivers of people with dementia.',
+  'study1.description': '/',
   
   // Study 2
   'study2.title': 'Optional: Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
-  'study2.description': 'Exploring AI solutions to enhance support networks for dementia caregivers.',
+  'study2.description': '/',
   
   // Study 3
   'study3.title': 'A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks',
-  'study3.description': 'Experience-based research to design digital tools for caregiver support networks.',
+  'study3.description': '/',
   
   // Study 4
   'study4.title': 'ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers',
-  'study4.description': 'Evaluating a dialogue-based game to improve caregiver knowledge and attitudes.',
+  'study4.description': '/',
   
   // Study 5
   'study5.title': 'Is a Chat Group All Caregivers Need and would Accept? Pilot Evaluation of an AI-Powered Caregiver Network Support Hub "UniteD"',
-  'study5.description': 'Pilot study of an AI-powered chat support hub for caregiver networks.',
+  'study5.description': '/',
   
   // Study 6
   'study6.title': 'Optional: Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
-  'study6.description': 'Evaluating an AI-powered hub for volunteer dementia care networks.',
+  'study6.description': '/',
   
   // Research Page
   'research.title': 'Research',
