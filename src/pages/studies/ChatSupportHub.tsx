@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { ProtocolTab } from "@/components/studies/ProtocolTab";
 
 const ChatSupportHub = () => {
   const { t } = useLanguage();
@@ -13,7 +14,7 @@ const ChatSupportHub = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study5.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">Optional: {t('study5.title')}</h1>
           <p className="text-muted-foreground">
             {t('study5.description')}
           </p>
@@ -43,24 +44,7 @@ const ChatSupportHub = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This study evaluates whether a chat group supported by AI is sufficient to meet caregiver needs and gain acceptance among dementia caregiver networks.</p>
-                  <p className="mt-4">The protocol includes:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>Design and implementation of the AI-powered chat support hub</li>
-                    <li>Recruitment of caregiver networks for the pilot</li>
-                    <li>Evaluation of user engagement and satisfaction</li>
-                    <li>Assessment of impact on caregiver burden and communication</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ProtocolTab />
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">
