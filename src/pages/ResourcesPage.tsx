@@ -18,11 +18,11 @@ const ResourcesPage = () => {
           </p>
         </section>
 
-        <Tabs defaultValue="publications" className="w-full">
+        <Tabs defaultValue="texts" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="publications">
+            <TabsTrigger value="texts">
               <FileText className="h-4 w-4 mr-2" />
-              {t('resources.publications')}
+              Texts
             </TabsTrigger>
             <TabsTrigger value="tools">
               <Download className="h-4 w-4 mr-2" />
@@ -34,14 +34,10 @@ const ResourcesPage = () => {
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="publications" className="mt-6">
+          <TabsContent value="texts" className="mt-6">
             <Card className="border shadow-sm">
-              <CardHeader>
-                <CardTitle>{t('resources.publications')}</CardTitle>
-                <CardDescription>Academic publications related to the research</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">No publications added yet.</p>
+              <CardContent className="pt-6">
+                {/* Empty content as requested */}
               </CardContent>
             </Card>
           </TabsContent>
