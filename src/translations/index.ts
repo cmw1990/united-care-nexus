@@ -1,4 +1,3 @@
-
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -47,7 +46,7 @@ const en = {
   'study5.description': 'Pilot study of an AI-powered chat support hub for caregiver networks.',
   
   // Study 6
-  'study6.title': 'Bridges to Better Support: A Pilot Feasibility Evaluation of \'VolunteerD (UniteD-VolunteerD)\', an AI-Powered Support Hub for Volunteer Dementia Care Networks',
+  'study6.title': 'Optional: Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
   'study6.description': 'Evaluating an AI-powered hub for volunteer dementia care networks.',
   
   // Research Page
@@ -111,7 +110,7 @@ const zhCN = {
   'study5.description': '针对护理者网络的AI驱动聊天支持中心的试点研究。',
   
   // Study 6
-  'study6.title': '通往更好支持的桥梁：\'VolunteerD (UniteD-VolunteerD)\'的试点可行性评估，一个为志愿者痴呆症护理网络提供的AI驱动支持中心',
+  'study6.title': '可选: 通往更好支持的桥梁: VolunteerD (UniteD-VolunteerD)的试点可行性评估, 一个为志愿者痴呆症护理网络提供的AI驱动支持中心',
   'study6.description': '评估为志愿者痴呆症护理网络提供的AI驱动支持中心。',
   
   // Research Page
@@ -175,7 +174,7 @@ const zhTW = {
   'study5.description': '針對照護者網絡的AI驅動聊天支持中心的試點研究。',
   
   // Study 6
-  'study6.title': '通往更好支持的橋樑：\'VolunteerD (UniteD-VolunteerD)\'的試點可行性評估，一個為志願者失智症照護網絡提供的AI驅動支持中心',
+  'study6.title': '可選: 通往更好支持的橋樑: VolunteerD (UniteD-VolunteerD)的試點可行性評估, 一個為志願者失智症照護網絡提供的AI驅動支持中心',
   'study6.description': '評估為志願者失智症照護網絡提供的AI驅動支持中心。',
   
   // Research Page

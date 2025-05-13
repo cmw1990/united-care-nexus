@@ -2783,6 +2783,7 @@ export type Database = {
       }
       community_posts: {
         Row: {
+          app_id: string | null
           comments: number | null
           content: string
           created_at: string | null
@@ -2794,6 +2795,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          app_id?: string | null
           comments?: number | null
           content: string
           created_at?: string | null
@@ -2805,6 +2807,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          app_id?: string | null
           comments?: number | null
           content?: string
           created_at?: string | null
@@ -3576,6 +3579,7 @@ export type Database = {
       }
       fella_control_alcohol_logs: {
         Row: {
+          alternative_activity_considered: string | null
           craving_intensity: number | null
           craving_trigger: string | null
           created_at: string
@@ -3589,6 +3593,7 @@ export type Database = {
           journal_summary: string | null
           mood: number | null
           mood_notes: string | null
+          reason_for_drinking: string | null
           sleep_hours: number | null
           sleep_quality: number | null
           stress_level: number | null
@@ -3596,6 +3601,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          alternative_activity_considered?: string | null
           craving_intensity?: number | null
           craving_trigger?: string | null
           created_at?: string
@@ -3609,6 +3615,7 @@ export type Database = {
           journal_summary?: string | null
           mood?: number | null
           mood_notes?: string | null
+          reason_for_drinking?: string | null
           sleep_hours?: number | null
           sleep_quality?: number | null
           stress_level?: number | null
@@ -3616,6 +3623,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          alternative_activity_considered?: string | null
           craving_intensity?: number | null
           craving_trigger?: string | null
           created_at?: string
@@ -3629,6 +3637,7 @@ export type Database = {
           journal_summary?: string | null
           mood?: number | null
           mood_notes?: string | null
+          reason_for_drinking?: string | null
           sleep_hours?: number | null
           sleep_quality?: number | null
           stress_level?: number | null
@@ -3866,6 +3875,7 @@ export type Database = {
           created_at: string
           date: string
           drink_type: string
+          drinking_setting: string | null
           id: string
           notes: string | null
           units: number
@@ -3876,6 +3886,7 @@ export type Database = {
           created_at?: string
           date: string
           drink_type: string
+          drinking_setting?: string | null
           id?: string
           notes?: string | null
           units: number
@@ -3886,6 +3897,7 @@ export type Database = {
           created_at?: string
           date?: string
           drink_type?: string
+          drinking_setting?: string | null
           id?: string
           notes?: string | null
           units?: number
@@ -3968,6 +3980,90 @@ export type Database = {
           tags?: Json | null
           title?: string | null
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_control_local_resources: {
+        Row: {
+          address: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          description: string | null
+          geom: unknown | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          phone: string | null
+          resource_type: string | null
+          state: string | null
+          website: string | null
+          zip_code: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          geom?: unknown | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name: string
+          phone?: string | null
+          resource_type?: string | null
+          state?: string | null
+          website?: string | null
+          zip_code?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          geom?: unknown | null
+          id?: string
+          latitude?: number | null
+          longitude?: number | null
+          name?: string
+          phone?: string | null
+          resource_type?: string | null
+          state?: string | null
+          website?: string | null
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
+      fella_control_meditation_logs: {
+        Row: {
+          created_at: string
+          duration_minutes: number
+          id: string
+          notes: string | null
+          session_type: string | null
+          timestamp: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          duration_minutes: number
+          id?: string
+          notes?: string | null
+          session_type?: string | null
+          timestamp: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          session_type?: string | null
+          timestamp?: string
           user_id?: string
         }
         Relationships: []
@@ -4085,6 +4181,112 @@ export type Database = {
           quote_text?: string
           tags?: string[] | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      fella_control_relapses: {
+        Row: {
+          coping_strategy_attempted_id: string | null
+          created_at: string
+          feelings_after: string | null
+          feelings_before: string | null
+          id: number
+          learned: string | null
+          reported_at: string
+          situation: string | null
+          trigger: string | null
+          trigger_id: string | null
+          user_id: string
+        }
+        Insert: {
+          coping_strategy_attempted_id?: string | null
+          created_at?: string
+          feelings_after?: string | null
+          feelings_before?: string | null
+          id?: number
+          learned?: string | null
+          reported_at?: string
+          situation?: string | null
+          trigger?: string | null
+          trigger_id?: string | null
+          user_id: string
+        }
+        Update: {
+          coping_strategy_attempted_id?: string | null
+          created_at?: string
+          feelings_after?: string | null
+          feelings_before?: string | null
+          id?: number
+          learned?: string | null
+          reported_at?: string
+          situation?: string | null
+          trigger?: string | null
+          trigger_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "relapses_coping_strategy_attempted_id_fkey"
+            columns: ["coping_strategy_attempted_id"]
+            isOneToOne: false
+            referencedRelation: "coping_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relapses_trigger_id_fkey"
+            columns: ["trigger_id"]
+            isOneToOne: false
+            referencedRelation: "triggers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "relapses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_control_reminders: {
+        Row: {
+          created_at: string
+          dosage: string | null
+          end_date: string | null
+          frequency: string
+          id: string
+          medication_name: string
+          reminder_time: string
+          reminder_type: string
+          start_date: string
+          support_activity: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dosage?: string | null
+          end_date?: string | null
+          frequency: string
+          id?: string
+          medication_name: string
+          reminder_time: string
+          reminder_type?: string
+          start_date: string
+          support_activity?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dosage?: string | null
+          end_date?: string | null
+          frequency?: string
+          id?: string
+          medication_name?: string
+          reminder_time?: string
+          reminder_type?: string
+          start_date?: string
+          support_activity?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -4426,6 +4628,56 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_control_user_goal_details: {
+        Row: {
+          created_at: string
+          fella_control_cost_per_drink: number | null
+          fella_control_product_type: string | null
+          fella_control_reduction_target_percent: number | null
+          id: string
+          method_details: Json | null
+          moderation_start_date: string | null
+          typical_daily_porn_hours: number | null
+          updated_at: string
+          user_goal_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          fella_control_cost_per_drink?: number | null
+          fella_control_product_type?: string | null
+          fella_control_reduction_target_percent?: number | null
+          id?: string
+          method_details?: Json | null
+          moderation_start_date?: string | null
+          typical_daily_porn_hours?: number | null
+          updated_at?: string
+          user_goal_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          fella_control_cost_per_drink?: number | null
+          fella_control_product_type?: string | null
+          fella_control_reduction_target_percent?: number | null
+          id?: string
+          method_details?: Json | null
+          moderation_start_date?: string | null
+          typical_daily_porn_hours?: number | null
+          updated_at?: string
+          user_goal_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_control_user_goal_details_user_goal_id_fkey"
+            columns: ["user_goal_id"]
+            isOneToOne: false
+            referencedRelation: "user_goals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_control_user_goals: {
         Row: {
           created_at: string
@@ -4481,6 +4733,48 @@ export type Database = {
           quit_date?: string | null
           status?: string | null
           timeline_days?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_control_user_preferences: {
+        Row: {
+          ai_gentleness_preference: number | null
+          arePushNotificationsEnabled: boolean | null
+          cost_per_drink_unit: number | null
+          created_at: string
+          dashboard_widgets: Json | null
+          id: string
+          notifications: Json | null
+          preferred_ai_salutation: string | null
+          theme: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_gentleness_preference?: number | null
+          arePushNotificationsEnabled?: boolean | null
+          cost_per_drink_unit?: number | null
+          created_at?: string
+          dashboard_widgets?: Json | null
+          id?: string
+          notifications?: Json | null
+          preferred_ai_salutation?: string | null
+          theme?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_gentleness_preference?: number | null
+          arePushNotificationsEnabled?: boolean | null
+          cost_per_drink_unit?: number | null
+          created_at?: string
+          dashboard_widgets?: Json | null
+          id?: string
+          notifications?: Json | null
+          preferred_ai_salutation?: string | null
+          theme?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -5880,6 +6174,116 @@ export type Database = {
           },
         ]
       }
+      fella_quit_claimed_rewards: {
+        Row: {
+          claimed_at: string
+          created_at: string
+          id: string
+          points_redeemed: number
+          reward_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          claimed_at?: string
+          created_at?: string
+          id?: string
+          points_redeemed: number
+          reward_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          claimed_at?: string
+          created_at?: string
+          id?: string
+          points_redeemed?: number
+          reward_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_quit_claimed_rewards_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "fella_quit_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_quit_coping_strategies: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      fella_quit_craving_logs: {
+        Row: {
+          coping_strategy_id: string | null
+          created_at: string
+          id: string
+          intensity: number
+          other_trigger: string | null
+          timestamp: string
+          trigger_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          coping_strategy_id?: string | null
+          created_at?: string
+          id?: string
+          intensity: number
+          other_trigger?: string | null
+          timestamp?: string
+          trigger_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          coping_strategy_id?: string | null
+          created_at?: string
+          id?: string
+          intensity?: number
+          other_trigger?: string | null
+          timestamp?: string
+          trigger_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_quit_craving_logs_coping_strategy_id_fkey"
+            columns: ["coping_strategy_id"]
+            isOneToOne: false
+            referencedRelation: "fella_quit_coping_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_quit_craving_logs_trigger_id_fkey"
+            columns: ["trigger_id"]
+            isOneToOne: false
+            referencedRelation: "fella_quit_triggers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_quit_custom_habits: {
         Row: {
           created_at: string
@@ -5897,6 +6301,159 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_quit_daily_check_ins: {
+        Row: {
+          created_at: string
+          date: string
+          energy_level: number | null
+          focus_level: number | null
+          id: string
+          mood: number | null
+          sleep_hours: number | null
+          sleep_quality: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          energy_level?: number | null
+          focus_level?: number | null
+          id?: string
+          mood?: number | null
+          sleep_hours?: number | null
+          sleep_quality?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          energy_level?: number | null
+          focus_level?: number | null
+          id?: string
+          mood?: number | null
+          sleep_hours?: number | null
+          sleep_quality?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_quit_journal_entries: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_quit_learning_modules: {
+        Row: {
+          category: string | null
+          content: Json | null
+          created_at: string
+          description: string | null
+          estimated_duration_minutes: number | null
+          id: string
+          is_published: boolean | null
+          order_index: number | null
+          slug: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string | null
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          estimated_duration_minutes?: number | null
+          id?: string
+          is_published?: boolean | null
+          order_index?: number | null
+          slug: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string | null
+          content?: Json | null
+          created_at?: string
+          description?: string | null
+          estimated_duration_minutes?: number | null
+          id?: string
+          is_published?: boolean | null
+          order_index?: number | null
+          slug?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      fella_quit_mindfulness_reminders: {
+        Row: {
+          activity_type: string
+          created_at: string
+          id: string
+          time: string
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string
+          id?: string
+          time: string
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string
+          id?: string
+          time?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_quit_mood_entries: {
+        Row: {
+          created_at: string | null
+          id: string
+          mood: number
+          notes: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          mood: number
+          notes?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          mood?: number
+          notes?: string | null
           user_id?: string
         }
         Relationships: []
@@ -6042,6 +6599,54 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_quit_testimonial_comments: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          is_deleted: boolean | null
+          parent_comment_id: string | null
+          testimonial_id: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          is_deleted?: boolean | null
+          parent_comment_id?: string | null
+          testimonial_id: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_deleted?: boolean | null
+          parent_comment_id?: string | null
+          testimonial_id?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_quit_testimonial_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "fella_quit_testimonial_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_quit_testimonial_comments_testimonial_id_fkey"
+            columns: ["testimonial_id"]
+            isOneToOne: false
+            referencedRelation: "fella_quit_testimonials"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_quit_testimonials: {
         Row: {
           app_tag: string | null
@@ -6072,6 +6677,57 @@ export type Database = {
           quote?: string
           title?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      fella_quit_triggers: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_quit_user_points: {
+        Row: {
+          created_at: string
+          id: string
+          points: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          points?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          points?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -8581,70 +9237,6 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
-      }
-      relapses: {
-        Row: {
-          coping_strategy_attempted_id: string | null
-          created_at: string
-          feelings_after: string | null
-          feelings_before: string | null
-          id: number
-          learned: string | null
-          reported_at: string
-          situation: string | null
-          trigger: string | null
-          trigger_id: string | null
-          user_id: string
-        }
-        Insert: {
-          coping_strategy_attempted_id?: string | null
-          created_at?: string
-          feelings_after?: string | null
-          feelings_before?: string | null
-          id?: number
-          learned?: string | null
-          reported_at?: string
-          situation?: string | null
-          trigger?: string | null
-          trigger_id?: string | null
-          user_id: string
-        }
-        Update: {
-          coping_strategy_attempted_id?: string | null
-          created_at?: string
-          feelings_after?: string | null
-          feelings_before?: string | null
-          id?: number
-          learned?: string | null
-          reported_at?: string
-          situation?: string | null
-          trigger?: string | null
-          trigger_id?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "relapses_coping_strategy_attempted_id_fkey"
-            columns: ["coping_strategy_attempted_id"]
-            isOneToOne: false
-            referencedRelation: "coping_strategies"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relapses_trigger_id_fkey"
-            columns: ["trigger_id"]
-            isOneToOne: false
-            referencedRelation: "triggers"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "relapses_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       relaxation_sessions: {
         Row: {
@@ -12401,6 +12993,26 @@ export type Database = {
           read_at: string
           created_at: string
           updated_at: string
+        }[]
+      }
+      get_fella_control_nearby_resources: {
+        Args: { lat: number; lng: number; radius: number }
+        Returns: {
+          address: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          description: string | null
+          geom: unknown | null
+          id: string
+          latitude: number | null
+          longitude: number | null
+          name: string
+          phone: string | null
+          resource_type: string | null
+          state: string | null
+          website: string | null
+          zip_code: string | null
         }[]
       }
       get_fella_control_random_quote: {
