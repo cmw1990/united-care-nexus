@@ -43,24 +43,9 @@ const CaregiverWeek = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This study documents a week in the life of dementia caregivers to understand their daily experiences, challenges, and support needs.</p>
-                  <p className="mt-4">The protocol includes:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>Experience-based co-design methodology</li>
-                    <li>Daily activity tracking and reflection</li>
-                    <li>Identification of key pain points and opportunities</li>
-                    <li>Collaborative design of digital support resources</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="prose max-w-none">
+              <h1>{t('study3.title')}</h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">

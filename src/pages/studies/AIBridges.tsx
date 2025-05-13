@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -201,7 +200,7 @@ const AIBridges = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study2.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">Optional: {t('study2.title')}</h1>
           <p className="text-muted-foreground">
             {t('study2.description')}
           </p>
@@ -236,13 +235,9 @@ const AIBridges = () => {
           </TabsList>
 
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <ProtocolViewer 
-              title="Study Protocol" 
-              documentUrl={protocolUrl || undefined} 
-              documentContent={protocolContent || undefined}
-              fileName={uploadedFileName || undefined}
-              onUpload={prepareUpload}
-            />
+            <div className="prose max-w-none">
+              <h1>Optional: {t('study2.title')}</h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <TasksTab />

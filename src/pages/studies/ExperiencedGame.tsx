@@ -43,24 +43,9 @@ const ExperiencedGame = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This study focuses on the design and evaluation of ExperienceD, a dialogue-based serious game aimed at enhancing dementia care knowledge among informal caregivers.</p>
-                  <p className="mt-4">The protocol includes:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>Game design methodology and principles</li>
-                    <li>Educational content development</li>
-                    <li>User experience evaluation</li>
-                    <li>Knowledge acquisition assessment</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="prose max-w-none">
+              <h1>{t('study4.title')}</h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">

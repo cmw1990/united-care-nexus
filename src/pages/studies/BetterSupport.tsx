@@ -43,24 +43,9 @@ const BetterSupport = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Study Protocol</h2>
-                <div className="prose max-w-none">
-                  <p>This study conducts a comprehensive evaluation of the UniteD AI-powered caregiver network support hub, assessing its effectiveness in providing better support for dementia caregivers.</p>
-                  <p className="mt-4">The protocol includes:</p>
-                  <ul className="mt-2 space-y-1">
-                    <li>Evaluation of the UniteD platform's features and usability</li>
-                    <li>Assessment of impact on caregiver well-being and burden</li>
-                    <li>Measurement of communication quality within caregiver networks</li>
-                    <li>Identification of improvement opportunities for future iterations</li>
-                  </ul>
-                  <div className="flex justify-center mt-6">
-                    <Button>Download Full Protocol</Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="prose max-w-none">
+              <h1>Optional: {t('study6.title')}</h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">

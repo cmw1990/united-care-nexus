@@ -14,7 +14,7 @@ const ChatSupportHub = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Optional: {t('study5.title')}</h1>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study5.title')}</h1>
           <p className="text-muted-foreground">
             {t('study5.description')}
           </p>
@@ -44,7 +44,9 @@ const ChatSupportHub = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <ProtocolTab />
+            <div className="prose max-w-none">
+              <h1>{t('study5.title')}</h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">
