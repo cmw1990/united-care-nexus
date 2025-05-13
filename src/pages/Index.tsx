@@ -13,42 +13,36 @@ const Index = () => {
     {
       id: "study1",
       title: t('study1.title'),
-      description: t('study1.description'),
       icon: BookText,
       path: "/studies/scoping-review"
     },
     {
       id: "study2",
       title: t('study2.title'),
-      description: t('study2.description'),
       icon: Wand2,
       path: "/studies/ai-bridges"
     },
     {
       id: "study3",
       title: t('study3.title'),
-      description: t('study3.description'),
       icon: Clock,
       path: "/studies/caregiver-week"
     },
     {
       id: "study4",
       title: t('study4.title'),
-      description: t('study4.description'),
       icon: Gamepad2,
       path: "/studies/experienced-game"
     },
     {
       id: "study5",
       title: t('study5.title'),
-      description: t('study5.description'),
       icon: MessagesSquare,
       path: "/studies/chat-support-hub"
     },
     {
       id: "study6",
       title: t('study6.title'),
-      description: t('study6.description'),
       icon: Users2,
       path: "/studies/better-support"
     }
@@ -91,7 +85,7 @@ const Index = () => {
                     <CardTitle className="text-lg line-clamp-3">{study.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <CardDescription className="text-sm">{study.description}</CardDescription>
+                    <CardDescription className="text-sm">/</CardDescription>
                   </CardContent>
                   <CardFooter>
                     <Button className="w-full">{t('button.viewStudy')}</Button>
