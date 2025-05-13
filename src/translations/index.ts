@@ -30,7 +30,7 @@ const en = {
   'study1.description': '/',
   
   // Study 2
-  'study2.title': 'Optional: Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
+  'study2.title': 'Beyond the Care Dyad: Can Artificial Intelligence Help to Forge Stronger and Smarter Bridges for Dementia Caregiver Networks?',
   'study2.description': '/',
   
   // Study 3
@@ -38,7 +38,7 @@ const en = {
   'study3.description': '/',
   
   // Study 4
-  'study4.title': 'ExperienceD: Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge and Attitudes Among Informal Caregivers',
+  'study4.title': 'ExperienceD(UniteD-ExperienceD): Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge, Awareness and Attitudes Among Informal Caregivers',
   'study4.description': '/',
   
   // Study 5
@@ -46,7 +46,7 @@ const en = {
   'study5.description': '/',
   
   // Study 6
-  'study6.title': 'Optional: Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
+  'study6.title': 'Bridges to Better Support: A Pilot Feasibility Evaluation of VolunteerD (UniteD-VolunteerD), an AI-Powered Support Hub for Volunteer Dementia Care Networks',
   'study6.description': '/',
   
   // Research Page
@@ -102,8 +102,8 @@ const zhCN = {
   'study3.description': '以体验为基础的研究，为护理者支持网络设计数字工具。',
   
   // Study 4
-  'study4.title': 'ExperienceD：设计并评估一种基于对话的严肃游戏，增强非正式护理者的痴呆症护理知识和态度',
-  'study4.description': '评估一种基于对话的游戏，以改善护理者的知识和态度。',
+  'study4.title': 'ExperienceD(UniteD-ExperienceD): Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge, Awareness and Attitudes Among Informal Caregivers',
+  'study4.description': '评估一种基于对话的游戏，以改善照护者的知识和态度。',
   
   // Study 5
   'study5.title': '聊天群组是护理者所需要并愿意接受的全部吗？AI驱动的护理者网络支持中心"UniteD"的试点评估',
@@ -166,7 +166,7 @@ const zhTW = {
   'study3.description': '以體驗為基礎的研究，為照護者支持網絡設計數位工具。',
   
   // Study 4
-  'study4.title': 'ExperienceD：設計並評估一種基於對話的嚴肅遊戲，增強非正式照護者的失智症照護知識和態度',
+  'study4.title': 'ExperienceD(UniteD-ExperienceD): Design and Feasibility Evaluation of a Brief Dialogue-Based Serious Game to Enhance Dementia Care Knowledge, Awareness and Attitudes Among Informal Caregivers',
   'study4.description': '評估一種基於對話的遊戲，以改善照護者的知識和態度。',
   
   // Study 5
