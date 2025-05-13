@@ -13,42 +13,42 @@ const StudiesPage = () => {
     {
       id: "study1",
       title: t('study1.title'),
-      description: t('study1.description'),
+      description: "/",
       icon: BookText,
       path: "/studies/scoping-review"
     },
     {
       id: "study2",
       title: t('study2.title'),
-      description: t('study2.description'),
+      description: "/",
       icon: Wand2,
       path: "/studies/ai-bridges"
     },
     {
       id: "study3",
       title: t('study3.title'),
-      description: t('study3.description'),
+      description: "/",
       icon: Clock,
       path: "/studies/caregiver-week"
     },
     {
       id: "study4",
       title: t('study4.title'),
-      description: t('study4.description'),
+      description: "/",
       icon: Gamepad2,
       path: "/studies/experienced-game"
     },
     {
       id: "study5",
       title: t('study5.title'),
-      description: t('study5.description'),
+      description: "/",
       icon: MessagesSquare,
       path: "/studies/chat-support-hub"
     },
     {
       id: "study6",
       title: t('study6.title'),
-      description: t('study6.description'),
+      description: "/",
       icon: Users2,
       path: "/studies/better-support"
     }
