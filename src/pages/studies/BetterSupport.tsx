@@ -1,4 +1,3 @@
-
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,10 +12,7 @@ const BetterSupport = () => {
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">Optional: {t('study6.title')}</h1>
-          <p className="text-muted-foreground">
-            {t('study6.description')}
-          </p>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">Optional: {t('study6.title')} / </h1>
         </div>
 
         <Tabs defaultValue="protocol" className="w-full">
@@ -44,7 +40,7 @@ const BetterSupport = () => {
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
             <div className="prose max-w-none">
-              <h1>Optional: {t('study6.title')}</h1>
+              <h1>Optional: {t('study6.title')} / </h1>
             </div>
           </TabsContent>
           <TabsContent value="tasks">

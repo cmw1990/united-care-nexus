@@ -1,216 +1,22 @@
-import { useState, useEffect, useCallback } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { FileText, ListTodo, MessageSquare, Upload, Edit, CheckCircle } from "lucide-react";
-import { useStudy } from "@/hooks/useStudy";
-import { QuestionsManager } from "@/components/studies/QuestionsManager";
-import { FilesTab } from "@/components/studies/FilesTab";
-import { ProtocolViewer } from "@/components/studies/ProtocolViewer";
-import { useAuth } from "@/hooks/useAuth";
-import { toast } from "@/hooks/use-toast";
+import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { supabase } from "@/integrations/supabase/client";
-import { StudyDocument } from "@/types/database.types";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ProtocolTab } from "@/components/studies/ProtocolTab";
 
 const ScopingReview = () => {
   const { t } = useLanguage();
-  const [activeTab, setActiveTab] = useState("protocol");
-  const { user, isLoading: authLoading } = useAuth();
-  const [protocolContent, setProtocolContent] = useState<string | null>(null);
-  const [protocolUrl, setProtocolUrl] = useState<string | null>(null);
-  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
   
-  const { 
-    tasks, 
-    questions, 
-    documents, 
-    notes, 
-    loading: studyLoading,
-    addTask,
-    updateTask,
-    deleteTask,
-    addQuestion,
-    answerQuestion,
-    uploadDocument,
-    deleteDocument,
-    saveNote
-  } = useStudy("scoping-review");
-
-  // Extract protocol file loading to a separate useEffect with proper dependency array
-  useEffect(() => {
-    const loadProtocolFile = async () => {
-      try {
-        // Look for any document that might be marked as a protocol
-        const { data: protocolDocs, error } = await supabase
-          .from('study_documents')
-          .select('*')
-          .eq('study_id', 'scoping-review')
-          .eq('title', 'protocol.txt')
-          .single();
-        
-        if (error) {
-          console.log('No protocol file found:', error);
-          return;
-        }
-        
-        if (!protocolDocs) {
-          return;
-        }
-        
-        if (typeof protocolDocs === 'object' && protocolDocs !== null && 'file_url' in protocolDocs) {
-          const typedProtocolDoc = protocolDocs as StudyDocument;
-          setProtocolUrl(typedProtocolDoc.file_url);
-          setUploadedFileName(typedProtocolDoc.title);
-          
-          try {
-            const fileUrl = typedProtocolDoc.file_url?.toLowerCase();
-            if (fileUrl && (fileUrl.endsWith('.txt') || fileUrl.endsWith('.md') || fileUrl.endsWith('.json'))) {
-              const response = await fetch(typedProtocolDoc.file_url as string);
-              if (response.ok) {
-                const text = await response.text();
-                setProtocolContent(text);
-              }
-            }
-          } catch (contentError) {
-            console.error('Error fetching file content:', contentError);
-          }
-        }
-      } catch (error) {
-        console.error('Error loading protocol file:', error);
-      }
-    };
-    
-    loadProtocolFile();
-  }, []); // Empty dependency array - only run once on mount
-
-  // Convert prepareUpload to return a Promise to match expected type
-  const prepareUpload = useCallback((file: File): Promise<void> => {
-    return new Promise((resolve) => {
-      setSelectedFile(file);
-      setShowConfirmDialog(true);
-      resolve();
-    });
-  }, []);
-
-  const cancelUpload = useCallback(() => {
-    setSelectedFile(null);
-    setShowConfirmDialog(false);
-  }, []);
-
-  const confirmUpload = useCallback(async () => {
-    if (!selectedFile) return;
-    
-    setIsUploading(true);
-    
-    try {
-      const file = selectedFile;
-      const fileType = file.type.toLowerCase();
-      const isTextFile = fileType === 'text/plain' || 
-                        file.name.endsWith('.txt') || 
-                        file.name.endsWith('.md') || 
-                        file.name.endsWith('.json');
-      
-      setUploadedFileName(file.name);
-      
-      if (isTextFile) {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-          const content = e.target?.result as string;
-          if (content) {
-            setProtocolContent(content);
-            const blob = new Blob([content], { type: fileType || 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            setProtocolUrl(url);
-          }
-        };
-        
-        reader.readAsText(file);
-      } else {
-        const url = URL.createObjectURL(file);
-        setProtocolUrl(url);
-        setProtocolContent(null);
-      }
-      
-      // Upload to Supabase storage
-      if (uploadDocument) {
-        await uploadDocument(file, file.name, `Study file uploaded on ${new Date().toLocaleString()}`);
-      }
-      
-      toast({
-        title: "Upload successful",
-        description: "Your file has been uploaded successfully.",
-      });
-    } catch (error: any) {
-      console.error('Error handling file:', error);
-      toast({
-        title: "Upload failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsUploading(false);
-      setShowConfirmDialog(false);
-      setSelectedFile(null);
-    }
-  }, [selectedFile, uploadDocument]);
-
-  // Format data for components
-  const formattedQuestions = questions.map(q => ({
-    id: q.id,
-    title: q.question.substring(0, 50) + (q.question.length > 50 ? '...' : ''),
-    content: q.question,
-    author: { id: q.asked_by || "", name: "Researcher", initials: "R", role: "Researcher" },
-    timestamp: q.created_at,
-    tags: ["methodology", "research"],
-    comments: q.answer ? [{
-      id: `comment-${q.id}`,
-      content: q.answer,
-      author: { id: q.answered_by || "", name: "Researcher", initials: "R", role: "Researcher" },
-      timestamp: q.created_at
-    }] : [],
-    isResolved: q.status === "resolved"
-  }));
-
-  // Files are now managed directly in the FilesTab component
-  // This is no longer needed as we're not passing this to the component
-  // const formattedFiles = documents.map(doc => ({...}))
-
-  const handleFileUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-    
-    try {
-      const file = files[0];
-      await uploadDocument(file, file.name);
-      toast({
-        title: "File uploaded",
-        description: "Your file has been uploaded successfully.",
-      });
-    } catch (error: any) {
-      toast({
-        title: "Upload failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    }
-  };
-
   return (
     <MainLayout>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study1.title')}</h1>
-          <p className="text-muted-foreground">
-            {t('study1.description')}
-          </p>
+          <h1 className="text-3xl font-bold tracking-tight mb-2">{t('study1.title')} / </h1>
         </div>
 
-        <Tabs defaultValue={activeTab} onValueChange={setActiveTab} className="w-full">
+        <Tabs defaultValue="protocol" className="w-full">
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="protocol">
               <FileText className="h-4 w-4 mr-2" />
@@ -234,188 +40,48 @@ const ScopingReview = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <ProtocolViewer 
-              title="Study Protocol" 
-              documentUrl={protocolUrl || undefined} 
-              documentContent={protocolContent || undefined}
-              fileName={uploadedFileName || undefined}
-              onUpload={prepareUpload}
-            />
+            <div className="prose max-w-none">
+              <h1>{t('study1.title')} / </h1>
+            </div>
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">
-              {studyLoading ? (
-                <div className="flex justify-center items-center p-8">Loading tasks...</div>
-              ) : (
-                <div>
-                  {tasks.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-muted-foreground mb-4">No tasks yet. Create your first task to get started.</p>
-                      <Button onClick={() => addTask({
-                        title: "Review literature search strategy",
-                        description: "Validate the search terms and databases for the scoping review",
-                        status: "pending",
-                        priority: "high",
-                        due_date: null,
-                        assigned_to: null,
-                        created_by: user?.id || null,
-                        study_id: "scoping-review"
-                      })}>
-                        Create First Task
-                      </Button>
-                    </div>
-                  ) : (
-                    <div>
-                      <h2 className="text-xl font-semibold mb-4">Task Manager</h2>
-                      <p className="text-muted-foreground mb-4">Manage and assign tasks related to the study</p>
-                      <div>
-                        {tasks.map(task => (
-                          <div key={task.id} className="border rounded-md p-4 mb-3">
-                            <div className="flex justify-between">
-                              <h3 className="font-medium">{task.title}</h3>
-                              <div className="flex items-center gap-2">
-                                <span className={`px-2 py-1 rounded-full text-xs ${
-                                  task.priority === 'high' ? 'bg-red-100 text-red-800' :
-                                  task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                                  'bg-blue-100 text-blue-800'
-                                }`}>
-                                  {task.priority}
-                                </span>
-                                <span className={`px-2 py-1 rounded-full text-xs ${
-                                  task.status === 'completed' ? 'bg-green-100 text-green-800' :
-                                  task.status === 'in-progress' ? 'bg-purple-100 text-purple-800' :
-                                  'bg-gray-100 text-gray-800'
-                                }`}>
-                                  {task.status}
-                                </span>
-                              </div>
-                            </div>
-                            {task.description && (
-                              <p className="text-sm text-muted-foreground mt-2">{task.description}</p>
-                            )}
-                            <div className="flex justify-end gap-2 mt-4">
-                              {task.status !== 'completed' ? (
-                                <Button 
-                                  size="sm" 
-                                  variant="outline"
-                                  onClick={() => updateTask(task.id, { status: 'completed' })}
-                                >
-                                  Mark Complete
-                                </Button>
-                              ) : (
-                                <Button 
-                                  size="sm" 
-                                  variant="outline"
-                                  onClick={() => updateTask(task.id, { status: 'pending' })}
-                                >
-                                  Reopen
-                                </Button>
-                              )}
-                              <Button 
-                                size="sm" 
-                                variant="destructive"
-                                onClick={() => deleteTask(task.id)}
-                              >
-                                Delete
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
-                        <Button 
-                          className="mt-4"
-                          onClick={() => addTask({
-                            title: "New Task",
-                            description: "Task description",
-                            status: "pending",
-                            priority: "medium",
-                            due_date: null,
-                            assigned_to: null,
-                            created_by: user?.id || null,
-                            study_id: "scoping-review"
-                          })}
-                        >
-                          Add New Task
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
+              <h2 className="text-xl font-semibold mb-4">Task Manager</h2>
+              <p className="text-muted-foreground mb-4">Manage and assign tasks related to the study</p>
+              <div className="flex justify-center">
+                <p>Task management functionality will be displayed here</p>
+              </div>
             </div>
           </TabsContent>
           <TabsContent value="questions">
             <div className="border rounded-md p-4 mt-4">
-              {studyLoading ? (
-                <div className="flex justify-center items-center p-8">Loading questions...</div>
-              ) : (
-                <QuestionsManager 
-                  title="Research Questions" 
-                  initialQuestions={formattedQuestions}
-                />
-              )}
+              <h2 className="text-xl font-semibold mb-4">Questions</h2>
+              <p className="text-muted-foreground mb-4">Track and manage questions related to the study</p>
+              <div className="flex justify-center">
+                <p>Questions management functionality will be displayed here</p>
+              </div>
             </div>
           </TabsContent>
           <TabsContent value="files">
-            <FilesTab />
+            <div className="border rounded-md p-4 mt-4">
+              <h2 className="text-xl font-semibold mb-4">Files</h2>
+              <p className="text-muted-foreground mb-4">Upload, download, and manage study files</p>
+              <div className="flex justify-center">
+                <p>File management functionality will be displayed here</p>
+              </div>
+            </div>
           </TabsContent>
           <TabsContent value="editor">
             <div className="border rounded-md p-4 mt-4">
               <h2 className="text-xl font-semibold mb-4">Co-Editor</h2>
               <p className="text-muted-foreground mb-4">Collaboratively edit text documents</p>
-              <div className="border rounded-md p-6 min-h-[400px]">
-                <div className="prose max-w-none">
-                  <h3>Scoping Review Notes</h3>
-                  <p>
-                    This is a collaborative document for the scoping review project. Team members can edit this document together.
-                  </p>
-                  <p>
-                    <strong>Research Questions:</strong>
-                  </p>
-                  <ol>
-                    <li>What are the existing eHealth applications designed to support communication, coordination, and collaboration among caregivers of people with dementia living at home?</li>
-                    <li>What are the effectiveness and outcomes of these eHealth applications?</li>
-                    <li>What are the barriers and facilitators to implementing these eHealth applications?</li>
-                  </ol>
-                  <p>
-                    <strong>Methods:</strong>
-                  </p>
-                  <p>
-                    We will conduct a scoping review following the methodology of Arksey and O'Malley (2005), with enhancements by Levac et al. (2010). The review will include articles published in English between 2010 and 2023.
-                  </p>
-                </div>
-              </div>
-              <div className="flex justify-end mt-4">
-                <Button variant="outline" className="mr-2">Cancel</Button>
-                <Button>Save Changes</Button>
+              <div className="flex justify-center">
+                <p>Text co-editing functionality will be displayed here</p>
               </div>
             </div>
           </TabsContent>
         </Tabs>
       </div>
-
-      <Dialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Confirm Upload</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to upload {selectedFile?.name}?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={cancelUpload} disabled={isUploading}>
-              Cancel
-            </Button>
-            <Button onClick={confirmUpload} disabled={isUploading}>
-              {isUploading ? "Uploading..." : (
-                <>
-                  <CheckCircle className="h-4 w-4 mr-2" />
-                  Confirm Upload
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </MainLayout>
   );
 };
