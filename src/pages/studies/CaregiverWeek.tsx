@@ -1,9 +1,11 @@
+
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
+import { QuestionsManager } from "@/components/studies/QuestionsManager";
 
 const CaregiverWeek = () => {
   const { t } = useLanguage();
@@ -53,13 +55,7 @@ const CaregiverWeek = () => {
             </div>
           </TabsContent>
           <TabsContent value="questions">
-            <div className="border rounded-md p-4 mt-4">
-              <h2 className="text-xl font-semibold mb-4">Questions</h2>
-              <p className="text-muted-foreground mb-4">Track and manage questions related to the study</p>
-              <div className="flex justify-center">
-                <p>Questions management functionality will be displayed here</p>
-              </div>
-            </div>
+            <QuestionsManager />
           </TabsContent>
           <TabsContent value="files">
             <div className="border rounded-md p-4 mt-4">

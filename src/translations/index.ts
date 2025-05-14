@@ -1,4 +1,3 @@
-
 import { Translations } from '../context/LanguageContext';
 
 // English translations (default)
@@ -35,7 +34,7 @@ const en = {
   'study2.description': '/',
   
   // Study 3
-  'study3.title': 'A Week in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks',
+  'study3.title': 'A Week in the Life of Dementia Caregivers and Days in the Life of Dementia Caregivers: An Experience-Based Co-Design Study to Develop Digital Resources Supporting Caregiver Networks',
   'study3.description': '/',
   
   // Study 4
@@ -99,7 +98,7 @@ const zhCN = {
   'study2.description': '探索增强痴呆症护理者支持网络的人工智能解决方案。',
   
   // Study 3
-  'study3.title': '痴呆症护理者的一周生活：基于体验的共同设计研究，开发支持护理者网络的数字资源',
+  'study3.title': '痴呆症护理者的一周生活和痴呆症护理者的日常生活：基于体验的共同设计研究，开发支持护理者网络的数字资源',
   'study3.description': '以体验为基础的研究，为护理者支持网络设计数字工具。',
   
   // Study 4
@@ -160,10 +159,10 @@ const zhTW = {
   
   // Study 2
   'study2.title': '可選: 超越照護二元關係：人工智慧能否幫助為失智症照護者網絡建立更強大、更智能的橋樑？',
-  'study2.description': '探索增強失智症照護者支持網絡的人工智慧解決方案。',
+  'study2.description': '探索增強失智症照護者支持網絡的人工智���解決方案。',
   
   // Study 3
-  'study3.title': '失智症照護者的一週生活：基於體驗的共同設計研究，開發支持照護者網絡的數位資源',
+  'study3.title': '失智症照護者的一週生活和失智症照護者的日常生活：基於體驗的共同設計研究，開發支持照護者網絡的數位資源',
   'study3.description': '以體驗為基礎的研究，為照護者支持網絡設計數位工具。',
   
   // Study 4
