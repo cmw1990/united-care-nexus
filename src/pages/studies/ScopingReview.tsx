@@ -3,7 +3,7 @@ import { MainLayout } from "@/components/layout/MainLayout";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
-import { ProtocolTab } from "@/components/studies/ProtocolTab";
+import { ScopingReviewProtocolTab } from "@/components/studies/ScopingReviewProtocolTab";
 
 const ScopingReview = () => {
   const { t } = useLanguage();
@@ -39,7 +39,7 @@ const ScopingReview = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <ProtocolTab />
+            <ScopingReviewProtocolTab />
           </TabsContent>
           {/* 
           Since the components below require studyId prop that's causing TypeScript errors,

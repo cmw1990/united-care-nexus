@@ -6,13 +6,13 @@ export const ScopingReviewProtocolTab = () => {
   return (
     <ProtocolViewer
       title="Scoping Review Protocol"
-      documentContent={`# Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: How Eﬀective
-Are They at Bridging and Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home
+      documentContent={`Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: How Eﬀective
+Are They at Bridging and Are (Some of) the Bridges Still Too Far? eHealth Ap-
+plications to Support Communication, Coordination, Collaboration Among Care-
+givers of People with Dementia Living at Home
 -
 A Scoping Review Protocol
-
-## 1. Abstract
-
+1. Abstract
 Background: Supporting persons with dementia living at home often relies upon complex
 care networks extending beyond the primary caregiver-person with dementia (PWD)
 dyad[1,2]. Within these networks, eﬀective communication, coordination, and collabora-
@@ -73,9 +73,7 @@ Keywords: Dementia, Alzheimer Disease, Caregivers, Informal Caregivers, Family C
 givers, Caregiving Network, eHealth, Mobile Health, Technology, Communication, Coordi-
 nation, Collaboration, Social Support, Psychosocial Support, Implementation Science,
 Scoping Review, Protocol.
-
-## 2. Introduction
-
+2. Introduction
 Dementia represents a significant and growing global health challenge [16], characterized
 by progressive cognitive decline that profoundly impacts functional capacity and quality
 of life [17]. Enabling persons with dementia (PwD) to reside in their own homes for as long
@@ -94,7 +92,6 @@ eﬀectively connecting them with the broader social and healthcare environment 
 the cognitive and communicative abilities of the person with dementia decline, the input
 and coordinated action of the network become increasingly critical for ensuring that care
 decisions align with their known wishes and preferences [2].
-
 The eﬀective functioning of such a care network relies critically on adequate communica-
 tion, coordination, and collaboration (CCC) among its members [3,4]. Members require
 timely and relevant information—updates on health status, care strategies, schedules—to
@@ -107,9 +104,7 @@ els or digital literacy, navigating interpersonal dynamics, and overcoming syste
 mentation [5,19]. An asymmetry often exists, with secondary caregivers potentially lack-
 ing direct information access and relying on the primary caregiver, who may be overbur-
 dened and struggle to manage communication flows across the network [1,5].
-
 Ehealth, potentials, eﬀects and challenges
-
 Electronic health (eHealth) technologies, broadly defined as the use of information and
 communication technologies for health [20] , oﬀer potential avenues for addressing these
 CCC barriers. This review conceptualizes such technologies metaphorically as digital
@@ -121,7 +116,6 @@ could potentially enable more eﬃcient and eﬀective information exchange[6], 
 structured support for coordinating complex care tasks and schedules [22], promote
 shared understanding and collaborative decision-making processes [4], and foster a
 stronger sense of mutual support and shared responsibility among caregivers [23].
-
 The forms these digital bridges take can vary widely. Examples include dedicated care
 coordination platforms focusing on task management, shared calendars [22] ; care col-
 laboration platforms designed to support joint care planning and communication about
@@ -131,7 +125,6 @@ support resources or peer connection opportunities for caregivers [23,25, 30, 33
 tems incorporating location tracking or wandering alert features for safety management
 [34]; or more comprehensive care management systems that integrate multiple functional-
 ities into a single interface [7].
-
 Despite this potential and the variety of ehealth currently built, many eHealth interventions
 encounter significant obstacles to eﬀectively supporting this care network. The building of
 these technologies can be inherently diﬃcult, akin to attempting to build technological
@@ -146,7 +139,6 @@ tools are built. Compounding this issue is the marked heterogeneity in digital l
 within the caregiver population [10, 27]. Many caregivers, particularly older adults or those
 less familiar with technology, may lack the necessary skills, confidence, or access to ef-
 fectively engage with online resources or digital tools, even when potentially beneficial.
-
 Furthermore, there is the inherent challenge in designing and developing eHealth tools
 that are sophisticated and flexible enough to genuinely support the complex, dynamic,
 and often unpredictable nature of real-world dementia care networks, yet keeping them
@@ -164,10 +156,8 @@ often forms another hurdle; a tool's complexity might enhance its potential eﬀ
 but simultaneously increase adoption barriers, while a simpler tool might be easier to
 adopt but lack the necessary functionality to truly bridge the CCC gaps, which can also
 lead to "bridge too far" [11, 21].
-
 AI, the solution to finally close some gaps, or just bridges that are conceptually too
 far?
-
 Artificial Intelligence (AI), particularly advancements in areas like Large Language Models
 (LLMs), has generated considerable discussion regarding its potential to transform vari-
 ous aspects of healthcare, including dementia care and caregiving support [12,13]. AI
@@ -175,7 +165,6 @@ holds theoretical potential to enhance interoperability between systems, bridgin
 tion silos, and easing the burden of information input, retrieval, management and presen-
 tation for caregivers – potentially addressing gaps that currently seem "too far" to bridge
 eﬀectively [12].
-
 However, the application of AI specifically aimed at supporting caregiver networks and
 enhancing CCC among multiple caregivers appears to be in its very early stages. Signif-
 cant challenges likely remain before AI can be eﬀectively leveraged for this purpose.
@@ -188,16 +177,13 @@ accept or rely on "smarter" bridges built with AI, potentially rendering these a
 lutions another form of "bridge too far" in practice, despite their technical might. The
 adoption challenges already faced by simpler eHealth tools related to trust and accep-
 tance are likely to be amplified with AI [10, 13].
-
 Therefore, a key objective of this scoping review is to map the current state of AI integra-
 tion in network support tools. This involves identifying if AI applications are reported to
 address previously identified gaps, exploring evidence on user acceptance and perceived
 value, understanding if AI represents a conceptual "bridge too far," and mapping any re-
 ported methods (e.g., explainable AI techniques) used to enhance trust and acceptance,
 along with their described eﬀectiveness.
-
 Rationale and Aims for the Scoping Review
-
 The rationale for conducting this scoping review stems from the fragmentation of evi-
 dence regarding eHealth solutions designed to support the broader dementia care net-
 work and the persistent challenges ("bridge too far") aﬀecting their development and
@@ -217,11 +203,8 @@ lessons learned from the current body of research, this review aims to provide a
 overview of the evidence base. This synthesis will serve to inform future research priori-
 ties, guide the development of more eﬀective and user-centered technologies, and sup-
 port implementation strategies directed towards creating "eﬀective bridges that last."
-
-## 3. Methods
-
-### 3.1. Protocol Design
-
+3. Methods
+3.1. Protocol Design
 This scoping review will be conducted in accordance with the JBI methodology [14] for
 scoping reviews and will be reported following the Preferred Reporting Items for System-
 atic reviews and Meta-Analyses extension for Scoping Reviews (PRISMA-ScR) guidelines
@@ -229,13 +212,10 @@ atic reviews and Meta-Analyses extension for Scoping Reviews (PRISMA-ScR) guidel
 questions; (2) Aligning inclusion criteria; (3) Planning evidence search, selection, extrac-
 tion, and presentation; (4) Searching; (5) Selecting; (6) Extracting; (7) Analyzing and Sum-
 marizing evidence.Stage 1: Defining and aligning the objectives and questions
-
 Stage 1: Defining and aligning the objectives and questions
-
 Research questions were formulated through the Population, Concept, Context (PCC)
 framework, guided by the review's objectives and the conceptualization of eHealth inter-
 ventions as digital "bridges" connecting members of the care network:
-
 • Population: Caregivers (primary caregivers, secondary/other informal caregivers,
 formal home-based care workers, respite providers, volunteers, community sup-
 port personnel, and relevant healthcare professionals involved in the care network
@@ -249,19 +229,15 @@ support across the network.
 home setting and community-based services (e.g., day centres, respite facilities,
 support groups), as well as interactions with primary and specialist healthcare
 providers who are part of, or connected to, the home care network.
-
 The primary research questions guiding this review are:
-
 1. What types of "bridges" have been built or attempted so far? - What types of
 eHealth applications targeting multi-caregiver interaction in dementia home care
 have been developed or attempted (e.g., communication platforms, coordination
 tools, shared care planning systems)?
-
 2. (What and) Who are the "bridges" built to bridge? - Who are the intended users
 connected by these bridges (e.g., primary caregiver, secondary caregivers, formal
 providers, volunteer)? What specific caregiver roles, network or institutions do they
 target?
-
 3. What are the features and functionalities of the "bridges"? - What are the specific
 features and functionalities incorporated within these applications designed to fa-
 cilitate CCC, provide social/psychosocial support, manage information, or coordi-
@@ -269,31 +245,25 @@ nate tasks among network members? What features have been developed to en-
 able personalized/contextualized privacy/information access control and what fea-
 tures have been developed to enhance the explainability and transparency of the
 system?
-
 4. How were these "bridges" built? - What design methods, development processes,
 and theoretical frameworks (if any) were used to develop these "bridges"? Were
 stakeholders involved in the design/development and what stakeholders stake-
 holders were involved in the design/development?
-
 5. How were these "bridges" evaluated? - What evaluations were conducted on these
 bridges?(e.g. usability , feasibility, acceptability, adoption, eﬀectiveness, implemen-
 tation)?
-
 6. How eﬀective are the "bridges" at bridging? - What is the reported evidence re-
 garding the eﬀectiveness or impact of these bridges on outcomes related to the
 caregiver network (e.g., improved communication, coordination, collaboration, re-
 duced conflict), caregiver well-being (e.g., burden, stress, social support), or po-
 tentially PwD outcomes (e.g., quality of care, safety)?
-
 7. How are these "bridges" perceived and received? - What are the reported percep-
 tions and experiences of stakeholders on using these bridges, including needs,
 preferences, perceived usefulness, usability, acceptability, and barriers/facilitators
 to use?
-
 8. How integrated are these bridges? - How integrated are these bridges with each
 other or with existing health information systems, services, or caregiver workflows,
 and what is the perceived impact on information silos or information input burden?
-
 9. How have these bridges evolved over time? - How have the features, functionali-
 ties, and underlying technologies used in these bridges changed over the review
 period? What newer features have been applied to address know gaps and how
@@ -301,18 +271,14 @@ eﬀective they are? Specifically, what is the evidence regarding the integratio
 newer technologies like AI (specially LLMs)? What is known about the potential of
 AI to address previously identified gaps and how do caregivers perceive and ac-
 cept these AI-driven features?
-
 10. Are the "bridges" still standing? - What information is available within the included
 studies regarding the sustainability, continued availability, or real-world adoption and use
 of these eHealth applications beyond the timeframe of the initial research or pilot project?
 What characteristics of the bridges are associated with successful real world adoption
 and implementation?
-
 Step 2: Developing and aligning the inclusion criteria with the objective and ques-
 tions
-
 Studies will be included if they meet the following criteria:
-
 • Empirical studies (quantitative, qualitative, or mixed-methods) evaluating or detail-
 ing the design, development process, feasibility, usability, acceptability, evaluation
 methodology, implementation, eﬀectiveness/outcomes, evolution, or sustainability
@@ -324,9 +290,7 @@ support interaction (CCC, social/psychosocial support) among multiple caregivers
 care network or with clear link to the home-based care network.
 • Studies published from January 2000 onwards.
 • Published in English.
-
 Studies will be excluded based on the following detailed criteria:
-
 • Studies focusing exclusively on institutional settings (e.g., nursing homes, hospi-
 tals) without a clear link or interface to the home-based care network via the
 eHealth intervention.
@@ -343,9 +307,7 @@ evaluating its network features or related outcomes in the target population.
 • Review articles, editorials, commentaries, letters, conference abstracts without suf-
 ficient empirical data. Protocols of studies (unless reporting preliminary findings
 meeting other criteria).
-
 Step 3. Search Strategy
-
 An initial search string was developed based on PCC framework. Considering the rapid
 evolution in this field and the variety of technology that may be designed to support the
 dementia care network, a preliminary hand search of app stores (Apple App Store and
@@ -353,13 +315,11 @@ Google Play) was also performed to identify features of the first 100 Apps desig
 support multiple caregiver networks of dementia, terms describing these features (e.g.,
 information sharing, chat group, task management, shared calendar, care alert, GPS)
 were also included in the "Concept" search strings.
-
 This initial search strategy will be pilot-tested in PubMed and IEEE Xplore in consultation
 with a librarian to refine keywords and ensure optimal retrieval. Based on the pilot results,
 tailored search strings will be developed for each specific database, utilizing appropriate
 syntax, Boolean operators (AND, OR), proximity operators (where available), and trunca-
 tion/wildcard symbols.
-
 Initial search string:
 • Population (Dementia): Dementia, Alzheimer*
 • Population (Caregivers/Care Network): Caregiver*, Carer*, Secondary
@@ -377,62 +337,49 @@ checkin, check in, check-in.
 care organization, social support, psychosocial support, care support, caregiver
 support, peer support, community support, day care, day centre, respite care,
 homecare, home care, home-care.
-
 Information Sources:
 1. Academic Electronic Databases: Searches will be conducted in the following data-
 bases: PubMed, Embase, Scopus, ACM Digital Library, and IEEE Xplore. These data-
 bases provide broad coverage across medical, psychological, social science, nursing,
 allied health, and computing/engineering literature.
-
 2. Grey Literature Sources: To capture non-peer-reviewed materials and reports not in-
 dexed in academic databases, systematic searches will be performed in Google Schol-
 ar, first 500 papers will be retrieved for further selection.
-
 3. Supplementary Searching: Reference lists of included studies and relevant reviews
 will be manually scanned (citation tracking) in both the chosen academic databases of
 this research and google scholar to identify additional potentially eligible studies
-
 Step 5. Study Selection
-
 The study selection process will be managed using systematic review software (Rayyan)
 to facilitate eﬃcient screening and documentation, and will be conducted systematically
 to minimize bias.
-
 • Process: Following duplicate removal, two reviewers (R1, R2) will independently
 screen titles and abstracts against the predefined eligibility criteria. Before com-
 mencing independent screening, R1 and R2 will conduct a calibration exercise on
 a sample of abstracts (e.g., 50-100) to ensure consistent interpretation and appli-
 cation of the criteria. Any disagreements during calibration will be discussed and
 criteria clarified as needed.
-
 • Potentially relevant articles identified during title/abstract screening will be re-
 trieved for full-text review. R1 and R2 will then independently assess the full texts
 against the eligibility criteria.
-
 • Conflict Resolution: Any disagreements between R1 and R2 at either the title/ab-
 stract or full-text screening stage will be resolved through discussion and consen-
 sus. If consensus cannot be reached, a third reviewer will be consulted to make
 the final decision.
-
 • Documentation: Reasons for excluding studies at the full-text stage will be docu-
 mented. The entire selection process, including the number of records identified,
 screened, assessed for eligibility, and included, will be reported using a PRISMA-
 ScR flow diagram.
-
 Study 6. Data Extraction / Charting
-
 A structured data charting form has been developed in Microsoft Excel (Microsoft Corp.)
 for this research, guided by the JBI recommendations for scoping reviews and tailored to
 address the specific review objectives and questions. The form will be piloted by both re-
 viewers on a small subset of included studies (e.g., 3-5 studies) and refined for clarity and
 completeness before full data extraction commences.
-
 Two reviewers (R1, R2) will independently extract data from each included source using
 the final version of the data charting form. Any discrepancies identified during the extrac-
 tion process will be resolved through discussion between the two reviewers. The data
 charting form (summarized in Table 1) is designed to capture detailed information across
 key domains relevant to the review questions.
-
 Table 1: Data Extraction Items
 Category Data Items
 Publication/Program 1. Author(s), 2. Year of Publication, 3.
@@ -533,12 +480,9 @@ Source
 the review questions
 2. Gaps identified and future research
 suggested by authors
-
 Step 7. Data Analysis, Synthesis and Report results
-
 The data extracted using the charting form will be collated and synthesized to provide a
 comprehensive map of the evidence landscape, addressing the review questions.
-
 • Approach: A narrative synthesis will be employed, structured around the ten re-
 search questions and the "digital bridges"/"bridge too far" conceptual framework.
 • Mapping and Structuring: Basic descriptive statistics for study characteristics
@@ -555,15 +499,12 @@ tative themes related to each research question.
 bridge characteristics). A PRISMA-ScR flow diagram will document study selec-
 tion. The narrative will address each research question, summarizing key findings,
 identifying knowledge gaps, and outlining implications.
-
-## 3. Discussion
-
+3. Discussion
 This document outlines the protocol for a scoping review designed to systematically map
 the evidence concerning eHealth applications conceptualized as digital "bridges" for
 supporting CCC and social/psychosocial needs within dementia home care networks. By
 adhering to JBI [14] methodology, this review aims to provide a comprehensive overview
 of the current state of research and development in this area.
-
 The anticipated contribution of this review is to provide a comprehensive overview of the
 types of eHealth "bridges" that have been developed and evaluated, their specific fea-
 tures, the network members they target, and the methodologies used to assess them. A
@@ -572,93 +513,74 @@ research that contribute to the "bridge too far", the methods used and features 
 to address these gaps and how eﬀective they are. Furthermore, the review will shed light
 on the potential role of AI in this domain, mapping its current applications and the associ-
 ated challenges regarding acceptance and trust.
-
 A scoping review methodology was chosen as the appropriate approach for this under-
 taking. It allows for the clarification of key concepts (like the diﬀerent forms of "bridges"
 or "collaboration support"), the identification of knowledge gaps, and an examination of
 the state of this field, the evolvement of features and technics that have been developed
 or being attempted to address the challenges faced by building eﬀective bridges that last.
-
-## References
-
+References
 1. Dam AE, Boots LMM, van Boxtel MPJ, Verhey FRJ, de Vugt ME. Integrating social
 network perspectives in dementia care networks: a multi-informant study on the mis-
 match between supply and demand of social support. Int Psychogeriatr. 2017
 Dec;29(12):2065-2075. doi: 10.1017/S1041610217001612. PMID: 28606195.
-
 2. Brodaty H, Donkin M. Family caregivers of people with dementia. Dialogues Clin Neu-
 rosci. 2009;11(2):217-28. PMID: 19585953; PMCID: PMC3181915.
-
 3. Schulz R, Martire LM. Family caregiving of persons with dementia: prevalence, health
 eﬀects, and support strategies. Am J Geriatr Psychiatry. 2004 May-Jun;12(3):240-9.
 PMID: 15130873.
-
 4. Laakkonen ML, Kautiainen H, Hölttä E, Savikko N, Strandberg T, Suominen M, Pitkälä
 KH. Eﬀects of a Comprehensive Intervention Program With Cooperative Planning Be-
 tween Diﬀerent Health Care Professionals and Family Caregivers on the Health Outcomes
 of Older Family Caregivers of Persons With Dementia. JAMA Netw Open. 2020 Feb
 5;3(2):e1920701. doi: 10.1001/jamanetworkopen.2019.20701. PMID: 32040159; PMCID:
 PMC7016561.
-
 5. Donkor ES, Mallett R, Maharjan R. Understanding the needs of caregivers of persons
 with dementia: a scoping review. Int Psychogeriatr. 2022 Nov;34(11):1013-1023. doi:
 10.1017/S104161021900020X. Epub 2019 Apr 10. PMID: 30967164.
-
 6. Chi NC, Demiris G. A systematic review of telehealth tools and interventions to support
 family caregivers. J Telemed Telecare. 2015 Jan;21(1):37-44. doi:
 10.1177/1357633X14562734. Epub 2014 Dec 15. PMID: 25512041.
-
 7. Hopwood J, Walker N, McDonagh L, Rait G, Walters K, Iliﬀe S, Bachner Y, Manthorpe
 J, Schrag A. Internet-based interventions aimed at supporting family caregivers of people
 with dementia: a systematic review of the literature. Int J Geriatr Psychiatry. 2018
 Dec;33(12):1611-1635. doi: 10.1002/gps.4969. Epub 2018 Aug 10. PMID: 30101448.
-
 8. Christie HL, Martin JL, Connor J, Tange HJ, Verhey FRJ, de Vugt ME, Orrell M. eHealth
 interventions to support caregivers of people with dementia may be proven eﬀective, but
 are they implementation-ready? Internet Interv. 2019 Oct 29;18:100260. doi: 10.1016/j.in-
 vent.2019.100260. PMID: 31700753; PMCID: PMC6821733.
-
 9. Hübner U, Thye J, Blaser R, Babitsch B, Hüsers J, Egbert N, et al. Barriers and Facilita-
 tors for the Implementation of eHealth Services: Systematic Literature Analysis and Ex-
 pert Interviews. JMIR Med Inform. 2019 Nov 22;7(4):e14197. doi: 10.2196/14197. PMID:
 31755571; PMCID: PMC6914248.
-
 10. Peek STM, Wouters EJM, van Hoof J, Luijkx KG, Boeije HR, Vrijhoef HJM. Factors in-
 fluencing acceptance of technology for aging in place: a systematic review. Int J Med In-
 form. 2014 Apr;83(4):235-48. doi: 10.1016/j.ijmedinf.2014.01.004. Epub 2014 Jan 20.
 PMID: 24529817.
-
 11. Greenhalgh T, Wherton J, Papoutsi C, Lynch J, Hughes G, A'Court C, Hinder S, Fahy
 N, Procter R, Shaw S. Beyond Adoption: A New Framework for Theorizing and Evaluating
 Nonadoption, Abandonment, and Challenges to the Scale-Up, Spread, and Sustainability
 of Health and Care Technologies. J Med Internet Res. 2017 Nov 1;19(11):e367. doi:
 10.2196/jmir.8775. PMID: 29092808; PMCID: PMC5688274.
-
 12. Chen Y, Lehmann CU, Malin B. Digital Information Ecosystems in Modern Care Coor-
 dination and Patient Care Pathways and the Challenges and Opportunities for AI Solu-
 tions. J Med Internet Res. 2024 Dec 2;26:e60258. doi: 10.2196/60258. PMID: 39622048;
 PMCID: PMC11650087.
-
 13. van der Vaart R, van der Ham A, van der Velde M, van der Weide L, Peek STM,
 Wouters EJM. Anticipating Implications to Complement Co-Design: An Empirical Explo-
 ration in the Context of Designing Artificial Intelligence Technology for Dementia Care.
 JMIR Hum Factors. 2024 Jul 31;11:e54413. doi: 10.2196/54413. PMID: 39083474; PM-
 CID: PMC11331028.
-
-14. Peters MDJ, Godfrey C, McInerney P, Munn Z, Tricco AC, Khalil H. Chapter 11: Scop-
+14.Peters MDJ, Godfrey C, McInerney P, Munn Z, Tricco AC, Khalil H. Chapter 11: Scop-
 ing Reviews (2020 version). In: Aromataris E, Munn Z (Editors). JBI Manual for Evidence
 Synthesis, JBI, 2020. Available from https://synthesismanual.jbi.global.
-
-15. Tricco AC, Lillie E, Zarin W, O'Brien KK, Colquhoun H, Levac D, Moher D, Peters MDJ,
+15.Tricco AC, Lillie E, Zarin W, O'Brien KK, Colquhoun H, Levac D, Moher D, Peters MDJ,
 Horsley T, Weeks L, Hempel S, Akl EA, Chang C, McGowan J, Stewart L, Hartling L, Ald-
 croft A, Wilson MG, Garritty C, Lewin S, Godfrey CM, Macdonald MT, Langlois EV,
 Soares-Weiser K, Moriarty J, Cliﬀord T, Tunçalp Ö, Straus SE. PRISMA Extension for
 Scoping Reviews (PRISMA-ScR): Checklist and Explanation. Ann Intern Med. 2018 Oct
 2;169(7):467-473. doi: 10.7326/M18-0850. Epub 2018 Sep 4. PMID: 30178033.
-
-16. World Health Organization. Dementia Fact Sheet. 2023 Sep 15. URL: https://
+16.World Health Organization. Dementia Fact Sheet. 2023 Sep 15. URL: https://
 www.who.int/news-room/fact-sheets/detail/dementia
-
 17. Livingston G, Huntley J, Sommerlad A, Ames D, Ballard C, Banerjee S, Brayne C,
 Burns A, Cohen-Mansfield J, Cooper C, Costafreda SG, Dias A, Fox N, Gitlin LN, Howard
 R, Kales HC, Kivimäki M, Larson EB, Ogunniyi A, Orgeta V, Ritchie K, Rockwood K,
@@ -666,94 +588,74 @@ Sampson EL, Samus Q, Schneider LS, Selbæk G, Teri L, Mukadam N. Dementia preven
 tion, intervention, and care: 2020 report of the Lancet Commission. Lancet. 2020 Aug
 8;396(10248):413-446. doi: 10.1016/S0140-6736(20)30367-6. Epub 2020 Jul 30. PMID:
 32738937; PMCID: PMC7392084.
-
 18. Adelman RD, Tmanova LL, Delgado D, Dion S, Lachs MS. Caregiver burden: a clinical
 review. JAMA. 2014 Mar 12;311(10):1052-60. doi: 10.1001/jama.2014.304. PMID:
 24618967.
-
 19. Campos-Soto M, Augusto-Landa JM, Merchán-Baeza JA. Needs, Facilitators, and
 Barriers for the Adoption of Digital Technology in Dementia Care: Qualitative Study. JMIR
 Aging. 2019 Jan 25;2(1):e12192. doi: 10.2196/12192. PMID: 31985028; PMCID: PM-
 C6718104.
-
 20. Eysenbach G. What is e-health? J Med Internet Res. 2001;3(2):E20. doi: 10.2196/
 jmir.3.2.e20. PMID: 11720962; PMCID: PMC1761894.
-
 21. Boessen ABCG, Verwey R, Duymelinck S, van Rossum E. An Online Platform to Sup-
 port the Network of Caregivers of People with Dementia. J Aging Res.
 2017;2017:3076859. doi: 10.1155/2017/3076859. Epub 2017 Aug 15. PMID: 28894609;
 PMCID: PMC5574294.
-
 22. Hartzler AL, Izard JP, Dobbins N, Mikles SP, Sheppard K. Understanding the Use of a
 Caregiving App to Support Information Behavior Among Care Networks of Older Adults. J
 Gerontol B Psychol Sci Soc Sci. 2022 Nov 16;77(Suppl 3):S295-S306. doi: 10.1093/
 geronb/gbac039. PMID: 35271756; PMCID: PMC9667327.
-
 23. Christie HL, Dam AEH, van Boxtel M, Köhler S, Verhey F, de Vugt ME. Eﬀectiveness of
 an online social support intervention for caregivers of people with dementia (Inlife): A ran-
 domized controlled trial. J Med Internet Res. 2022 Dec 7;24(12):e38656. doi:
 10.2196/38656. PMID: 36476485; PMCID: PMC9779530.
-
 24. Levinson AJ, Ayers S, Butler L, Papaioannou A, Marr S, Sztramko R. Barriers and Fa-
 cilitators for the Implementation of a Web-Based Dementia Caregiver Education Interven-
 tion (iGeriCare) in Clinical Practice: Qualitative Study. JMIR Aging. 2020 Oct
 2;3(2):e20115. doi: 10.2196/20115. PMID: 33006587; PMCID: PMC7567728.
-
 25. Leng M, Zhao R, Tan L, Tan L, Wang Y, Zhu Z, Chan SW. Internet-Based Supportive
 Interventions for Family Caregivers of People With Dementia: Systematic Review and
 Meta-Analysis. J Med Internet Res. 2020 Sep 17;22(9):e19468. doi: 10.2196/19468.
 PMID: 32936111; PMCID: PMC7530461.
-
 26. Cahill S, Pierce M, Werner P, Darley A, Bobrowicz A. A systematic review of the pub-
 lic's knowledge and understanding of dementia. Alzheimer Dis Assoc Disord. 2015 Jan-
 Mar;29(1):e1-e13. doi: 10.1097/WAD.0000000000000030. PMID: 24583652.
-
 27. Chesser A, Burke A, Jaiswal N, Kistler CE. Navigating the digital divide: A systematic
 review of older adults' challenges using technology. Work. 2023;74(4):1239-1254. doi:
 10.3233/WOR-213577. PMID: 36710581.
-
 28. Alqahtani A, Alshamrani M, Alqahtani N, Alshamrani A. Information Technology Ap-
 plications to Support Informal Caregivers of Older Adults: Systematic Review. JMIR Ag-
 ing. 2024 Jan 18;7:e57393. doi: 10.2196/57393. PMID: 38236517; PMCID: PM-
 C10837620.
-
 29. Kruse CS, Argueta DA, Lopez L, Nair A. Patient and provider attitudes toward the use
 of patient portals for the management of chronic disease: a systematic review. J Med In-
 ternet Res. 2015 Feb 20;17(2):e40. doi: 10.2196/jmir.4015. PMID: 25700565; PMCID:
 PMC4376233.
-
 30. Christie HL, Dam AEH, van Boxtel M, Köhler S, Verhey F, de Vugt ME. Lessons
 Learned From an Eﬀectiveness Evaluation of Inlife, a Web-Based Social Support Interven-
 tion for Caregivers of People With Dementia: Randomized Controlled Trial. JMIR Aging.
 2022 Dec 7;5(4):e38656. doi: 10.2196/38656. PMID: 36476485; PMCID: PMC9773030.
-
 31. Davenport T, Kalakota R. The potential for artificial intelligence in healthcare. Future
 Healthc J. 2019 Jun;6(2):94-98. doi: 10.7861/futurehosp.6-2-94. PMID: 31363612; PM-
 CID: PMC6616181.
-
 32. Peters MD, Godfrey CM, Khalil H, McInerney P, Parker D, Soares CB. Guidance for
 conducting systematic scoping reviews. Int J Evid Based Healthc. 2015 Sep;13(3):141-6.
 doi: 10.1097/XEB.0000000000000050. PMID: 26184544.
-
 33. Amadea, Turk., Emma, Fairclough., Gillian, Grason, Smith., Benjamin, Lond., Veronica,
 Nanton., Jeremy, Dale. (2019). 1. Exploring the Perceived Usefulness and Ease of Use of
 a Personalized Web-Based Resource (Care Companion) to Support Informal Caring:
 Qualitative Descriptive Study.. doi: 10.2196/13875
-
 34. Dale J, Nanton V, Day T, Apenteng P, Bernstein CJ, Grason Smith G, Strong P, Procter
 R. Uptake and Use of Care Companion, a Web-Based Information Resource for Support-
 ing Informal Carers of Older People: Mixed Methods Study. JMIR Aging. 2023 Sep
 21;6:e41185. doi: 10.2196/41185
-
 35. Mishra RK, Park C, Momin AS, Rafaei NE, Kunik M, York MK, Najafi B. Care4AD: A
 Technology-Driven Platform for Care Coordination and Management: Acceptability Study
 in Dementia. Gerontology. 2023;69(2):227-238
-
 36. Linden A, Jolliﬀ A, Gonzalez D, Loganathar P, Elliott C, Zuraw M, Werner NE. "It made
 me feel like I wasn't alone in the darkness": exploring dementia care network communica-
 tion and coordination through a digital health platform. J Am Med Inform Assoc. 2022
 Nov 14;29(12):2003-2013. doi: 10.1093/jamia/ocac172
-
 37. Fernandez Cajavilca M, Zheng A, Bamidele-Sanni K, Sadarangani T. Exploring Family
 Caregivers' Likelihood of Adopting a Novel App That Connects Care Teams of Persons
 Living With Dementia: A Mixed-Methods Study. Gerontol Geriatr Med. 2024 Oct
