@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { StudyCollaborator, StudyTask, StudyQuestion, StudyDocument, StudyNote } from "@/types/database.types";
@@ -293,12 +294,12 @@ export const useStudy = (studyId: string) => {
   const uploadDocument = useCallback(async (file: File, title: string, description?: string) => {
     try {
       // First check if storage bucket exists
-      const bucketExists = await checkStorageBucket('study-documents');
+      const bucketExists = await checkStorageBucket('studystoragenew');
       
       if (!bucketExists) {
         toast({
           title: "Storage Error",
-          description: "The study-documents storage bucket doesn't exist. Please contact your administrator.",
+          description: "The studystoragenew storage bucket doesn't exist. Please contact your administrator.",
           variant: "destructive",
         });
         return null;
@@ -328,7 +329,7 @@ export const useStudy = (studyId: string) => {
       
       // Upload file to storage
       const { error: uploadError, data: uploadData } = await supabase.storage
-        .from('study-documents')
+        .from('studystoragenew')
         .upload(filePath, file);
         
       if (uploadError) {
@@ -338,7 +339,7 @@ export const useStudy = (studyId: string) => {
       
       // Get the public URL
       const { data: { publicUrl } } = supabase.storage
-        .from('study-documents')
+        .from('studystoragenew')
         .getPublicUrl(filePath);
       
       console.log('File uploaded successfully to:', publicUrl);
@@ -410,7 +411,7 @@ export const useStudy = (studyId: string) => {
       if (filePath) {
         console.log('Deleting file from storage:', filePath);
         const { error: storageError } = await supabase.storage
-          .from('study-documents')
+          .from('studystoragenew')
           .remove([filePath]);
           
         if (storageError) {

@@ -15,7 +15,7 @@ export const FilesTab = () => {
   // Check if storage bucket exists on mount
   useEffect(() => {
     const checkBucket = async () => {
-      const exists = await checkStorageBucket('study-documents');
+      const exists = await checkStorageBucket('studystoragenew');
       setBucketExists(exists);
     };
     
@@ -30,7 +30,7 @@ export const FilesTab = () => {
     if (!bucketExists) {
       toast({
         title: "Storage Error",
-        description: "The study-documents storage bucket doesn't exist. Please contact your administrator.",
+        description: "The studystoragenew storage bucket doesn't exist. Please contact your administrator.",
         variant: "destructive",
       });
       return;
@@ -120,7 +120,7 @@ export const FilesTab = () => {
           <FileIcon className="h-10 w-10 text-muted-foreground mb-2" />
           <p className="text-muted-foreground mb-2">Storage bucket not found</p>
           <p className="text-muted-foreground text-center text-sm mb-4">
-            The 'study-documents' storage bucket needs to be created in your Supabase project.
+            The 'studystoragenew' storage bucket needs to be created in your Supabase project.
           </p>
           <p className="text-muted-foreground text-center text-xs mb-4">
             Please ask your administrator to create this bucket in the Supabase dashboard.

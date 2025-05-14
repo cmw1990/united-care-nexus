@@ -4954,6 +4954,74 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_fresh_activity_points_log: {
+        Row: {
+          activity_type: string
+          id: string
+          metadata: Json | null
+          occurred_at: string
+          points_earned: number
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          id?: string
+          metadata?: Json | null
+          occurred_at?: string
+          points_earned: number
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          id?: string
+          metadata?: Json | null
+          occurred_at?: string
+          points_earned?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_fresh_claimed_rewards: {
+        Row: {
+          claimed_at: string
+          created_at: string
+          id: string
+          notes: string | null
+          points_redeemed: number
+          reward_id: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          claimed_at?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          points_redeemed: number
+          reward_id?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          claimed_at?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          points_redeemed?: number
+          reward_id?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_claimed_rewards_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_fresh_community_posts: {
         Row: {
           content: string
@@ -5599,6 +5667,45 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_fresh_rewards: {
+        Row: {
+          active: boolean
+          created_at: string
+          description: string | null
+          id: string
+          image_url: string | null
+          name: string
+          points_required: number
+          reward_category: string | null
+          unlock_condition: Json | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name: string
+          points_required: number
+          reward_category?: string | null
+          unlock_condition?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          points_required?: number
+          reward_category?: string | null
+          unlock_condition?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       fella_fresh_sleep_logs: {
         Row: {
           created_at: string
@@ -5674,6 +5781,41 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_fresh_step_rewards: {
+        Row: {
+          created_at: string
+          id: string
+          points_earned: number
+          reward_id: string | null
+          steps_required: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          points_earned: number
+          reward_id?: string | null
+          steps_required: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          points_earned?: number
+          reward_id?: string | null
+          steps_required?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_step_rewards_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_fresh_triggers: {
         Row: {
           category: string | null
@@ -5702,6 +5844,48 @@ export type Database = {
           id?: string
           name?: string
           trigger_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_fresh_user_gamification_stats: {
+        Row: {
+          achievements_unlocked: number
+          created_at: string
+          current_points: number
+          id: string
+          last_activity_at: string | null
+          learning_modules_completed: number
+          points_redeemed: number
+          tools_used_count: number
+          total_points: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          achievements_unlocked?: number
+          created_at?: string
+          current_points?: number
+          id?: string
+          last_activity_at?: string | null
+          learning_modules_completed?: number
+          points_redeemed?: number
+          tools_used_count?: number
+          total_points?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          achievements_unlocked?: number
+          created_at?: string
+          current_points?: number
+          id?: string
+          last_activity_at?: string | null
+          learning_modules_completed?: number
+          points_redeemed?: number
+          tools_used_count?: number
+          total_points?: number
           updated_at?: string
           user_id?: string
         }

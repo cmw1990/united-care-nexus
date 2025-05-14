@@ -39,7 +39,7 @@ export const checkStorageBucket = async (bucketName: string): Promise<boolean> =
 };
 
 // Initialize study documents storage bucket check on load
-checkStorageBucket('study-documents')
+checkStorageBucket('studystoragenew')
   .then(exists => {
     if (exists) {
       console.log('Storage bucket for study documents confirmed.');
