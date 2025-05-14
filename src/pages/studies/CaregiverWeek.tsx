@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FileText, ListTodo, MessageSquare, Upload, Edit } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { QuestionsManager } from "@/components/studies/QuestionsManager";
+import { ProtocolTab } from "@/components/studies/ProtocolTab";
 
 const CaregiverWeek = () => {
   const { t } = useLanguage();
@@ -41,9 +42,7 @@ const CaregiverWeek = () => {
             </TabsTrigger>
           </TabsList>
           <TabsContent value="protocol" className="border rounded-md p-4 mt-4">
-            <div className="prose max-w-none">
-              <h1>{t('study3.title')} / </h1>
-            </div>
+            <ProtocolTab />
           </TabsContent>
           <TabsContent value="tasks">
             <div className="border rounded-md p-4 mt-4">
