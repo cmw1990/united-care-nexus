@@ -506,6 +506,7 @@ Caregivers' Likelihood of Adopting a Novel App That Connects Care Teams of Perso
 Living With Dementia: A Mixed-Methods Study. Gerontol Geriatr Med. 2024 Oct
 5;10:23337214241275638. doi: 10.1177/23337214241275638`;
 
+  // Use the ProtocolViewer to display the content properly and maintain correct formatting
   return (
     <div className="prose max-w-none">
       <ProtocolViewer 

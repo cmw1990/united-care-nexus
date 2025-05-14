@@ -3834,6 +3834,7 @@ export type Database = {
           id: string
           intensity: number
           location: string | null
+          log_date: string | null
           notes: string | null
           timestamp: string
           trigger_description: string | null
@@ -3848,6 +3849,7 @@ export type Database = {
           id?: string
           intensity: number
           location?: string | null
+          log_date?: string | null
           notes?: string | null
           timestamp?: string
           trigger_description?: string | null
@@ -3862,6 +3864,7 @@ export type Database = {
           id?: string
           intensity?: number
           location?: string | null
+          log_date?: string | null
           notes?: string | null
           timestamp?: string
           trigger_description?: string | null
@@ -4558,6 +4561,33 @@ export type Database = {
           },
         ]
       }
+      fella_control_support_requests: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          message: string
+          name: string
+          subject: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          message: string
+          name: string
+          subject: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          message?: string
+          name?: string
+          subject?: string
+        }
+        Relationships: []
+      }
       fella_control_triggers: {
         Row: {
           category: string | null
@@ -5038,6 +5068,39 @@ export type Database = {
         }
         Relationships: []
       }
+      fella_fresh_coping_strategies: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          strategy_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          strategy_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          strategy_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       fella_fresh_craving_logs: {
         Row: {
           coping_mechanism: string | null
@@ -5088,6 +5151,66 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      fella_fresh_custom_products: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_fresh_daily_wellness_logs: {
+        Row: {
+          created_at: string
+          energy_level: number | null
+          id: string
+          logged_at: string
+          mood: number | null
+          notes: string | null
+          sleep_hours: number | null
+          sleep_quality: number | null
+          stress_level: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          energy_level?: number | null
+          id?: string
+          logged_at?: string
+          mood?: number | null
+          notes?: string | null
+          sleep_hours?: number | null
+          sleep_quality?: number | null
+          stress_level?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          energy_level?: number | null
+          id?: string
+          logged_at?: string
+          mood?: number | null
+          notes?: string | null
+          sleep_hours?: number | null
+          sleep_quality?: number | null
+          stress_level?: number | null
+          user_id?: string
+        }
+        Relationships: []
       }
       fella_fresh_educational_content_progress: {
         Row: {
@@ -5362,14 +5485,14 @@ export type Database = {
             foreignKeyName: "fella_fresh_nicotine_logs_coping_strategy_id_fkey"
             columns: ["coping_strategy_id"]
             isOneToOne: false
-            referencedRelation: "coping_strategies"
+            referencedRelation: "fella_fresh_coping_strategies"
             referencedColumns: ["id"]
           },
           {
             foreignKeyName: "fella_fresh_nicotine_logs_craving_trigger_id_fkey"
             columns: ["craving_trigger_id"]
             isOneToOne: false
-            referencedRelation: "triggers"
+            referencedRelation: "fella_fresh_triggers"
             referencedColumns: ["id"]
           },
           {
@@ -5550,6 +5673,84 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      fella_fresh_triggers: {
+        Row: {
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          trigger_type: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          trigger_type?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          trigger_type?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      fella_fresh_user_trigger_strategy_map: {
+        Row: {
+          created_at: string
+          effectiveness_rating: number | null
+          id: string
+          notes: string | null
+          strategy_id: string
+          trigger_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          effectiveness_rating?: number | null
+          id?: string
+          notes?: string | null
+          strategy_id: string
+          trigger_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          effectiveness_rating?: number | null
+          id?: string
+          notes?: string | null
+          strategy_id?: string
+          trigger_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_user_trigger_strategy_map_strategy_id_fkey"
+            columns: ["strategy_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_coping_strategies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_fresh_user_trigger_strategy_map_trigger_id_fkey"
+            columns: ["trigger_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_triggers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       fella_note_drawings: {
         Row: {
@@ -11739,6 +11940,7 @@ export type Database = {
       }
       user_goals: {
         Row: {
+          cost_per_unit: number | null
           created_at: string
           daily_step_goal: number | null
           fella_control_cost_per_drink: number | null
@@ -11756,10 +11958,12 @@ export type Database = {
           status: string
           timeline_days: number | null
           title: string | null
+          typical_daily_usage: number | null
           updated_at: string
           user_id: string
         }
         Insert: {
+          cost_per_unit?: number | null
           created_at?: string
           daily_step_goal?: number | null
           fella_control_cost_per_drink?: number | null
@@ -11777,10 +11981,12 @@ export type Database = {
           status?: string
           timeline_days?: number | null
           title?: string | null
+          typical_daily_usage?: number | null
           updated_at?: string
           user_id: string
         }
         Update: {
+          cost_per_unit?: number | null
           created_at?: string
           daily_step_goal?: number | null
           fella_control_cost_per_drink?: number | null
@@ -11798,6 +12004,7 @@ export type Database = {
           status?: string
           timeline_days?: number | null
           title?: string | null
+          typical_daily_usage?: number | null
           updated_at?: string
           user_id?: string
         }
@@ -12757,6 +12964,10 @@ export type Database = {
       }
       delete_comment: {
         Args: { comment_id: string }
+        Returns: undefined
+      }
+      delete_fella_control_craving_logs_by_date: {
+        Args: { p_user_id: string; p_log_date: string }
         Returns: undefined
       }
       disablelongtransactions: {
