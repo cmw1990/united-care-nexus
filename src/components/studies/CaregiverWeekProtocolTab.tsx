@@ -39,7 +39,7 @@ Features:
 Push Notifications: Hourly prompts from 8 AM to 10 PM. Participants are not required to record an event at every notification; they can record if a care event occurs or choose to log events later.
 AI-Assisted Input:Voice recording option for data entry.
 Pre-defined templates for common care events.
-AI assistance to help structure inputs into a researcher-friendly format, reducing caregiver burden.
+AI assistance to help complete inputs, reducing caregiver burden.
 Duration: Primary caregivers will use the tool for one week.
 "Days in the Life of Dementia Caregivers" Interactive Survey (for "Other Caregivers")
 
