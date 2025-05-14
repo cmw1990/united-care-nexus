@@ -46,7 +46,7 @@ Duration: Primary caregivers will use the tool for one week.
 Purpose: To gather contextual information about the caregiving experiences, needs and challenges of "other caregivers" and act as a sensitizing tool before their interview.
 Tool Description: A condensed version of the "A Week in the Life" survey focusing on recording care related events (event, needs, challenges, collaboration, tools).
 Features: Similar AI-assisted input features as the "A Week in the Life" tool.
-Distribution: Primary caregivers can share a link to this survey with their identified "other caregivers."
+Distribution: Primary caregivers can share a link to this survey with their "other caregivers."
 Duration:
 
 Phase 2: Semi-Structured Interviews (for all participating Primary and "Other Caregivers")
