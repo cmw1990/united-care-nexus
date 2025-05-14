@@ -3,6 +3,7 @@ import React from "react";
 import { ProtocolViewer } from "./ProtocolViewer";
 
 export const ProtocolTab = () => {
+  // The protocol content for the Scoping Review study
   const protocolContent = `# Beyond the Care Dyad: Bridging Dementia Caregivers with eHealth: How Eﬀective
 Are They at Bridging and Are (Some of) the Bridges Still Too Far? eHealth Applications to Support Communication, Coordination, Collaboration Among Caregivers of People with Dementia Living at Home
 -
@@ -176,7 +177,7 @@ eﬀectively [12].
 
 However, the application of AI specifically aimed at supporting caregiver networks and
 enhancing CCC among multiple caregivers appears to be in its very early stages. Signif-
-icant challenges likely remain before AI can be eﬀectively leveraged for this purpose.
+cant challenges likely remain before AI can be eﬀectively leveraged for this purpose.
 These include ensuring usability and accessibility for diverse users within the network,
 including older adults and those with varying levels of technological proficiency [13,30].
 Furthermore, considerations regarding data privacy, the potential for algorithmic bias im-
@@ -550,7 +551,150 @@ A scoping review methodology was chosen as the appropriate approach for this und
 taking. It allows for the clarification of key concepts (like the diﬀerent forms of "bridges"
 or "collaboration support"), the identification of knowledge gaps, and an examination of
 the state of this field, the evolvement of features and technics that have been developed
-or being attempted to address the challenges faced by building eﬀective bridges that last.`;
+or being attempted to address the challenges faced by building eﬀective bridges that last.
+
+References
+1. Dam AE, Boots LMM, van Boxtel MPJ, Verhey FRJ, de Vugt ME. Integrating social
+network perspectives in dementia care networks: a multi-informant study on the mis-
+match between supply and demand of social support. Int Psychogeriatr. 2017
+Dec;29(12):2065-2075. doi: 10.1017/S1041610217001612. PMID: 28606195.
+2. Brodaty H, Donkin M. Family caregivers of people with dementia. Dialogues Clin Neu-
+rosci. 2009;11(2):217-28. PMID: 19585953; PMCID: PMC3181915.
+3. Schulz R, Martire LM. Family caregiving of persons with dementia: prevalence, health
+eﬀects, and support strategies. Am J Geriatr Psychiatry. 2004 May-Jun;12(3):240-9.
+PMID: 15130873.
+4. Laakkonen ML, Kautiainen H, Hölttä E, Savikko N, Strandberg T, Suominen M, Pitkälä
+KH. Eﬀects of a Comprehensive Intervention Program With Cooperative Planning Be-
+tween Diﬀerent Health Care Professionals and Family Caregivers on the Health Outcomes
+of Older Family Caregivers of Persons With Dementia. JAMA Netw Open. 2020 Feb
+5;3(2):e1920701. doi: 10.1001/jamanetworkopen.2019.20701. PMID: 32040159; PMCID:
+PMC7016561.
+5. Donkor ES, Mallett R, Maharjan R. Understanding the needs of caregivers of persons
+with dementia: a scoping review. Int Psychogeriatr. 2022 Nov;34(11):1013-1023. doi:
+10.1017/S104161021900020X. Epub 2019 Apr 10. PMID: 30967164.
+6. Chi NC, Demiris G. A systematic review of telehealth tools and interventions to support
+family caregivers. J Telemed Telecare. 2015 Jan;21(1):37-44. doi:
+10.1177/1357633X14562734. Epub 2014 Dec 15. PMID: 25512041.
+7. Hopwood J, Walker N, McDonagh L, Rait G, Walters K, Iliﬀe S, Bachner Y, Manthorpe
+J, Schrag A. Internet-based interventions aimed at supporting family caregivers of people
+with dementia: a systematic review of the literature. Int J Geriatr Psychiatry. 2018
+Dec;33(12):1611-1635. doi: 10.1002/gps.4969. Epub 2018 Aug 10. PMID: 30101448.
+8. Christie HL, Martin JL, Connor J, Tange HJ, Verhey FRJ, de Vugt ME, Orrell M. eHealth
+interventions to support caregivers of people with dementia may be proven eﬀective, but
+are they implementation-ready? Internet Interv. 2019 Oct 29;18:100260. doi: 10.1016/j.in-
+vent.2019.100260. PMID: 31700753; PMCID: PMC6821733.
+9. Hübner U, Thye J, Blaser R, Babitsch B, Hüsers J, Egbert N, et al. Barriers and Facilita-
+tors for the Implementation of eHealth Services: Systematic Literature Analysis and Ex-
+pert Interviews. JMIR Med Inform. 2019 Nov 22;7(4):e14197. doi: 10.2196/14197. PMID:
+31755571; PMCID: PMC6914248.
+10. Peek STM, Wouters EJM, van Hoof J, Luijkx KG, Boeije HR, Vrijhoef HJM. Factors in-
+fluencing acceptance of technology for aging in place: a systematic review. Int J Med In-
+form. 2014 Apr;83(4):235-48. doi: 10.1016/j.ijmedinf.2014.01.004. Epub 2014 Jan 20.
+PMID: 24529817.
+11. Greenhalgh T, Wherton J, Papoutsi C, Lynch J, Hughes G, A'Court C, Hinder S, Fahy
+N, Procter R, Shaw S. Beyond Adoption: A New Framework for Theorizing and Evaluating
+Nonadoption, Abandonment, and Challenges to the Scale-Up, Spread, and Sustainability
+of Health and Care Technologies. J Med Internet Res. 2017 Nov 1;19(11):e367. doi:
+10.2196/jmir.8775. PMID: 29092808; PMCID: PMC5688274.
+12. Chen Y, Lehmann CU, Malin B. Digital Information Ecosystems in Modern Care Coor-
+dination and Patient Care Pathways and the Challenges and Opportunities for AI Solu-
+tions. J Med Internet Res. 2024 Dec 2;26:e60258. doi: 10.2196/60258. PMID: 39622048;
+PMCID: PMC11650087.
+13. van der Vaart R, van der Ham A, van der Velde M, van der Weide L, Peek STM,
+Wouters EJM. Anticipating Implications to Complement Co-Design: An Empirical Explo-
+ration in the Context of Designing Artificial Intelligence Technology for Dementia Care.
+JMIR Hum Factors. 2024 Jul 31;11:e54413. doi: 10.2196/54413. PMID: 39083474; PM-
+CID: PMC11331028.
+14.Peters MDJ, Godfrey C, McInerney P, Munn Z, Tricco AC, Khalil H. Chapter 11: Scop-
+ing Reviews (2020 version). In: Aromataris E, Munn Z (Editors). JBI Manual for Evidence
+Synthesis, JBI, 2020. Available from https://synthesismanual.jbi.global.
+15.Tricco AC, Lillie E, Zarin W, O'Brien KK, Colquhoun H, Levac D, Moher D, Peters MDJ,
+Horsley T, Weeks L, Hempel S, Akl EA, Chang C, McGowan J, Stewart L, Hartling L, Ald-
+croft A, Wilson MG, Garritty C, Lewin S, Godfrey CM, Macdonald MT, Langlois EV,
+Soares-Weiser K, Moriarty J, Cliﬀord T, Tunçalp Ö, Straus SE. PRISMA Extension for
+Scoping Reviews (PRISMA-ScR): Checklist and Explanation. Ann Intern Med. 2018 Oct
+2;169(7):467-473. doi: 10.7326/M18-0850. Epub 2018 Sep 4. PMID: 30178033.
+16.World Health Organization. Dementia Fact Sheet. 2023 Sep 15. URL: https://
+www.who.int/news-room/fact-sheets/detail/dementia
+17. Livingston G, Huntley J, Sommerlad A, Ames D, Ballard C, Banerjee S, Brayne C,
+Burns A, Cohen-Mansfield J, Cooper C, Costafreda SG, Dias A, Fox N, Gitlin LN, Howard
+R, Kales HC, Kivimäki M, Larson EB, Ogunniyi A, Orgeta V, Ritchie K, Rockwood K,
+Sampson EL, Samus Q, Schneider LS, Selbæk G, Teri L, Mukadam N. Dementia preven-
+tion, intervention, and care: 2020 report of the Lancet Commission. Lancet. 2020 Aug
+8;396(10248):413-446. doi: 10.1016/S0140-6736(20)30367-6. Epub 2020 Jul 30. PMID:
+32738937; PMCID: PMC7392084.
+18. Adelman RD, Tmanova LL, Delgado D, Dion S, Lachs MS. Caregiver burden: a clinical
+review. JAMA. 2014 Mar 12;311(10):1052-60. doi: 10.1001/jama.2014.304. PMID:
+24618967.
+19. Campos-Soto M, Augusto-Landa JM, Merchán-Baeza JA. Needs, Facilitators, and
+Barriers for the Adoption of Digital Technology in Dementia Care: Qualitative Study. JMIR
+Aging. 2019 Jan 25;2(1):e12192. doi: 10.2196/12192. PMID: 31985028; PMCID: PM-
+C6718104.
+20. Eysenbach G. What is e-health? J Med Internet Res. 2001;3(2):E20. doi: 10.2196/
+jmir.3.2.e20. PMID: 11720962; PMCID: PMC1761894.
+21. Boessen ABCG, Verwey R, Duymelinck S, van Rossum E. An Online Platform to Sup-
+port the Network of Caregivers of People with Dementia. J Aging Res.
+2017;2017:3076859. doi: 10.1155/2017/3076859. Epub 2017 Aug 15. PMID: 28894609;
+PMCID: PMC5574294.
+22. Hartzler AL, Izard JP, Dobbins N, Mikles SP, Sheppard K. Understanding the Use of a
+Caregiving App to Support Information Behavior Among Care Networks of Older Adults. J
+Gerontol B Psychol Sci Soc Sci. 2022 Nov 16;77(Suppl 3):S295-S306. doi: 10.1093/
+geronb/gbac039. PMID: 35271756; PMCID: PMC9667327.
+23. Christie HL, Dam AEH, van Boxtel M, Köhler S, Verhey F, de Vugt ME. Eﬀectiveness of
+an online social support intervention for caregivers of people with dementia (Inlife): A ran-
+domized controlled trial. J Med Internet Res. 2022 Dec 7;24(12):e38656. doi:
+10.2196/38656. PMID: 36476485; PMCID: PMC9779530.
+24. Levinson AJ, Ayers S, Butler L, Papaioannou A, Marr S, Sztramko R. Barriers and Fa-
+cilitators for the Implementation of a Web-Based Dementia Caregiver Education Interven-
+tion (iGeriCare) in Clinical Practice: Qualitative Study. JMIR Aging. 2020 Oct
+2;3(2):e20115. doi: 10.2196/20115. PMID: 33006587; PMCID: PMC7567728.
+25. Leng M, Zhao R, Tan L, Tan L, Wang Y, Zhu Z, Chan SW. Internet-Based Supportive
+Interventions for Family Caregivers of People With Dementia: Systematic Review and
+Meta-Analysis. J Med Internet Res. 2020 Sep 17;22(9):e19468. doi: 10.2196/19468.
+PMID: 32936111; PMCID: PMC7530461.
+26. Cahill S, Pierce M, Werner P, Darley A, Bobrowicz A. A systematic review of the pub-
+lic's knowledge and understanding of dementia. Alzheimer Dis Assoc Disord. 2015 Jan-
+Mar;29(1):e1-e13. doi: 10.1097/WAD.0000000000000030. PMID: 24583652.
+27. Chesser A, Burke A, Jaiswal N, Kistler CE. Navigating the digital divide: A systematic
+review of older adults' challenges using technology. Work. 2023;74(4):1239-1254. doi:
+10.3233/WOR-213577. PMID: 36710581.
+28. Alqahtani A, Alshamrani M, Alqahtani N, Alshamrani A. Information Technology Ap-
+plications to Support Informal Caregivers of Older Adults: Systematic Review. JMIR Ag-
+ing. 2024 Jan 18;7:e57393. doi: 10.2196/57393. PMID: 38236517; PMCID: PM-
+C10837620.
+29. Kruse CS, Argueta DA, Lopez L, Nair A. Patient and provider attitudes toward the use
+of patient portals for the management of chronic disease: a systematic review. J Med In-
+ternet Res. 2015 Feb 20;17(2):e40. doi: 10.2196/jmir.4015. PMID: 25700565; PMCID:
+PMC4376233.
+30. Christie HL, Dam AEH, van Boxtel M, Köhler S, Verhey F, de Vugt ME. Lessons
+Learned From an Eﬀectiveness Evaluation of Inlife, a Web-Based Social Support Interven-
+tion for Caregivers of People With Dementia: Randomized Controlled Trial. JMIR Aging.
+2022 Dec 7;5(4):e38656. doi: 10.2196/38656. PMID: 36476485; PMCID: PMC9773030.
+31. Davenport T, Kalakota R. The potential for artificial intelligence in healthcare. Future
+Healthc J. 2019 Jun;6(2):94-98. doi: 10.7861/futurehosp.6-2-94. PMID: 31363612; PM-
+CID: PMC6616181.
+32. Peters MD, Godfrey CM, Khalil H, McInerney P, Parker D, Soares CB. Guidance for
+conducting systematic scoping reviews. Int J Evid Based Healthc. 2015 Sep;13(3):141-6.
+doi: 10.1097/XEB.0000000000000050. PMID: 26184544.
+33. Amadea, Turk., Emma, Fairclough., Gillian, Grason, Smith., Benjamin, Lond., Veronica,
+Nanton., Jeremy, Dale. (2019). 1. Exploring the Perceived Usefulness and Ease of Use of
+a Personalized Web-Based Resource (Care Companion) to Support Informal Caring:
+Qualitative Descriptive Study.. doi: 10.2196/13875
+34. Dale J, Nanton V, Day T, Apenteng P, Bernstein CJ, Grason Smith G, Strong P, Procter
+R. Uptake and Use of Care Companion, a Web-Based Information Resource for Support-
+ing Informal Carers of Older People: Mixed Methods Study. JMIR Aging. 2023 Sep
+21;6:e41185. doi: 10.2196/41185
+35. Mishra RK, Park C, Momin AS, Rafaei NE, Kunik M, York MK, Najafi B. Care4AD: A
+Technology-Driven Platform for Care Coordination and Management: Acceptability Study
+in Dementia. Gerontology. 2023;69(2):227-238
+36. Linden A, Jolliﬀ A, Gonzalez D, Loganathar P, Elliott C, Zuraw M, Werner NE. "It made
+me feel like I wasn't alone in the darkness": exploring dementia care network communica-
+tion and coordination through a digital health platform. J Am Med Inform Assoc. 2022
+Nov 14;29(12):2003-2013. doi: 10.1093/jamia/ocac172
+37. Fernandez Cajavilca M, Zheng A, Bamidele-Sanni K, Sadarangani T. Exploring Family
+Caregivers' Likelihood of Adopting a Novel App That Connects Care Teams of Persons
+Living With Dementia: A Mixed-Methods Study. Gerontol Geriatr Med. 2024 Oct
+5;10:23337214241275638. doi: 10.1177/23337214241275638`;
 
   // Use the ProtocolViewer to display the content properly and maintain correct formatting
   return (
@@ -563,4 +707,3 @@ or being attempted to address the challenges faced by building eﬀective bridge
     </div>
   );
 };
-
