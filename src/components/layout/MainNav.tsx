@@ -2,13 +2,14 @@
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useLocation } from "react-router-dom";
-import { BookText, FileText, MessagesSquare, Library, Globe, CheckSquare, HelpCircle } from "lucide-react";
+import { BookText, FileText, Library, CheckSquare, HelpCircle, Home } from "lucide-react";
 import { LanguageSelector } from "../LanguageSelector";
 
 export function MainNav() {
   const location = useLocation();
   
   const links = [
+    { href: "/", label: "Home", icon: Home },
     { href: "/studies", label: "Studies", icon: BookText },
     { href: "/research", label: "Research", icon: FileText },
     { href: "/resources", label: "Resources", icon: Library },
