@@ -15,6 +15,9 @@ import Auth from "./pages/Auth";
 // Import studies page
 import StudiesPage from "./pages/StudiesPage";
 import ResearchPage from "./pages/ResearchPage";
+import ResourcesPage from "./pages/ResourcesPage";
+import TodoPage from "./pages/TodoPage";
+import QuestionsPage from "./pages/QuestionsPage";
 
 // Import individual study pages
 import ScopingReview from "./pages/studies/ScopingReview";
@@ -23,7 +26,6 @@ import CaregiverWeek from "./pages/studies/CaregiverWeek";
 import ExperiencedGame from "./pages/studies/ExperiencedGame";
 import ChatSupportHub from "./pages/studies/ChatSupportHub";
 import BetterSupport from "./pages/studies/BetterSupport";
-import ResourcesPage from "./pages/ResourcesPage";
 
 const queryClient = new QueryClient();
 
@@ -43,6 +45,8 @@ const App = () => (
               <Route path="/studies" element={<StudiesPage />} />
               <Route path="/research" element={<ResearchPage />} />
               <Route path="/resources" element={<ResourcesPage />} />
+              <Route path="/todo" element={<TodoPage />} />
+              <Route path="/questions" element={<QuestionsPage />} />
               
               {/* Study Pages - All accessible */}
               <Route path="/studies/scoping-review" element={<ScopingReview />} />

@@ -1676,7 +1676,6 @@ export type Database = {
           for_virtual_companionship: boolean | null
           group_id: string
           id: string
-          is_private: boolean | null
           last_augmented_by_ai_at: string | null
           note_category: string | null
           note_type: Database["public"]["Enums"]["care_note_type"]
@@ -1702,7 +1701,6 @@ export type Database = {
           for_virtual_companionship?: boolean | null
           group_id: string
           id?: string
-          is_private?: boolean | null
           last_augmented_by_ai_at?: string | null
           note_category?: string | null
           note_type?: Database["public"]["Enums"]["care_note_type"]
@@ -1728,7 +1726,6 @@ export type Database = {
           for_virtual_companionship?: boolean | null
           group_id?: string
           id?: string
-          is_private?: boolean | null
           last_augmented_by_ai_at?: string | null
           note_category?: string | null
           note_type?: Database["public"]["Enums"]["care_note_type"]
@@ -2159,6 +2156,7 @@ export type Database = {
         Row: {
           care_group_id: string | null
           care_type: string
+          claimed_by_user_id: string | null
           compensation_amount: number | null
           compensation_type: string | null
           created_at: string
@@ -2180,6 +2178,7 @@ export type Database = {
         Insert: {
           care_group_id?: string | null
           care_type: string
+          claimed_by_user_id?: string | null
           compensation_amount?: number | null
           compensation_type?: string | null
           created_at?: string
@@ -2201,6 +2200,7 @@ export type Database = {
         Update: {
           care_group_id?: string | null
           care_type?: string
+          claimed_by_user_id?: string | null
           compensation_amount?: number | null
           compensation_type?: string | null
           created_at?: string
@@ -5022,6 +5022,45 @@ export type Database = {
           },
         ]
       }
+      fella_fresh_community_likes: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string | null
+          story_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          story_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          story_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_community_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_forum_threads"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fella_fresh_community_likes_story_id_fkey"
+            columns: ["story_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_success_stories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       fella_fresh_community_posts: {
         Row: {
           content: string
@@ -5079,21 +5118,27 @@ export type Database = {
           description: string | null
           id: string
           name: string
+          post_count: number
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
           description?: string | null
           id?: string
           name: string
+          post_count?: number
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
           description?: string | null
           id?: string
           name?: string
+          post_count?: number
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -5321,6 +5366,111 @@ export type Database = {
           user_id?: string | null
         }
         Relationships: []
+      }
+      fella_fresh_forum_comments: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          post_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_forum_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_forum_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_fresh_forum_replies: {
+        Row: {
+          comment_id: string | null
+          content: string
+          created_at: string
+          id: string
+          user_id: string | null
+        }
+        Insert: {
+          comment_id?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Update: {
+          comment_id?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_forum_replies_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_forum_comments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fella_fresh_forum_threads: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          like_count: number
+          reply_count: number
+          title: string
+          topic_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          like_count?: number
+          reply_count?: number
+          title: string
+          topic_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          like_count?: number
+          reply_count?: number
+          title?: string
+          topic_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fella_fresh_forum_threads_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "fella_fresh_community_topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       fella_fresh_gratitude_journal_entries: {
         Row: {
@@ -5815,6 +5965,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      fella_fresh_success_stories: {
+        Row: {
+          comment_count: number
+          created_at: string
+          id: string
+          is_anonymous: boolean
+          like_count: number
+          story_content: string
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          comment_count?: number
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          story_content: string
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          comment_count?: number
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          story_content?: string
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       fella_fresh_triggers: {
         Row: {
@@ -7609,6 +7792,7 @@ export type Database = {
       }
       group_messages: {
         Row: {
+          attachments: Json | null
           content: string
           created_at: string
           deleted_at: string | null
@@ -7618,11 +7802,13 @@ export type Database = {
           media_url: string | null
           message_type: string | null
           parent_message_id: string | null
+          reactions: Json | null
           read_by: string[] | null
           sender_id: string
           updated_at: string
         }
         Insert: {
+          attachments?: Json | null
           content: string
           created_at?: string
           deleted_at?: string | null
@@ -7632,11 +7818,13 @@ export type Database = {
           media_url?: string | null
           message_type?: string | null
           parent_message_id?: string | null
+          reactions?: Json | null
           read_by?: string[] | null
           sender_id: string
           updated_at?: string
         }
         Update: {
+          attachments?: Json | null
           content?: string
           created_at?: string
           deleted_at?: string | null
@@ -7646,6 +7834,7 @@ export type Database = {
           media_url?: string | null
           message_type?: string | null
           parent_message_id?: string | null
+          reactions?: Json | null
           read_by?: string[] | null
           sender_id?: string
           updated_at?: string
@@ -8942,6 +9131,7 @@ export type Database = {
           created_at: string
           id: string
           notebook_id: string | null
+          sort_order: number | null
           team_id: string | null
           title: string | null
           updated_at: string
@@ -8952,6 +9142,7 @@ export type Database = {
           created_at?: string
           id?: string
           notebook_id?: string | null
+          sort_order?: number | null
           team_id?: string | null
           title?: string | null
           updated_at?: string
@@ -8962,6 +9153,7 @@ export type Database = {
           created_at?: string
           id?: string
           notebook_id?: string | null
+          sort_order?: number | null
           team_id?: string | null
           title?: string | null
           updated_at?: string
@@ -10157,7 +10349,9 @@ export type Database = {
           availability_summary: string | null
           average_rating: number | null
           bio: string | null
+          can_provide_transport: boolean | null
           certifications: Json | null
+          comfortable_with_pets: boolean | null
           contact_email: string | null
           contact_phone: string | null
           created_at: string | null
@@ -10165,8 +10359,10 @@ export type Database = {
           geom: unknown | null
           hourly_rate: number | null
           id: string
+          is_non_smoker: boolean | null
           is_verified: boolean | null
           location: string | null
+          media_urls: string[] | null
           meeting_preference: string | null
           offers_telehealth: boolean | null
           profile_picture_url: string | null
@@ -10183,7 +10379,9 @@ export type Database = {
           availability_summary?: string | null
           average_rating?: number | null
           bio?: string | null
+          can_provide_transport?: boolean | null
           certifications?: Json | null
+          comfortable_with_pets?: boolean | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string | null
@@ -10191,8 +10389,10 @@ export type Database = {
           geom?: unknown | null
           hourly_rate?: number | null
           id?: string
+          is_non_smoker?: boolean | null
           is_verified?: boolean | null
           location?: string | null
+          media_urls?: string[] | null
           meeting_preference?: string | null
           offers_telehealth?: boolean | null
           profile_picture_url?: string | null
@@ -10209,7 +10409,9 @@ export type Database = {
           availability_summary?: string | null
           average_rating?: number | null
           bio?: string | null
+          can_provide_transport?: boolean | null
           certifications?: Json | null
+          comfortable_with_pets?: boolean | null
           contact_email?: string | null
           contact_phone?: string | null
           created_at?: string | null
@@ -10217,8 +10419,10 @@ export type Database = {
           geom?: unknown | null
           hourly_rate?: number | null
           id?: string
+          is_non_smoker?: boolean | null
           is_verified?: boolean | null
           location?: string | null
+          media_urls?: string[] | null
           meeting_preference?: string | null
           offers_telehealth?: boolean | null
           profile_picture_url?: string | null
@@ -13098,6 +13302,10 @@ export type Database = {
         Args: { "": unknown } | { "": unknown }
         Returns: string
       }
+      calculate_next_due_date: {
+        Args: { current_due_date: string; recurrence_pattern: Json }
+        Returns: string
+      }
       check_and_award_streak_achievements: {
         Args: { p_user_id: string; p_current_streak: number }
         Returns: undefined
@@ -13215,6 +13423,10 @@ export type Database = {
       }
       generate_next_recurring_task: {
         Args: { task_id: string }
+        Returns: undefined
+      }
+      generate_next_recurring_tasks: {
+        Args: Record<PropertyKey, never>
         Returns: undefined
       }
       geography: {
